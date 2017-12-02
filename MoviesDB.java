@@ -29,8 +29,8 @@ public class MoviesDB {
     }
   }
 
-  public void getMovieInfo(String title) {
-    String query = "SELECT * FROM Movies WHERE title="+title;
+  public void getMovieInfo(String name) {
+    String query = "SELECT * FROM Movies WHERE title="+name;
 
     try (Statement statement = connection.createStatement()) {
 
