@@ -30,7 +30,7 @@ public class MoviesDB {
   }
 
   public void getMovieInfo(String name) {
-    String query = "SELECT * FROM Movies WHERE title="+name;
+    String query = String.format("SELECT * FROM Movies WHERE title='%s'", name);
 
     try (Statement statement = connection.createStatement()) {
 
