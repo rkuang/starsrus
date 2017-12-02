@@ -44,7 +44,12 @@ public class MoviesDB {
         double rating = rs.getDouble("rating");
         int year = rs.getInt("production_year");
 
-        System.out.println(id + "\t" + title + "\t" + rating + "\t" + year);
+        String tab = "";
+        for (i = 0; i < title.length()/8+1; i++) {
+          tab += "\t";
+        }
+
+        System.out.println(id + "\t" + title + tab + rating + "\t" + year);
 
       }
     } catch (SQLException e) {

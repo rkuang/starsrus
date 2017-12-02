@@ -37,6 +37,7 @@ public class StarsRUs {
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
     //db.closeConnection();
+    moviesDB.closeConnection();
     System.exit(0);
   }
 
@@ -61,6 +62,6 @@ public class StarsRUs {
   private static String getUserInput() {
     System.out.print(" > ");
     Scanner in = new Scanner(System.in);
-    return(in.next());
+    return(in.nextLine());
   }
 }
