@@ -59,5 +59,5 @@ public class MoviesDB {
       e.printStackTrace();
     }
   }
-}
+
 }
