@@ -4,9 +4,10 @@ public class StarsRUs {
 
   public static void main(String[] args) {
 
-    // MoviesDB moviesDB = new MoviesDB();
-    // String movie = getUserInput();
-    // moviesDB.getMovieInfo(movie);
+     MoviesDB moviesDB = new MoviesDB();
+     String movie = getUserInput();
+     moviesDB.getMovieInfo(movie);
+     moviesDB.getMovieReview(movie);
 
     ArrayList<String> validInputs = new ArrayList<>();
     validInputs.add("login");
