@@ -71,7 +71,7 @@ public class MoviesDB {
         System.out.println(movie_id + "\t" + author + "\t" + review);
 
       }
-    } catch (SQLException e) {
+    catch (SQLException e) {
       e.printStackTrace();
     }
   }
