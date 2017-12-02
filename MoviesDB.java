@@ -65,12 +65,12 @@ public class MoviesDB {
           int movie_id = rs.getInt("movie_id");
           String author = rs.getString("author");
           String review = rs.getString("review");
-        }
 
         System.out.println("MOVIE_ID\t"+"Author\tReview");
         System.out.println(movie_id + "\t" + author + "\t" + review);
-
       }
+
+    }
     catch (SQLException e) {
       e.printStackTrace();
     }
