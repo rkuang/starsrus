@@ -66,8 +66,8 @@ public class MoviesDB {
           String author = rs.getString("author");
           String review = rs.getString("review");
 
-        System.out.println("MOVIE_ID\t"+"Author\tReview");
-        System.out.println(movie_id + "\t" + author + "\t" + review);
+        //System.out.println("MOVIE_ID\t"+"Author\tReview");
+        System.out.println("Movie_ID:" + movie_id + "Author:" author + "Review:" + review);
       }
 
     }
