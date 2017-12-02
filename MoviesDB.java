@@ -45,7 +45,7 @@ public class MoviesDB {
         int year = rs.getInt("production_year");
 
         String tab = "";
-        for (i = 0; i < title.length()/8+1; i++) {
+        for (int i = 0; i < title.length()/8+1; i++) {
           tab += "\t";
         }
 
