@@ -58,7 +58,7 @@ public class MoviesDB {
   }
 
   public void getTopMovies(int from, int to) {
-    String query = String.format("SELECT * FROM Movies WHERE production_year>=%d AND production_year<=%d", from, to);
+    String query = String.format("SELECT * FROM Movies WHERE rating=5 AND production_year>=%d AND production_year<=%d", from, to);
 
     try (Statement statement = connection.createStatement()) {
 
