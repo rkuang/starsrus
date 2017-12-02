@@ -4,17 +4,19 @@ public class StarsRUs {
 
   public static void main(String[] args) {
 
-     MoviesDB moviesDB = new MoviesDB();
-     String movie = getUserInput();
-     moviesDB.getMovieInfo(movie);
-     moviesDB.getMovieReview(movie);
 
+    MoviesDB moviesDB = new MoviesDB();
+    String movie = getUserInput();
+    moviesDB.getMovieInfo(movie);
+    moviesDB.getMovieReview(movie);
+    moviesDB.getTopMovies(2000, 2015);
+    
     ArrayList<String> validInputs = new ArrayList<>();
     validInputs.add("login");
     validInputs.add("register");
     validInputs.add("exit");
 
-    printBanner();
+    // printBanner();
 
     String input = "";
     System.out.println("\n****\n");
