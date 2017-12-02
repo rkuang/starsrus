@@ -36,8 +36,6 @@ public class MoviesDB {
 
       ResultSet rs = statement.executeQuery(query);
 
-      System.out.println("ID\tTitle\tRating\tProduction Year");
-
       while (rs.next()) {
         int id = rs.getInt("id");
         String title = rs.getString("title");
@@ -49,7 +47,8 @@ public class MoviesDB {
           tab += "\t";
         }
 
-        System.out.println(id + "\t" + title + tab + rating + "\t" + year);
+        System.out.println("ID\tTitle"+tab+"Rating\tProduction Year");
+        System.out.println(id + "\t" + title + "\t" + rating + "\t" + year);
 
       }
     } catch (SQLException e) {
