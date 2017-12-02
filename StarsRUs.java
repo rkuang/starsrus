@@ -7,7 +7,7 @@ public class StarsRUs {
     MoviesDB moviesDB = new MoviesDB();
     String movie = getUserInput();
     moviesDB.getMovieInfo(movie);
-    moviesDB.getTopMovies(1990, 2005);
+    moviesDB.getTopMovies(2000, 2015);
 
     ArrayList<String> validInputs = new ArrayList<>();
     validInputs.add("login");

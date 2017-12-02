@@ -36,18 +36,19 @@ public class MoviesDB {
 
       ResultSet rs = statement.executeQuery(query);
 
+      System.out.println("ID\tTitle\tRating\tProduction Year");
       while (rs.next()) {
         int id = rs.getInt("id");
         String title = rs.getString("title");
         double rating = rs.getDouble("rating");
         int year = rs.getInt("production_year");
 
-        String tab = "";
-        for (int i = 0; i < title.length()/8+1; i++) {
-          tab += "\t";
-        }
-
-        System.out.println("ID\tTitle"+tab+"Rating\tProduction Year");
+        // String tab = "";
+        // for (int i = 0; i < title.length()/8+1; i++) {
+        //   tab += "\t";
+        // }
+        //
+        // System.out.println("ID\tTitle"+tab+"Rating\tProduction Year");
         System.out.println(id + "\t" + title + "\t" + rating + "\t" + year);
 
       }
@@ -63,18 +64,13 @@ public class MoviesDB {
 
       ResultSet rs = statement.executeQuery(query);
 
+      System.out.println("ID\tTitle\tRating\tProduction Year");
       while (rs.next()) {
         int id = rs.getInt("id");
         String title = rs.getString("title");
         double rating = rs.getDouble("rating");
         int year = rs.getInt("production_year");
 
-        String tab = "";
-        for (int i = 0; i < title.length()/8+1; i++) {
-          tab += "\t";
-        }
-
-        System.out.println("ID\tTitle"+tab+"Rating\tProduction Year");
         System.out.println(id + "\t" + title + "\t" + rating + "\t" + year);
 
       }
