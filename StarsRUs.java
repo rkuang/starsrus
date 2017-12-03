@@ -9,16 +9,11 @@ public class StarsRUs {
     moviesDB.getMovieInfo(movie);
     moviesDB.getTopMovies(2000, 2015);
 
-    ArrayList<String> validInputs = new ArrayList<>();
-    validInputs.add("login");
-    validInputs.add("register");
-    validInputs.add("exit");
+    ArrayList<String> validInputs = ValidInputs.noUser;
 
     // printBanner();
 
     String input = "";
-    System.out.println("\n****\n");
-
     while (!input.equals("exit")) {
       input = getUserInput();
       if (validInputs.contains(input)) {
