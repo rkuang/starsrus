@@ -11,6 +11,7 @@ public class StarsRUs {
     activeUser = new Customer();
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
+    moviesDB = new MoviesDB();
     printBanner();
 
     String input = "";
