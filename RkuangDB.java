@@ -89,7 +89,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        System.out.println("Market Account Balance:  $"+rs.getDouble("balance");
+        System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
         return true;
       }
     } catch (SQLException e) {
