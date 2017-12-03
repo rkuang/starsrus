@@ -10,7 +10,7 @@ public class Customer {
     System.out.print("password:     ");
     String pass = in.next();
 
-    StarsRUs.rkuangDB.login();    
+    StarsRUs.rkuangDB.login(user, pass);    
   }
 
   public static void register() {
