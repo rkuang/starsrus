@@ -1,3 +1,5 @@
 CREATE TABLE Accounts (taxid int(4), PRIMARY KEY (taxid));
 
 CREATE TABLE Customers (name CHAR(20), username CHAR(20), password CHAR(20), address CHAR(25), state CHAR(2), phone CHAR(12), email CHAR(20), taxid int(4), ssn CHAR(11) UNIQUE, admin int(1), PRIMARY KEY (username), FOREIGN KEY (taxid) REFERENCES Accounts(taxid));
+
+CREATE TABLE Market_Accounts (taxid int(4), balance int, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Accounts(taxid));

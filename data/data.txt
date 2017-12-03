@@ -1,14 +1,16 @@
 insert into Accounts values (1000),(1022),(3045),(2034),(4093),(1234),(8956),(2341),(0456),(3455),(1123),(3306);
 
-insert into Customers values ('John Admin', 'admin', 'secret', 'Stock Company SB', 'CA', '(805)6374632', 'admin@stock.com', 1000, '606-60-6060', 1);
-insert into Customers values ('Alfred Hitchcock', 'alfred', 'hi', '6667 El Colegio #40 SB', 'CA', '(805)2574499', 'alfred@hotmail.com', 1022, '606-76-7900', 0);
-insert into Customers values ('Billy Clinton', 'billy', 'cl', '5777 Hollister SB', 'CA', '(805)5629999', 'billy@yahoo.com', 3045, '606-76-7903', 0);
-insert into Customers values ('Cindy Laugher', 'cindy', 'la', '7000 Hollister SB', 'CA', '(805)6930011', 'cindy@hotmail.com', 2034, '606-70-7900', 0);
-insert into Customers values ('David Copperfill', 'david', 'co', '1357 State St SB', 'CA', '(805)8240011', 'david@yahoo.com', 4093, '506-78-7900', 0);
-insert into Customers values ('Elizabeth Sailor', 'sailor', 'sa', '4321 State St SB', 'CA', '(805)1234567', 'sailor@hotmail.com', 1234, '436-76-7900', 0);
-insert into Customers values ('George Brush', 'brush', 'br', '5346 Foothill Av', 'CA', '(805)1357999', 'george@hotmail.com', 8956, '632-45-7900', 0);
-insert into Customers values ('Ivan Stock', 'ivan', 'st', '1235 Johnson Dr', 'NJ', '(805)3223243', 'ivan@yahoo.com', 2341, '609-23-7900', 0);
-insert into Customers values ('Joe Pepsi', 'joe', 'pe', '3210 State St', 'CA', '(805)5668123', 'pepsi@pepsi.com', 0456, '646-76-3430', 0);
-insert into Customers values ('Magic Jordon', 'magic', 'jo', '3852 Court Rd', 'NJ', '(805)4535539', 'jordon@jordon.org', 3455, '646-76-8843', 0);
-insert into Customers values ('Olive Stoner', 'olive', 'st', '6689 El Colegio #151', 'CA', '(805)2574499', 'olive@yahoo.com', 1123, '645-34-7900', 0);
-insert into Customers values ('Frank Olson', 'frank', 'ol', '6910 Whittier Dr', 'CA', '(805)3456789', 'frank@gmail.com', 3306, '345-23-2134', 0);
+insert into Customers values ('John Admin', 'admin', 'secret', 'Stock Company SB', 'CA', '(805)6374632', 'admin@stock.com', 1000, '606-60-6060', true);
+insert into Customers values ('Alfred Hitchcock', 'alfred', 'hi', '6667 El Colegio #40 SB', 'CA', '(805)2574499', 'alfred@hotmail.com', 1022, '606-76-7900', false);
+insert into Customers values ('Billy Clinton', 'billy', 'cl', '5777 Hollister SB', 'CA', '(805)5629999', 'billy@yahoo.com', 3045, '606-76-7903', false);
+insert into Customers values ('Cindy Laugher', 'cindy', 'la', '7000 Hollister SB', 'CA', '(805)6930011', 'cindy@hotmail.com', 2034, '606-70-7900', false);
+insert into Customers values ('David Copperfill', 'david', 'co', '1357 State St SB', 'CA', '(805)8240011', 'david@yahoo.com', 4093, '506-78-7900', false);
+insert into Customers values ('Elizabeth Sailor', 'sailor', 'sa', '4321 State St SB', 'CA', '(805)1234567', 'sailor@hotmail.com', 1234, '436-76-7900', false);
+insert into Customers values ('George Brush', 'brush', 'br', '5346 Foothill Av', 'CA', '(805)1357999', 'george@hotmail.com', 8956, '632-45-7900', false);
+insert into Customers values ('Ivan Stock', 'ivan', 'st', '1235 Johnson Dr', 'NJ', '(805)3223243', 'ivan@yahoo.com', 2341, '609-23-7900', false);
+insert into Customers values ('Joe Pepsi', 'joe', 'pe', '3210 State St', 'CA', '(805)5668123', 'pepsi@pepsi.com', 0456, '646-76-3430', false);
+insert into Customers values ('Magic Jordon', 'magic', 'jo', '3852 Court Rd', 'NJ', '(805)4535539', 'jordon@jordon.org', 3455, '646-76-8843', false);
+insert into Customers values ('Olive Stoner', 'olive', 'st', '6689 El Colegio #151', 'CA', '(805)2574499', 'olive@yahoo.com', 1123, '645-34-7900', false);
+insert into Customers values ('Frank Olson', 'frank', 'ol', '6910 Whittier Dr', 'CA', '(805)3456789', 'frank@gmail.com', 3306, '345-23-2134', false);
+
+insert into Market_Accounts values (1022, 10000), (3045, 100000), (2034, 50000), (4093, 45000), (1234, 200000), (8956, 5000), (2341, 2000), (0456, 10000), (3455, 130200), (1123, 35000), (3306, 30500);
