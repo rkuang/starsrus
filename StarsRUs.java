@@ -27,6 +27,13 @@ public class StarsRUs {
           activeUser.register();
           break;
 
+          case "deposit":
+          activeUser.deposit();
+          break;
+
+          case "withdraw":
+          activeUser.withdraw();
+
           case "show balance":
           activeUser.showBalance();
           break;

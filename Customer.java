@@ -27,13 +27,13 @@ public class Customer {
 
   public void register() {
     Scanner in = new Scanner(System.in);
-    System.out.print("Name:    ");
+    System.out.print("Name:         ");
     String name = in.nextLine();
     System.out.print("Username:     ");
     String user = in.nextLine();
     System.out.print("Password:     ");
     String pass = in.nextLine();
-    System.out.print("Address:     ");
+    System.out.print("Address:      ");
     String addr = in.nextLine();
     System.out.print("State:        ");
     String state = in.nextLine();
@@ -67,29 +67,40 @@ public class Customer {
     }
   }
 
+  public void deposit() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("Amount:  ");
+    double amount = in.nextDouble();
+    StarsRUs.rkuangDB.updateBalance(amount);
+  }
+
+  public void withdraw() {
+
+  }
+
   public void showBalance() {
     System.out.println("Market Account Balance:  $"+StarsRUs.rkuangDB.getBalance());
   }
 
   public void getMovieInfo() {
     Scanner in = new Scanner(System.in);
-    System.out.print("title:  ");
+    System.out.print("Title:  ");
     String title = in.nextLine();
     StarsRUs.moviesDB.getMovieInfo(title);
   }
 
   public void getTopMovies() {
     Scanner in = new Scanner(System.in);
-    System.out.print("from:  ");
+    System.out.print("From:  ");
     int from = in.nextInt();
-    System.out.print("to:    ");
+    System.out.print("To:    ");
     int to = in.nextInt();
     StarsRUs.moviesDB.getTopMovies(from, to);
   }
 
   public void getMovieReviews() {
     Scanner in = new Scanner(System.in);
-    System.out.print("title:  ");
+    System.out.print("Title:  ");
     String title = in.nextLine();
     StarsRUs.moviesDB.getMovieReviews(title);
   }
