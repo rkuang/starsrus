@@ -3,8 +3,8 @@ import java.util.*;
 public class ValidInputs {
 
   ArrayList<String> activeState;
-  ArrayList<String> noUser = new ArrayList<>(Arrays.asList("login","register","exit","help"));
-  ArrayList<String> loggedIn = new ArrayList<>(Arrays.asList("test"));
+  ArrayList<String> noUser = new ArrayList<>(Arrays.asList("help","login","register","exit"));
+  ArrayList<String> loggedIn = new ArrayList<>(Arrays.asList("help","test","logout","exit"));
 
   public ValidInputs() {
     activeState = noUser;
@@ -26,9 +26,10 @@ public class ValidInputs {
   }
 
   public void print() {
-    System.out.println("Valid inputs are:");
+    System.out.println("\nValid inputs are:");
     for (String input : activeState) {
       System.out.println("\t"+input);
     }
+    System.out.println("");
   }
 }

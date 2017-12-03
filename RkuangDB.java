@@ -29,6 +29,20 @@ public class RkuangDB {
     }
   }
 
+  public Boolean login(String username, String password) {
+    String query = String.format("SELECT taxid FROM Customers WHERE username='%s' AND password='%s'", username, password);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        int taxid = rs.getInt("taxid");
+        System.out.println(taxid);
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void getTestTable() {
     String query = "SELECT * FROM TestTable";
 

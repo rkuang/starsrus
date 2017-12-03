@@ -3,9 +3,11 @@ import java.util.*;
 public class StarsRUs {
 
   static ValidInputs validInputs;
+  static RkuangDB rkuangDB;
 
   public static void main(String[] args) {
     validInputs = new ValidInputs();
+    rkuangDB = new RkuangDB();
     printBanner();
 
     String input = "";
@@ -39,7 +41,7 @@ public class StarsRUs {
     // moviesDB.closeConnection();
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
-    //db.closeConnection();
+    rkuangDB.closeConnection();
     System.exit(0);
   }
 

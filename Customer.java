@@ -2,14 +2,6 @@ import java.util.Scanner;
 
 public class Customer {
 
-  public String username;
-  private String password;
-
-  public Customer(String user, String pass) {
-    username = user;
-    password = pass;
-  }
-
   public static void login() {
     // set current user
     Scanner in = new Scanner(System.in);
@@ -17,6 +9,8 @@ public class Customer {
     String user = in.next();
     System.out.print("password:     ");
     String pass = in.next();
+
+    StarsRUs.rkuangDB.login();    
   }
 
   public static void register() {
