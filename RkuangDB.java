@@ -52,7 +52,7 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryAccount);
       statement.executeUpdate(queryCustomer);
-      statment.executeUpdate(queryMarket);
+      statement.executeUpdate(queryMarket);
       return true;
     }catch(SQLException e){
       e.printStackTrace();
