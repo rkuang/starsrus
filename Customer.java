@@ -47,8 +47,20 @@ public class Customer {
     String ssn = in.nextLine();
     if(StarsRUs.rkuangDB.register(name,user,pass,addr,state,phone_number,email,taxID,ssn)){
       System.out.println("Registration Sucessful!");
-      System.out.println("Your Username is:  " + user);
-      System.out.println("Your Password is:  " + pass);
+      System.out.println("Your Username is:" + user);
+      System.out.println("Your Password is:" + pass);
+      System.out.println("Upon registering a Market Account is automatically opened for you.");
+      System.out.println("How much would you like to deposit? Min($1000)");
+      String deposit = in.nextLine();
+      double value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
+      while(value < 1000){
+        System.out.println("You're broke af please deposit at least $1000");
+        deposit = in.nextLine();
+        value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
+      }
+      StarsRUs.rkuangDB.createMarketAccount(taxID, value);
+      System.out.println("Success! Market Account created with balance of " + deposit);
+      this.login();
     }
     else{
       System.out.println("Registration unsucessful please try again.");
