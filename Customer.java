@@ -33,6 +33,8 @@ public class Customer {
     String user = in.next();
     System.out.print("Password:     ");
     String pass = in.next();
+    System.out.print("Address:     ")
+    String addr = in.next();
     System.out.print("State:        ");
     String state = in.next();
     System.out.print("Phone Number: ");
@@ -43,7 +45,7 @@ public class Customer {
     String taxID = in.next();
     System.out.print("SSN:          ");
     String ssn = in.next();
-    if(StarsRUs.rkuangDB.register(name,user,pass,state,phone_number,email,taxID,ssn)){
+    if(StarsRUs.rkuangDB.register(name,user,pass,addr,state,phone_number,email,taxID,ssn)){
       System.out.println("Registration Sucessful!");
       System.out.println("Your Username is:" + user);
       System.out.println("Your Password is:" + pass);
