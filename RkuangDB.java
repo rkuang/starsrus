@@ -60,6 +60,27 @@ public class RkuangDB {
     return false;
   }
 
+  public Boolean updateBalance(double amount) {
+    String query = String.format("SELECT balance FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid)
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        int balance = rs.getDouble("balance");
+        if (balance - amount > 0) {
+          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", balance-amount, StarsRUs.activeUser.taxid);
+          statement.executeUpdate(query);
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   public double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
