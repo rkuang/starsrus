@@ -69,20 +69,32 @@ public class Customer {
 
   public void deposit() {
     Scanner in = new Scanner(System.in);
-    System.out.print("Amount:  ");
-    double amount = in.nextDouble();
+    double amount = -42;
+    while (amount < 0) {
+      System.out.print("Amount:  ");
+      amount = in.nextDouble();
+      if (amount < 0) {
+        System.out.println("Amount cannot be negative");
+      }
+    }
     StarsRUs.rkuangDB.updateBalance(amount);
   }
 
   public void withdraw() {
     Scanner in = new Scanner(System.in);
-    System.out.print("Amount:  ");
-    double amount = in.nextDouble();
-    StarsRUs.rkuangDB.updateBalance(amount);
+    double amount = -42;
+    while (amount < 0) {
+      System.out.print("Amount:  ");
+      amount = in.nextDouble();
+      if (amount < 0) {
+        System.out.println("Amount cannot be negative");
+      }
+    }
+    StarsRUs.rkuangDB.updateBalance(-1 * amount);
   }
 
   public void showBalance() {
-    System.out.println("Market Account Balance:  $"+StarsRUs.rkuangDB.getBalance());
+    StarsRUs.rkuangDB.showBalance();
   }
 
   public void getMovieInfo() {

@@ -6,7 +6,6 @@ public class RkuangDB {
   final String PWD = "994";
 
   Connection connection;
-  Statement statement;
 
   public RkuangDB() {
     getDriver();
@@ -73,12 +72,14 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double balance = rs.getDouble("balance");
-        if (balance+amount > 0) {
-          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", balance+amount, StarsRUs.activeUser.taxid);
+        double newBalance = balance + amount;
+        if (newBalance > 0) {
+          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
+          System.out.println("Balance is now $" + newBalance);
           return true;
         } else {
-          System.out.println("Transaction failed. Balance cannot fall below $0");
+          System.out.println("Transaction failed. Market Account balance cannot fall below $0");
           return false;
         }
       }
@@ -88,27 +89,24 @@ public class RkuangDB {
     return false;
   }
 
-  public double getBalance() {
+  public Boolean showBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        return rs.getDouble("balance");
+        System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
+        return true;
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
     // this should never happen
-    return -42;
+    return false;
   }
 
   public void closeConnection() {
     try {
-      if (statement != null) {
-        statement.close();
-      }
-
       if (connection != null) {
         connection.close();
       }
