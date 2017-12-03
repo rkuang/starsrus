@@ -49,7 +49,7 @@ public class Customer {
       System.out.println("Registration Sucessful!");
       System.out.println("Your Username is:" + user);
       System.out.println("Your Password is:" + pass);
-      System.out.println("Upon registering a Market Account is automatically opened for you.")
+      System.out.println("Upon registering a Market Account is automatically opened for you.");
       System.out.println("How much would you like to deposit? Min($1000)");
       double deposit = in.nextLine();
       while(deposit < 1000){
