@@ -2,7 +2,7 @@ import java.util.*;
 
 public class StarsRUs {
 
-  ValidInputs validInputs;
+  static ValidInputs validInputs;
 
   public static void main(String[] args) {
     validInputs = new ValidInputs();

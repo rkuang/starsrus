@@ -21,9 +21,13 @@ public class ValidInputs {
     }
   }
 
+  public Boolean contains(String input) {
+    return activeState.contains(input);
+  }
+
   public void print() {
     System.out.println("Valid inputs are:");
-    for (String input : validInputs) {
+    for (String input : activeState) {
       System.out.println("\t"+input);
     }
   }
