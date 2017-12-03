@@ -5,7 +5,7 @@ public class ValidInputs {
   ArrayList<String> activeState;
   ArrayList<String> noUser = new ArrayList<>(Arrays.asList("help","login","register","exit"));
   ArrayList<String> loggedIn = new ArrayList<>(Arrays.asList("help","customer","logout","exit"));
-  ArrayList<String> loggedIn = new ArrayList<>(Arrays.asList("help","admin","logout","exit"));
+  ArrayList<String> admin = new ArrayList<>(Arrays.asList("help","admin","logout","exit"));
 
   public ValidInputs() {
     activeState = noUser;
