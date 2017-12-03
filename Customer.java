@@ -9,6 +9,7 @@ public class Customer {
 
   public void login() {
     // set current user
+    System.out.println("Please Login Below");
     Scanner in = new Scanner(System.in);
     System.out.print("Username:     ");
     String user = in.next();
@@ -40,6 +41,16 @@ public class Customer {
     String taxID = in.next();
     System.out.print("SSN:          ");
     String ssn = in.next();
+    if(StarsRUs.rkuangDB.register(user,pass,state,phone_number,email,taxID,ssn){
+      System.out.println("Registration Sucessful!");
+      System.out.println("Your Username is:" + user);
+      System.out.println("Your Password is:" + pass);
+      this.login();
+    }
+    else{
+      System.out.println("Registration unsucessful please try again.");
+    }
+
 
     // add customer to db
   }
