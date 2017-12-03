@@ -78,19 +78,22 @@ public class MoviesDB {
       e.printStackTrace();
     }
   }
-  public void getMovieReview(String name){
+
+  public void getMovieReviews(String name) {
     String query = String.format("SELECT * FROM Movies M, Reviews R  WHERE M.title='%s' AND M.id = R.movie_id", name);
+
     try (Statement statement = connection.createStatement()) {
 
       ResultSet rs = statement.executeQuery(query);
 
+      System.out.println("Author\tReview");
       while (rs.next()) {
-          int movie_id = rs.getInt("movie_id");
-          String author = rs.getString("author");
-          String review = rs.getString("review");
+        int movie_id = rs.getInt("movie_id");
+        String author = rs.getString("author");
+        String review = rs.getString("review");
 
         //System.out.println("MOVIE_ID\t"+"Author\tReview");
-        System.out.println("Movie_ID:" + movie_id + " Author:" + author + " Review:" + review);
+        System.out.println(author + "\t" + review);
       }
 
     }
@@ -101,7 +104,13 @@ public class MoviesDB {
 
   public void closeConnection() {
     try {
-      connection.close();
+      if (statement != null) {
+        statement.close();
+      }
+
+      if (connection != null) {
+        connection.close();
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
