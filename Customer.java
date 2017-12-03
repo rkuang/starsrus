@@ -33,7 +33,7 @@ public class Customer {
     String user = in.next();
     System.out.print("Password:     ");
     String pass = in.next();
-    System.out.print("Address:     ")
+    System.out.print("Address:     ");
     String addr = in.next();
     System.out.print("State:        ");
     String state = in.next();
