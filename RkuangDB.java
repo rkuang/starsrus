@@ -58,7 +58,7 @@ public class RkuangDB {
     return false;
   }
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%d')", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
     }catch(SQLException e){
