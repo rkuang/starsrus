@@ -18,8 +18,13 @@ public class Customer {
 
     if (StarsRUs.rkuangDB.login(user, pass)) {
       StarsRUs.validInputs.setState("loggedIn");
-      System.out.println("Login Successful");
-      System.out.println("Hello, "+StarsRUs.activeUser.name);
+      if(admin){
+        System.out.println("Logged in as admin");
+      }
+      else{
+        System.out.println("Login Successful");
+        System.out.println("Hello, "+StarsRUs.activeUser.name);
+      }
       return;
     }
     System.out.println("Login Failed");
