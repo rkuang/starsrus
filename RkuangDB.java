@@ -46,7 +46,10 @@ public class RkuangDB {
     return false;
   }
   public Boolean register(String name, String user, String pass, String state, String phNum, String email, String taxID, String ssn){
-    String query = String.format("INSERT INTO Customers VALUES('%s','%s','%s','%s','%s','%s','%s','%s',false)", name, user, pass, state, phNum, email, taxID, ssn);
+    String query = String.format("INSERT INTO Customers(
+    name, username, password, address, state, phone, email, taxid, ssn, admin)
+    VALUES('%s','%s','%s','%s','%s','%s','%s','%s','false')", 
+    name, user, pass, state, phNum, email, taxID, ssn);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
       return true;
