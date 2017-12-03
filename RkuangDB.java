@@ -63,6 +63,7 @@ public class RkuangDB {
 
   public void closeConnection() {
     try {
+      statement.close();
       connection.close();
     } catch (SQLException e) {
       e.printStackTrace();

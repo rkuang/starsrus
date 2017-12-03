@@ -78,7 +78,8 @@ public class MoviesDB {
       e.printStackTrace();
     }
   }
-  public void getMovieReview(String name){
+
+  public void getMovieReviews(String name) {
     String query = String.format("SELECT * FROM Movies M, Reviews R  WHERE M.title='%s' AND M.id = R.movie_id", name);
     try (Statement statement = connection.createStatement()) {
 
@@ -101,6 +102,7 @@ public class MoviesDB {
 
   public void closeConnection() {
     try {
+      statement.close();
       connection.close();
     } catch (SQLException e) {
       e.printStackTrace();

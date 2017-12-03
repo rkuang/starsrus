@@ -5,6 +5,7 @@ public class StarsRUs {
   static Customer activeUser;
   static ValidInputs validInputs;
   static RkuangDB rkuangDB;
+  static MoviesDB moviesDB;
 
   public static void main(String[] args) {
     activeUser = new Customer();
@@ -29,6 +30,18 @@ public class StarsRUs {
           activeUser.showBalance();
           break;
 
+          case "movie info":
+          activeUser.getMovieInfo();
+          break;
+
+          case "top movies":
+          activeUser.getTopMovies();
+          break;
+
+          case "movie reviews":
+          activeUser.getMovieReviews();
+          break;
+
           case "logout":
           activeUser.logout();
           break;
@@ -47,10 +60,10 @@ public class StarsRUs {
     // moviesDB.getMovieInfo(movie);
     // moviesDB.getMovieReview(movie);
     // moviesDB.getTopMovies(2000, 2015);
-    // moviesDB.closeConnection();
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
     rkuangDB.closeConnection();
+    moviesDB.closeConnection();
     System.exit(0);
   }
 
