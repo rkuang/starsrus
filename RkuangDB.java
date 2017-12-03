@@ -48,16 +48,22 @@ public class RkuangDB {
   public Boolean register(String name, String user, String pass, String addr, String state, String phNum, String email, String taxID, String ssn){
     String queryAccount = String.format("INSERT INTO Accounts(taxid)VALUES('%s')",taxID);
     String queryCustomer = String.format("INSERT INTO Customers(name, username, password, address, state, phone, email, taxid, ssn, admin)VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s',false)", name, user, pass, addr, state, phNum, email, taxID, ssn);
-    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', 10000)",taxID);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryAccount);
       statement.executeUpdate(queryCustomer);
-      statement.executeUpdate(queryMarket);
       return true;
     }catch(SQLException e){
       e.printStackTrace();
     }
     return false;
+  }
+  public void createMarketAccount(String taxid, double deposit){
+    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(queryMarket);
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
   }
 
   public Boolean updateBalance(double amount) {
