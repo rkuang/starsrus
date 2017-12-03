@@ -18,11 +18,15 @@ public class StarsRUs {
       if (validInputs.contains(input)) {
         switch (input) {
           case "login":
-          Customer.login();
+          activeUser.login();
           break;
 
           case "register":
-          Customer.register();
+          activeUser.register();
+          break;
+
+          case "logout":
+          activeUser.logout();
           break;
 
           case "help":

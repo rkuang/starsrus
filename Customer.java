@@ -6,7 +6,7 @@ public class Customer {
   public int taxid;
   public Boolean admin;
 
-  public static void login() {
+  public void login() {
     // set current user
     Scanner in = new Scanner(System.in);
     System.out.print("Username:     ");
@@ -17,11 +17,12 @@ public class Customer {
     if (StarsRUs.rkuangDB.login(user, pass)) {
       StarsRUs.validInputs.setState("loggedIn");
       System.out.println("Login Successful");
+      return;
     }
     System.out.println("Login Failed");
   }
 
-  public static void register() {
+  public void register() {
     Scanner in = new Scanner(System.in);
     System.out.print("Username:     ");
     String user = in.next();
@@ -39,5 +40,11 @@ public class Customer {
     String ssn = in.next();
 
     // add customer to db
+  }
+
+  public void logout() {
+    this.taxid = null;
+    this.admin = null;
+    StarsRUs.validInputs.setState("noUser");
   }
 }
