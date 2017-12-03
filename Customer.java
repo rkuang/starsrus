@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class Customer {
 
+  public static Customer activeUser;
+
+  private int taxid;
+  private Boolean admin;
+
   public static void login() {
     // set current user
     Scanner in = new Scanner(System.in);
@@ -10,7 +15,9 @@ public class Customer {
     System.out.print("password:     ");
     String pass = in.next();
 
-    StarsRUs.rkuangDB.login(user, pass);    
+    ResultSet rs = StarsRUs.rkuangDB.login(user, pass);
+    activeUser.taxid = rs.getString("taxid");
+    activeUser.admin = rs.getString("admin");
   }
 
   public static void register() {

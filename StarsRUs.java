@@ -17,7 +17,6 @@ public class StarsRUs {
         switch (input) {
           case "login":
           Customer.login();
-          validInputs.changeState("loggedIn");
           break;
 
           case "register":
