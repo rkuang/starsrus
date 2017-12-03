@@ -59,7 +59,7 @@ public class Customer {
         value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
-      System.out.println("Sucess! Market Account created with balance of " + deposit);
+      System.out.println("Success! Market Account created with balance of " + deposit);
       this.login();
     }
     else{
