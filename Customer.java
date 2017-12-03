@@ -41,7 +41,7 @@ public class Customer {
     String taxID = in.next();
     System.out.print("SSN:          ");
     String ssn = in.next();
-    if(StarsRUs.rkuangDB.register(user,pass,state,phone_number,email,taxID,ssn){
+    if(StarsRUs.rkuangDB.register(user,pass,state,phone_number,email,taxID,ssn)){
       System.out.println("Registration Sucessful!");
       System.out.println("Your Username is:" + user);
       System.out.println("Your Password is:" + pass);
