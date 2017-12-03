@@ -26,10 +26,9 @@ public class ValidInputs {
   }
 
   public void print() {
-    System.out.println("\nValid inputs are:");
+    System.out.println("The following inputs are valid:");
     for (String input : activeState) {
-      System.out.println("\t"+input);
+      System.out.println("   "+input);
     }
-    System.out.println("");
   }
 }

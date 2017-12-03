@@ -3,6 +3,7 @@ import java.sql.*;
 
 public class Customer {
 
+  public String name;
   public int taxid;
   public Boolean admin;
 
@@ -17,6 +18,7 @@ public class Customer {
     if (StarsRUs.rkuangDB.login(user, pass)) {
       StarsRUs.validInputs.setState("loggedIn");
       System.out.println("Login Successful");
+      System.out.println("Hello, "+StarsRUs.activeUser.name);
       return;
     }
     System.out.println("Login Failed");
@@ -43,8 +45,8 @@ public class Customer {
   }
 
   public void logout() {
-    this.taxid = null;
-    this.admin = null;
+    StarsRUs.activeUser = new Customer();
     StarsRUs.validInputs.setState("noUser");
+    System.out.println("Logout Successful");
   }
 }

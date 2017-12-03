@@ -30,11 +30,12 @@ public class RkuangDB {
   }
 
   public Boolean login(String username, String password) {
-    String query = String.format("SELECT taxid, admin FROM Customers WHERE username='%s' AND password='%s'", username, password);
+    String query = String.format("SELECT * FROM Customers WHERE username='%s' AND password='%s'", username, password);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
+        StarsRUs.activeUser.name = rs.getString("name");
         StarsRUs.activeUser.taxid = rs.getInt("taxid");
         StarsRUs.activeUser.admin = rs.getBoolean("admin");
         return true;
