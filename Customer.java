@@ -78,7 +78,7 @@ public class Customer {
         System.out.println("Amount cannot be negative");
       }
     }
-    StarsRUs.rkuangDB.updateBalance(-1*amount);
+    StarsRUs.rkuangDB.updateBalance(-1 * amount);
   }
 
   public void showBalance() {

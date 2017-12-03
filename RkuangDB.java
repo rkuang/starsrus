@@ -6,7 +6,6 @@ public class RkuangDB {
   final String PWD = "994";
 
   Connection connection;
-  Statement statement;
 
   public RkuangDB() {
     getDriver();
@@ -67,10 +66,11 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double balance = rs.getDouble("balance");
-        if (balance+amount > 0) {
-          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", balance+amount, StarsRUs.activeUser.taxid);
+        double newBalance = balance + amount;
+        if (newBalance > 0) {
+          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
-          System.out.println("Balance is now $"+balance+amount);
+          System.out.println("Balance is now $" + newBalance);
           return true;
         } else {
           System.out.println("Transaction failed. Market Account balance cannot fall below $0");
@@ -101,10 +101,6 @@ public class RkuangDB {
 
   public void closeConnection() {
     try {
-      if (statement != null) {
-        statement.close();
-      }
-
       if (connection != null) {
         connection.close();
       }
