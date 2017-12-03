@@ -70,6 +70,7 @@ public class Customer {
 
   public void withdraw() {
     Scanner in = new Scanner(System.in);
+    double amount = -42;
     while (amount < 0) {
       System.out.print("Amount:  ");
       amount = in.nextDouble();
