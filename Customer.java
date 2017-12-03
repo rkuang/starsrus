@@ -54,9 +54,6 @@ public class Customer {
     else{
       System.out.println("Registration unsucessful please try again.");
     }
-
-
-    // add customer to db
   }
 
   public void logout() {
