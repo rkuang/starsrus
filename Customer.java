@@ -51,12 +51,14 @@ public class Customer {
       System.out.println("Your Password is:" + pass);
       System.out.println("Upon registering a Market Account is automatically opened for you.");
       System.out.println("How much would you like to deposit? Min($1000)");
-      double deposit = in.nextLine();
+      String deposit = in.nextLine();
+      double value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       while(deposit < 1000){
         System.out.println("You're broke af please deposit at least $1000");
         deposit = in.nextLine();
+        value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       }
-      StarsRUs.rkuangDB.createMarketAccount(taxID, deposit);
+      StarsRUs.rkuangDB.createMarketAccount(taxID, value);
       System.out.println("Sucess! Market Account created with balance of " + deposit);
       this.login();
     }
