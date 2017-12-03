@@ -72,6 +72,7 @@ public class RkuangDB {
           statement.executeUpdate(query);
           return true;
         } else {
+          System.out.println("Transaction failed. Balance cannot fall below $0");
           return false;
         }
       }
