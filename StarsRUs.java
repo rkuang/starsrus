@@ -2,18 +2,11 @@ import java.util.*;
 
 public class StarsRUs {
 
+  ValidInputs validInputs;
+
   public static void main(String[] args) {
-
-
-    MoviesDB moviesDB = new MoviesDB();
-    String movie = getUserInput();
-    moviesDB.getMovieInfo(movie);
-    moviesDB.getMovieReview(movie);
-    moviesDB.getTopMovies(2000, 2015);
-
-    ArrayList<String> validInputs = ValidInputs.noUser;
-
-    // printBanner();
+    validInputs = new ValidInputs();
+    printBanner();
 
     String input = "";
     while (!input.equals("exit")) {
@@ -22,9 +15,15 @@ public class StarsRUs {
         switch (input) {
           case "login":
           Customer.login();
+          validInputs.changeState("loggedIn");
           break;
+
           case "register":
           Customer.register();
+          break;
+
+          case "help":
+          validInputs.print();
           break;
         }
       } else {
@@ -32,10 +31,15 @@ public class StarsRUs {
       }
     }
 
+    // MoviesDB moviesDB = new MoviesDB();
+    // String movie = getUserInput();
+    // moviesDB.getMovieInfo(movie);
+    // moviesDB.getMovieReview(movie);
+    // moviesDB.getTopMovies(2000, 2015);
+    // moviesDB.closeConnection();
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
     //db.closeConnection();
-    moviesDB.closeConnection();
     System.exit(0);
   }
 
