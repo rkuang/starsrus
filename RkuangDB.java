@@ -46,6 +46,21 @@ public class RkuangDB {
     return false;
   }
 
+  public int getBalance() {
+    String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        return rs.getDouble("balance");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // this should never happen
+    return -42;
+  }
+
   public void closeConnection() {
     try {
       connection.close();

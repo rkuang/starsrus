@@ -25,6 +25,10 @@ public class StarsRUs {
           activeUser.register();
           break;
 
+          case "show balance":
+          activeUser.showBalance();
+          break;
+
           case "logout":
           activeUser.logout();
           break;

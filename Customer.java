@@ -44,6 +44,10 @@ public class Customer {
     // add customer to db
   }
 
+  public void showBalance() {
+    System.out.println("Market Account Balance:  "+StarsRUs.rkuangDB.getBalance());
+  }
+
   public void logout() {
     StarsRUs.activeUser = new Customer();
     StarsRUs.validInputs.setState("noUser");
