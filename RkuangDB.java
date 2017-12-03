@@ -48,7 +48,7 @@ public class RkuangDB {
   public Boolean register(String user, String pass, String state, String phNum, String email, String taxID, String ssn){
     String query = String.format("INSERT INTO Customers VALUES('%s','%s','%s','%s','%s','%s','%s')",user, pass, state, phNum, email, taxID, ssn);
     try(Statement statement = connection.createStatement()){
-      ResultSet rs = statement.executeUpdate(query);
+      statement.executeUpdate(query);
       return true;
     }catch(SQLException e){
       e.printStackTrace();
