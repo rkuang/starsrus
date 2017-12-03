@@ -46,28 +46,6 @@ public class RkuangDB {
     return false;
   }
 
-  public void getTestTable() {
-    String query = "SELECT * FROM TestTable";
-
-    try (Statement statement = connection.createStatement()) {
-
-      ResultSet rs = statement.executeQuery(query);
-
-      System.out.println("A\tB\tC");
-
-      while (rs.next()) {
-        String A = rs.getString("A");
-        int B = rs.getInt("B");
-        int C = rs.getInt("C");
-
-        System.out.println(A + "\t" + B + "\t" + C);
-
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
   public void closeConnection() {
     try {
       connection.close();
