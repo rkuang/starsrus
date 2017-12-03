@@ -1,14 +1,12 @@
 import java.util.Scanner;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class Customer {
 
-  public static Customer activeUser;
+  public int taxid;
+  public Boolean admin;
 
-  private int taxid;
-  private Boolean admin;
-
-  public static void login() {
+  public static void login() throws SQLException {
     // set current user
     Scanner in = new Scanner(System.in);
     System.out.print("username:     ");
@@ -16,9 +14,11 @@ public class Customer {
     System.out.print("password:     ");
     String pass = in.next();
 
-    ResultSet rs = StarsRUs.rkuangDB.login(user, pass);
-    activeUser.taxid = rs.getString("taxid");
-    activeUser.admin = rs.getString("admin");
+    if (StarsRUs.rkuangDB.login(user, pass)) {
+      StarsRUs.validInputs.setState("loggedIn");
+      System.out.println("Login Successful");
+    }
+    System.out.println("Login Failed");
   }
 
   public static void register() {

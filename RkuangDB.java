@@ -29,17 +29,20 @@ public class RkuangDB {
     }
   }
 
-  public ResultSet login(String username, String password) {
+  public Boolean login(String username, String password) {
     String query = String.format("SELECT taxid FROM Customers WHERE username='%s' AND password='%s'", username, password);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
-      if (rs.next())
-        return rs;
+      if (rs.next()) {
+        StarsRUs.activeUser.taxid = rs.getInt("taxid");
+        StarsRUs.activeUser.admin = rs.getBoolean("admin");
+        return true;
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return null;
+    return false;
   }
 
   public void getTestTable() {

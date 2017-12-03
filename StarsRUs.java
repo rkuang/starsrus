@@ -2,10 +2,12 @@ import java.util.*;
 
 public class StarsRUs {
 
+  static Customer activeUser;
   static ValidInputs validInputs;
   static RkuangDB rkuangDB;
 
   public static void main(String[] args) {
+    activeUser = new Customer();
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
     printBanner();

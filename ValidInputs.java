@@ -10,7 +10,7 @@ public class ValidInputs {
     activeState = noUser;
   }
 
-  public void changeState(String state) {
+  public void setState(String state) {
     switch (state) {
       case "noUser":
       activeState = noUser;
