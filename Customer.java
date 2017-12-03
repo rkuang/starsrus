@@ -55,7 +55,7 @@ public class Customer {
     }
   }
 
-  public void deposit(double) {
+  public void deposit() {
     Scanner in = new Scanner(System.in);
     double amount = -42;
     while (amount < 0) {
@@ -81,7 +81,7 @@ public class Customer {
   }
 
   public void showBalance() {
-    StarsRUs.rkuangDB.showBalance());
+    StarsRUs.rkuangDB.showBalance();
   }
 
   public void getMovieInfo() {
