@@ -39,6 +39,8 @@ public class RkuangDB {
         System.out.println(taxid);
         return true;
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
     return false;
   }
