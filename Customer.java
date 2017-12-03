@@ -28,23 +28,23 @@ public class Customer {
   public void register() {
     Scanner in = new Scanner(System.in);
     System.out.print("Name:    ");
-    String name = in.next();
+    String name = in.nextLine();
     System.out.print("Username:     ");
-    String user = in.next();
+    String user = in.nextLine();
     System.out.print("Password:     ");
-    String pass = in.next();
+    String pass = in.nextLine();
     System.out.print("Address:     ");
-    String addr = in.next();
+    String addr = in.nextLine();
     System.out.print("State:        ");
-    String state = in.next();
+    String state = in.nextLine();
     System.out.print("Phone Number: ");
-    String phone_number = in.next();
+    String phone_number = in.nextLine();
     System.out.print("Email:        ");
-    String email = in.next();
+    String email = in.nextLine();
     System.out.print("Tax ID:       ");
-    String taxID = in.next();
+    String taxID = in.nextLine();
     System.out.print("SSN:          ");
-    String ssn = in.next();
+    String ssn = in.nextLine();
     if(StarsRUs.rkuangDB.register(name,user,pass,addr,state,phone_number,email,taxID,ssn)){
       System.out.println("Registration Sucessful!");
       System.out.println("Your Username is:" + user);
