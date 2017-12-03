@@ -12,9 +12,9 @@ public class Customer {
     System.out.println("Please Login Below");
     Scanner in = new Scanner(System.in);
     System.out.print("Username:     ");
-    String user = in.next();
+    String user = in.nextLine();
     System.out.print("Password:     ");
-    String pass = in.next();
+    String pass = in.nextLine();
 
     if (StarsRUs.rkuangDB.login(user, pass)) {
       StarsRUs.validInputs.setState("loggedIn");
@@ -54,6 +54,33 @@ public class Customer {
     else{
       System.out.println("Registration unsucessful please try again.");
     }
+  }
+
+  public void showBalance() {
+    System.out.println("Market Account Balance:  $"+StarsRUs.rkuangDB.getBalance());
+  }
+
+  public void getMovieInfo() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("title:  ");
+    String title = in.nextLine();
+    StarsRUs.moviesDB.getMovieInfo(title);
+  }
+
+  public void getTopMovies() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("from:  ");
+    int from = in.nextInt();
+    System.out.print("to:    ");
+    int to = in.nextInt();
+    StarsRUs.moviesDB.getTopMovies(from, to);
+  }
+
+  public void getMovieReviews() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("title:  ");
+    String title = in.nextLine();
+    StarsRUs.moviesDB.getMovieReviews(title);
   }
 
   public void logout() {

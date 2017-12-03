@@ -60,31 +60,30 @@ public class RkuangDB {
     return false;
   }
 
-  public void getTestTable() {
-    String query = "SELECT * FROM TestTable";
+  public double getBalance() {
+    String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
-
       ResultSet rs = statement.executeQuery(query);
-
-      System.out.println("A\tB\tC");
-
-      while (rs.next()) {
-        String A = rs.getString("A");
-        int B = rs.getInt("B");
-        int C = rs.getInt("C");
-
-        System.out.println(A + "\t" + B + "\t" + C);
-
+      if (rs.next()) {
+        return rs.getDouble("balance");
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    // this should never happen
+    return -42;
   }
 
   public void closeConnection() {
     try {
-      connection.close();
+      if (statement != null) {
+        statement.close();
+      }
+
+      if (connection != null) {
+        connection.close();
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }

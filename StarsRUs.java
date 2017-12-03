@@ -5,11 +5,13 @@ public class StarsRUs {
   static Customer activeUser;
   static ValidInputs validInputs;
   static RkuangDB rkuangDB;
+  static MoviesDB moviesDB;
 
   public static void main(String[] args) {
     activeUser = new Customer();
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
+    moviesDB = new MoviesDB();
     printBanner();
 
     String input = "";
@@ -23,6 +25,22 @@ public class StarsRUs {
 
           case "register":
           activeUser.register();
+          break;
+
+          case "show balance":
+          activeUser.showBalance();
+          break;
+
+          case "movie info":
+          activeUser.getMovieInfo();
+          break;
+
+          case "top movies":
+          activeUser.getTopMovies();
+          break;
+
+          case "movie reviews":
+          activeUser.getMovieReviews();
           break;
 
           case "logout":
@@ -43,10 +61,10 @@ public class StarsRUs {
     // moviesDB.getMovieInfo(movie);
     // moviesDB.getMovieReview(movie);
     // moviesDB.getTopMovies(2000, 2015);
-    // moviesDB.closeConnection();
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
     rkuangDB.closeConnection();
+    moviesDB.closeConnection();
     System.exit(0);
   }
 
