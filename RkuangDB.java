@@ -46,7 +46,7 @@ public class RkuangDB {
     return false;
   }
 
-  public int getBalance() {
+  public double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
