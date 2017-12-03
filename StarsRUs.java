@@ -2,34 +2,35 @@ import java.util.*;
 
 public class StarsRUs {
 
+  static Customer activeUser;
+  static ValidInputs validInputs;
+  static RkuangDB rkuangDB;
+
   public static void main(String[] args) {
-
-
-    MoviesDB moviesDB = new MoviesDB();
-    String movie = getUserInput();
-    moviesDB.getMovieInfo(movie);
-    moviesDB.getMovieReview(movie);
-    moviesDB.getTopMovies(2000, 2015);
-    
-    ArrayList<String> validInputs = new ArrayList<>();
-    validInputs.add("login");
-    validInputs.add("register");
-    validInputs.add("exit");
-
-    // printBanner();
+    activeUser = new Customer();
+    validInputs = new ValidInputs();
+    rkuangDB = new RkuangDB();
+    printBanner();
 
     String input = "";
-    System.out.println("\n****\n");
-
     while (!input.equals("exit")) {
       input = getUserInput();
       if (validInputs.contains(input)) {
         switch (input) {
           case "login":
-          Customer.login();
+          activeUser.login();
           break;
+
           case "register":
-          Customer.register();
+          activeUser.register();
+          break;
+
+          case "logout":
+          activeUser.logout();
+          break;
+
+          case "help":
+          validInputs.print();
           break;
         }
       } else {
@@ -37,10 +38,15 @@ public class StarsRUs {
       }
     }
 
+    // MoviesDB moviesDB = new MoviesDB();
+    // String movie = getUserInput();
+    // moviesDB.getMovieInfo(movie);
+    // moviesDB.getMovieReview(movie);
+    // moviesDB.getTopMovies(2000, 2015);
+    // moviesDB.closeConnection();
     //RkuangDB db = new RkuangDB();
     //db.getTestTable();
-    //db.closeConnection();
-    moviesDB.closeConnection();
+    rkuangDB.closeConnection();
     System.exit(0);
   }
 
