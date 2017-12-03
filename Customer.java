@@ -75,7 +75,10 @@ public class Customer {
   }
 
   public void withdraw() {
-
+    Scanner in = new Scanner(System.in);
+    System.out.print("Amount:  ");
+    double amount = in.nextDouble();
+    StarsRUs.rkuangDB.updateBalance(amount);
   }
 
   public void showBalance() {
