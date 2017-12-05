@@ -106,13 +106,13 @@ public class RkuangDB {
     return false;
   }
 
-  public Date getDate() {
+  public String getDate() {
     String query = String.format("SELECT * FROM Dates");
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
-      Date today = new Date();
+      String today;
       if(rs.next()){
-        today = rs.getDate(0);
+        today = rs.getString("date");
       }
     } catch (SQLException e){
         e.printStackTrace();
