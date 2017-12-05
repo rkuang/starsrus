@@ -106,11 +106,11 @@ public class RkuangDB {
     return false;
   }
 
-  public Calendar getDate() {
+  public Date getDate() {
     String query = String.format("SELECT * FROM Dates");
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
-      Calendar today = Calendar.getInstance();
+      Date today = new Date();
       if(rs.next()){
         today = rs.getDate(0);
       }
