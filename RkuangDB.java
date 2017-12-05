@@ -112,7 +112,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       Calendar today = Calendar.getInstance();
       if(rs.next()){
-        today = rs.getDate();
+        today = rs.getDate(date);
       }
     } catch (SQLException e){
         e.printStackTrace();
