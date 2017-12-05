@@ -12,10 +12,11 @@ public class StarsRUs {
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
     moviesDB = new MoviesDB();
+    admin = new Admin();
     printBanner();
 
     String input = "";
-    while (!input.equals("exit")) {
+    while (!input.equals("exit") || !input.equals("quit")) {
       input = getUserInput();
       if (validInputs.contains(input)) {
         switch (input) {
@@ -33,6 +34,7 @@ public class StarsRUs {
 
           case "withdraw":
           activeUser.withdraw();
+          break;
 
           case "show balance":
           activeUser.showBalance();
@@ -56,6 +58,34 @@ public class StarsRUs {
 
           case "help":
           validInputs.print();
+          break;
+
+          case "add interest":
+          admin.addInterest();
+          break;
+
+          case "generate monthly statement":
+          admin.genMthStatement();
+          break;
+
+          case "list active customers":
+          admin.listActiveCustomer();
+          break;
+
+          case "generate dter":
+          admin.generateDter();
+          break;
+
+          case "generate customer report":
+          admin.generateCustomerReport();
+          break;
+
+          case "delete transactions":
+          admin.deleteTransactions();
+          break;
+
+          case "get date":
+          admin.getDate();
           break;
         }
       } else {

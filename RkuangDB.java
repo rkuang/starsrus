@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.*;
 
 public class RkuangDB {
   final String HOST = "jdbc:mysql://cs174a.engr.ucsb.edu:3306/rkuangDB";
@@ -103,6 +104,30 @@ public class RkuangDB {
     }
     // this should never happen
     return false;
+  }
+
+  public Calendar getDate() {
+    String query = String.format("SELECT * FROM Dates");
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      Calendar today = Calendar.getInstance();
+      if(rs.next()){
+        today = rs.getDate();
+      }
+    } catch (SQLException e){
+        e.printStackTrace();
+      }
+    return today;
+  }
+
+  public void setDate(string date){
+    String query = String.format("UPDATE Dates SET date='%s',", date);
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.updateQuery(query);
+    } catch (SQLException e){
+      e.printStackTrace();
+    }
+    return;
   }
 
   public void closeConnection() {
