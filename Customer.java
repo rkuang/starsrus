@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 import java.sql.*;
 
 public class Customer {
@@ -18,8 +18,13 @@ public class Customer {
 
     if (StarsRUs.rkuangDB.login(user, pass)) {
       StarsRUs.validInputs.setState("loggedIn");
-      System.out.println("Login Successful");
-      System.out.println("Hello, "+StarsRUs.activeUser.name);
+      if(admin){
+        System.out.println("Logged in as admin");
+      }
+      else{
+        System.out.println("Login Successful");
+        System.out.println("Hello, "+StarsRUs.activeUser.name);
+      }
       return;
     }
     System.out.println("Login Failed");
@@ -59,7 +64,7 @@ public class Customer {
         value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
-      System.out.println("Sucess! Market Account created with balance of " + deposit);
+      System.out.println("Success! Market Account created with balance of " + deposit);
       this.login();
     }
     else{
@@ -69,17 +74,32 @@ public class Customer {
 
   public void deposit() {
     Scanner in = new Scanner(System.in);
-    System.out.print("Amount:  ");
-    double amount = in.nextDouble();
+    double amount = -42;
+    while (amount < 0) {
+      System.out.print("Amount:  ");
+      amount = in.nextDouble();
+      if (amount < 0) {
+        System.out.println("Amount cannot be negative");
+      }
+    }
     StarsRUs.rkuangDB.updateBalance(amount);
   }
 
   public void withdraw() {
-
+    Scanner in = new Scanner(System.in);
+    double amount = -42;
+    while (amount < 0) {
+      System.out.print("Amount:  ");
+      amount = in.nextDouble();
+      if (amount < 0) {
+        System.out.println("Amount cannot be negative");
+      }
+    }
+    StarsRUs.rkuangDB.updateBalance(-1 * amount);
   }
 
   public void showBalance() {
-    System.out.println("Market Account Balance:  $"+StarsRUs.rkuangDB.getBalance());
+    StarsRUs.rkuangDB.showBalance();
   }
 
   public void getMovieInfo() {

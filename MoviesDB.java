@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.*;
 
 public class MoviesDB {
   final String HOST = "jdbc:mysql://cs174a.engr.ucsb.edu:3306/moviesDB";
@@ -6,7 +7,6 @@ public class MoviesDB {
   final String PWD = "994";
 
   Connection connection;
-  Statement statement;
 
   public MoviesDB() {
     getDriver();
@@ -104,10 +104,6 @@ public class MoviesDB {
 
   public void closeConnection() {
     try {
-      if (statement != null) {
-        statement.close();
-      }
-
       if (connection != null) {
         connection.close();
       }
