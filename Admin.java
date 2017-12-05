@@ -1,7 +1,7 @@
 import java.util.*;
 import java.sql.*;
 
-public Class Admin{
+public class Admin{
   public void addInterest(){
     return -42;
   }
