@@ -33,9 +33,26 @@ public class StarsRUs {
 
           case "withdraw":
           activeUser.withdraw();
+          break;
+
+          case "buy":
+          // buy
+          break;
+
+          case "sell":
+          // sell
+          break;
 
           case "show balance":
           activeUser.showBalance();
+          break;
+
+          case "transaction history":
+          // transaction history
+          break;
+
+          case "stock info":
+          // stock info
           break;
 
           case "movie info":
@@ -44,6 +61,30 @@ public class StarsRUs {
 
           case "top movies":
           activeUser.getTopMovies();
+          break;
+
+          case "add interest":
+          // add interest
+          break;
+
+          case "generate monthly statement":
+          // generate monthly statement
+          break;
+
+          case "list active customers":
+          // list active customers
+          break;
+
+          case "generate dter":
+          // generate dter
+          break;
+
+          case "generate customer report":
+          // generate customer report
+          break;
+
+          case "delete transactions":
+          // delete transactions
           break;
 
           case "movie reviews":
@@ -63,13 +104,6 @@ public class StarsRUs {
       }
     }
 
-    // MoviesDB moviesDB = new MoviesDB();
-    // String movie = getUserInput();
-    // moviesDB.getMovieInfo(movie);
-    // moviesDB.getMovieReview(movie);
-    // moviesDB.getTopMovies(2000, 2015);
-    //RkuangDB db = new RkuangDB();
-    //db.getTestTable();
     rkuangDB.closeConnection();
     moviesDB.closeConnection();
     System.exit(0);
