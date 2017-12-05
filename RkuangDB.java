@@ -121,9 +121,9 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    String query = String.format("UPDATE Dates SET date='%s'", date);
+    String query = String.format("UPDATE Dates SET date = '%s' ", date);
     try(Statement statement = connection.createStatement()){
-      ResultSet rs = statement.executeUpdate(query);
+      statement.executeUpdate(query);
     } catch (SQLException e){
       e.printStackTrace();
     }
