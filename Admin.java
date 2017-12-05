@@ -27,6 +27,6 @@ public class Admin{
   }
 
   public void getDate(){
-    System.out.println("Today's date is: " + StarsRUs.rkuangDB.getDate().toString();
+    System.out.println("Today's date is: " + StarsRUs.rkuangDB.getDate().toString());
   }
 }
