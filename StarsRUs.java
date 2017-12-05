@@ -17,7 +17,7 @@ public class StarsRUs {
     printBanner();
 
     String input = "";
-    while (!input.equals("exit") || !input.equals("quit")) {
+    while (!input.equals("exit")) {
       input = getUserInput();
       if (validInputs.contains(input)) {
         switch (input) {
@@ -88,6 +88,9 @@ public class StarsRUs {
           case "get date":
           admin.getDate();
           break;
+
+          case "set date":
+          admin.setDate();
         }
       } else {
         System.out.println(String.format("'%s' is not a valid input", input));
