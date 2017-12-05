@@ -3,27 +3,27 @@ import java.sql.*;
 
 public class Admin{
   public void addInterest(){
-    return -42;
+    return;
   }
 
   public void genMthStatement(){
-    return -42;
+    return;
   }
 
   public void listActiveCustomer(){
-    return -42;
+    return;
   }
 
   public void generateDter(){
-    return -42;
+    return;
   }
 
   public void generateCustomerReport(){
-    return -42;
+    return;
   }
 
   public void deleteTransactions(){
-    return -42;
+    return;
   }
 
   public void getDate(){

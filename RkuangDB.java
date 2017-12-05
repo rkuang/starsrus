@@ -112,7 +112,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       Calendar today = Calendar.getInstance();
       if(rs.next()){
-        today = rs.getDate(date);
+        today = rs.getDate(0);
       }
     } catch (SQLException e){
         e.printStackTrace();
@@ -120,7 +120,7 @@ public class RkuangDB {
     return today;
   }
 
-  public void setDate(string date){
+  public void setDate(String date){
     String query = String.format("UPDATE Dates SET date='%s',", date);
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.updateQuery(query);
