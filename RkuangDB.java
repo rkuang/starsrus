@@ -146,7 +146,6 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
         today = rs.getString("date");
-        System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
         e.printStackTrace();
@@ -166,7 +165,7 @@ public class RkuangDB {
   }
   public void updateInterest(String date){
     date = date.replace("-", "");
-    int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate()))/10000;
+    int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate().replace("-","")))/10000;
     String query = String.format("SELECT * from Market_Accounts");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
