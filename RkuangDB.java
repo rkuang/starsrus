@@ -68,7 +68,7 @@ public class RkuangDB {
   public void createStockAccount(String taxid) {
     String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0)", taxid);
     try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(queryMarket);
+      statement.executeUpdate(query);
     }catch(SQLException e){
       e.printStackTrace();
     }
