@@ -108,7 +108,7 @@ public class RkuangDB {
         double cost = -1*price*quantity;
         if (updateBalance(cost)) {
           // TODO adjust values in Stock_Balance
-          System.out.println("%d shares of %s purchased at $%f each", quantity, stockid, price);
+          System.out.println(String.format("%d shares of %s purchased at $%f each", quantity, stockid, price));
         }
         return true;
       } else {
