@@ -65,6 +65,7 @@ public class StarsRUs {
           break;
 
           case "add interest":
+
           activeUser.addInterest();
           break;
 
