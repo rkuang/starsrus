@@ -140,7 +140,7 @@ public class RkuangDB {
   }
 
   public void getDate() {
-    String query = String.format("SELECT * FROM Current_Date");
+    String query = String.format("SELECT * FROM CurrentDate");
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
@@ -153,7 +153,7 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    String query = String.format("UPDATE Current_Date SET date = '%s'", date);
+    String query = String.format("UPDATE CurrentDate SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     } catch (SQLException e){
