@@ -100,8 +100,9 @@ public class RkuangDB {
 
   private void addToStockBalance(String stockid, double price, double quantity) {
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
-    ResultSet rs = statement.executeQuery(query);
+
     try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double oldQuantity = rs.getInt("quantity");
         double newQuantity = oldQuantity + quantity;
@@ -118,8 +119,9 @@ public class RkuangDB {
 
   private void updateSharesTraded(double quantity) {
     String query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-    ResultSet rs = statement.executeQuery(query);
+
     try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double oldSharesTraded = rs.getDouble("shares_traded");
         double newSharesTraded = oldSharesTraded + quantity;
