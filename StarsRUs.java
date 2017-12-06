@@ -37,11 +37,11 @@ public class StarsRUs {
           break;
 
           case "buy":
-          // buy
+          activeUser.buy();
           break;
 
           case "sell":
-          // sell
+          activeUser.sell();
           break;
 
           case "show balance":
@@ -49,7 +49,7 @@ public class StarsRUs {
           break;
 
           case "transaction history":
-          // transaction history
+          activeUser.getTransactionHistory();
           break;
 
           case "stock info":
