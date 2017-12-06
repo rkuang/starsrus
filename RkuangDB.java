@@ -108,14 +108,14 @@ public class RkuangDB {
         double cost = -1*price*quantity;
         if (updateBalance(cost)) {
           // TODO adjust values in Stock_Balance
-          query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND currentprice=%f", StarsRUs.activeUser.taxid, stockid, price);
+          query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
           rs = statement.executeQuery(query);
           if (rs.next()) {
             query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %f, %d)", StarsRUs.activeUser.taxid, stockid, price, quantity);
           } else {
             int oldQuantity = rs.getInt("quantity");
             int newQuantity = oldQuantity + quantity;
-            query = String.format("UPDATE Stock_Balance SET quantity=%d WHERE taxid='%s' AND stockid='%s' AND currentprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
+            query = String.format("UPDATE Stock_Balance SET quantity=%d WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
           }
           statement.executeUpdate(query);
           System.out.println(String.format("%d shares of %s purchased at $%f each", quantity, stockid, price));
