@@ -144,7 +144,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
-        today = rs.getString("date");
+        String today = rs.getString("date");
       }
     } catch (SQLException e){
         e.printStackTrace();
