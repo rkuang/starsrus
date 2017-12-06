@@ -162,7 +162,7 @@ public class RkuangDB {
     return;
   }
 
-  public void setMarket(bool isOpen){
+  public void setMarket(Boolean isOpen){
     String query = String.format("UPDATE Market SET open = '%b'", isOpen);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
