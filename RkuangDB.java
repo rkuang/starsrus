@@ -114,31 +114,6 @@ public class RkuangDB {
     return false;
   }
 
-
-  public String getDate() {
-    String query = String.format("SELECT * FROM Current_Date");
-    String today = "12-05-2017";
-    try (Statement statement = connection.createStatement()){
-      ResultSet rs = statement.executeQuery(query);
-      if(rs.next()){
-        today = rs.getString("date");
-      }
-    } catch (SQLException e){
-        e.printStackTrace();
-      }
-    return today;
-  }
-
-  public void setDate(String date){
-    String query = String.format("UPDATE Current_Date SET date = '%s' ", date);
-    try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(query);
-    } catch (SQLException e){
-      e.printStackTrace();
-    }
-    return;
-  }
-
   public Boolean getStockInfo(String stockid) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
 
@@ -162,6 +137,39 @@ public class RkuangDB {
     }
     // this should never happen
     return false;
+  }
+
+  public void getDate() {
+    String query = String.format("SELECT * FROM Market");
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      if(rs.next()){
+        String today = rs.getString("date");
+        System.out.println("Today's date is: " + today);
+      }
+    } catch (SQLException e){
+        e.printStackTrace();
+      }
+  }
+
+  public void setDate(String date){
+    String query = String.format("UPDATE Market SET date = '%s'", date);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
+    } catch (SQLException e){
+      e.printStackTrace();
+    }
+    return;
+  }
+
+  public void setMarket(Boolean isOpen){
+    String query = String.format("UPDATE Market SET open = %b", isOpen);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
+    }catch (SQLException e){
+      e.printStackTrace();
+    }
+    return;
   }
 
   public void closeConnection() {

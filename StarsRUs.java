@@ -65,7 +65,6 @@ public class StarsRUs {
           break;
 
           case "add interest":
-
           activeUser.addInterest();
           break;
 
@@ -107,6 +106,10 @@ public class StarsRUs {
 
           case "help":
           validInputs.print();
+          break;
+
+          case "set market":
+          activeUser.setMarket();
           break;
         }
       } else {
