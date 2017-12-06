@@ -125,7 +125,7 @@ public class RkuangDB {
           if (rs.next()) {
             double oldSharesTraded = rs.getDouble("shares_traded");
             double newSharesTraded = oldSharesTraded + quantity;
-            query = String.format("UDPATE Stock_Accounts SET shares_traded=%f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
+            query = String.format("UPDATE Stock_Accounts SET shares_traded=%f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
           } else {
             query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %f)", StarsRUs.activeUser.taxid, quantity);
           }
