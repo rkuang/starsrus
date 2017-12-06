@@ -105,7 +105,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double price = rs.getDouble("currentprice");
-        double cost = -1*price*quantity;
+        double cost = -1 * (price*quantity + 20);
         if (updateBalance(cost)) {
           // TODO adjust values in Stock_Balance
           query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
