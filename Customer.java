@@ -178,7 +178,7 @@ public class Customer {
     }
     else{
       StarsRUs.rkuangDB.setMarket(false);
-      System.out.println("it is now closed" + next);
+      System.out.println("it is now closed" + next + "hello");
     }
   }
 
