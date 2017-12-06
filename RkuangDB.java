@@ -66,7 +66,7 @@ public class RkuangDB {
   }
 
   public void createStockAccount(String taxid) {
-    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0)", taxid);
+    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, 0)", taxid);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     }catch(SQLException e){
@@ -95,6 +95,29 @@ public class RkuangDB {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return false;
+  }
+
+  public Boolean buyStocks(String stockid, int quantity) {
+    String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double price = rs.getDouble("currentprice");
+        double cost = -1*price*quantity;
+        if (updateBalance(cost)) {
+          // TODO adjust values in Stock_Balance
+          System.out.println("%d shares of %s purchased at $%f each", quantity, stockid, price);
+        }
+        return true;
+      } else {
+        System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // this should never happen
     return false;
   }
 
