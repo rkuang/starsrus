@@ -99,7 +99,7 @@ public class Customer {
 
   public void getStockInfo() {
     Scanner in = new Scanner(System.in);
-    System.out.print("Stock ID:  ")
+    System.out.print("Stock ID:  ");
     String stockid = in.nextLine();
     StarsRUs.rkuangDB.getStockInfo(stockid);
   }
