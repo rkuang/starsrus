@@ -46,7 +46,7 @@ public class RkuangDB {
     return false;
   }
   public Boolean register(String name, String user, String pass, String addr, String state, String phNum, String email, String taxID, String ssn){
-    String queryCustomer = String.format("INSERT INTO Customers(name, username, password, address, state, phone, email, taxid, ssn, admin)VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s',false)", name, user, pass, addr, state, phNum, email, taxID, ssn);
+    String queryCustomer = String.format("INSERT INTO Customers VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s',false)", name, user, pass, addr, state, phNum, email, taxID, ssn);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryCustomer);
       return true;
@@ -57,7 +57,7 @@ public class RkuangDB {
   }
 
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts VALUES ('%s', %f)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
     }catch(SQLException e){

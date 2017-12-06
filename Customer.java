@@ -65,7 +65,6 @@ public class Customer {
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
       System.out.println("Success! Market Account created with balance of " + deposit);
-      this.login();
     }
     else{
       System.out.println("Registration unsucessful please try again.");
@@ -187,11 +186,11 @@ public class Customer {
     Scanner in = new Scanner(System.in);
     if(in.next().equals("open")){
       StarsRUs.rkuangDB.setMarket(true);
-      System.out.println("it is now open");
+      System.out.println("The market is now open");
     }
     else{
       StarsRUs.rkuangDB.setMarket(false);
-      System.out.println("it is now closed");
+      System.out.println("The market is now closed");
     }
   }
 
@@ -200,8 +199,8 @@ public class Customer {
   }
 
   public void setDate(){
-    System.out.println("What date would you like to set?");
-    System.out.println("Please enter in the format YYYY-MM-DD");
+    System.out.println("What date would you like to set (YYYY-MM-DD)?");
+    System.out.print("Date:  ");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
     StarsRUs.rkuangDB.setDate(date);
