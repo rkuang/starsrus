@@ -139,17 +139,17 @@ public class RkuangDB {
     return false;
   }
 
-  public String getDate() {
+  public void getDate() {
     String query = String.format("SELECT * FROM Current_Date");
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
         String today = rs.getString("date");
+        System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
         e.printStackTrace();
       }
-    return today;
   }
 
   public void setDate(String date){

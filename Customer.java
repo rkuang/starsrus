@@ -169,7 +169,7 @@ public class Customer {
   }
 
   public void getDate(){
-    System.out.println("Today's date is: " + StarsRUs.rkuangDB.getDate());
+    StarsRUs.rkuangDB.getDate();
   }
 
   public void setDate(){
