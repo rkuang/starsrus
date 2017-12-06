@@ -6,6 +6,7 @@ public class Customer {
   public String name;
   public String taxid;
   public Boolean admin;
+  public Double currBalance;
 
   public void login() {
     // set current user
@@ -112,11 +113,11 @@ public class Customer {
     // of the stocks to be sold.
     // each sell transaction costs $20 of commission. The money from selling the
     // stock will be deposited into the market account.
-    
+
   }
 
-  public void showBalance() {
-    StarsRUs.rkuangDB.showBalance();
+  public void getBalance() {
+    StarsRUs.rkuangDB.getBalance();
   }
 
   public void getTransactionHistory() {
@@ -154,6 +155,7 @@ public class Customer {
   }
 
   public void addInterest(){
+
     return;
   }
 
