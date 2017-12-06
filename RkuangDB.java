@@ -129,6 +129,7 @@ public class RkuangDB {
       e.printStackTrace();
     }
     return;
+  }
 
   public Boolean getStockInfo(String stockid) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
