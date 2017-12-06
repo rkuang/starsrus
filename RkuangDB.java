@@ -98,7 +98,7 @@ public class RkuangDB {
     return false;
   }
 
-  public Boolean buyStocks(String stockid, int quantity) {
+  public Boolean buyStocks(String stockid, double quantity) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
 
     try (Statement statement = connection.createStatement()) {
@@ -111,14 +111,14 @@ public class RkuangDB {
           query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
           rs = statement.executeQuery(query);
           if (rs.next()) {
-            int oldQuantity = rs.getInt("quantity");
-            int newQuantity = oldQuantity + quantity;
-            query = String.format("UPDATE Stock_Balance SET quantity=%d WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
+            double oldQuantity = rs.getInt("quantity");
+            double newQuantity = oldQuantity + quantity;
+            query = String.format("UPDATE Stock_Balance SET quantity=%f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
           } else {
-            query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %f, %d)", StarsRUs.activeUser.taxid, stockid, price, quantity);
+            query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %f, %f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
           }
           statement.executeUpdate(query);
-          System.out.println(String.format("%d shares of %s purchased at $%f each", quantity, stockid, price));
+          System.out.println(String.format("%f shares of %s purchased at $%f each", quantity, stockid, price));
         }
         return true;
       } else {
@@ -129,6 +129,10 @@ public class RkuangDB {
     }
     // this should never happen
     return false;
+  }
+
+  public Boolean sellStocks(String stockid, double buyingprice, double quantity) {
+
   }
 
   public Boolean showBalance() {

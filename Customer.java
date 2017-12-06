@@ -106,7 +106,7 @@ public class Customer {
     System.out.print("Stock ID:  ");
     String stockid = in.next();
     System.out.print("Quantiy:   ");
-    int quantity = in.nextInt();
+    double quantity = in.nextDouble();
     StarsRUs.rkuangDB.buyStocks(stockid, quantity);
   }
 
