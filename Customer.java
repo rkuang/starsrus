@@ -97,6 +97,13 @@ public class Customer {
     StarsRUs.rkuangDB.showBalance();
   }
 
+  public void getStockInfo() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:  ")
+    String stockid = in.nextLine();
+    StarsRUs.rkuangDB.getStockInfo(stockid);
+  }
+
   public void getMovieInfo() {
     Scanner in = new Scanner(System.in);
     System.out.print("Title:  ");

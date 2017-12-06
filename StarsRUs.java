@@ -52,7 +52,7 @@ public class StarsRUs {
           break;
 
           case "stock info":
-          // stock info
+          activeUser.getStockInfo();
           break;
 
           case "movie info":

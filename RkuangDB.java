@@ -105,6 +105,31 @@ public class RkuangDB {
     return false;
   }
 
+  public Boolean getStockInfo(String stockid) {
+    String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double price = rs.getDouble("currentprice");
+        String name = rs.getString("name");
+        String date = rs.getDate("").toString();
+
+        System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
+        System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
+
+        // TODO print movie contracts
+      } else {
+        System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
+      }
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // this should never happen
+    return false;
+  }
+
   public void closeConnection() {
     try {
       if (connection != null) {
