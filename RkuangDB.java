@@ -106,6 +106,7 @@ public class RkuangDB {
     return false;
   }
 
+
   public String getDate() {
     String query = String.format("SELECT * FROM Dates");
     String today = "12-05-2017";
@@ -128,6 +129,30 @@ public class RkuangDB {
       e.printStackTrace();
     }
     return;
+
+  public Boolean getStockInfo(String stockid) {
+    String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double price = rs.getDouble("currentprice");
+        String name = rs.getString("name");
+        String date = rs.getDate("dob").toString();
+
+        System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
+        System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
+
+        // TODO print movie contracts
+      } else {
+        System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
+      }
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // this should never happen
+    return false;
   }
 
   public void closeConnection() {
