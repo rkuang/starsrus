@@ -6,12 +6,14 @@ public class StarsRUs {
   static ValidInputs validInputs;
   static RkuangDB rkuangDB;
   static MoviesDB moviesDB;
+  static Admin admin;
 
   public static void main(String[] args) {
     activeUser = new Customer();
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
     moviesDB = new MoviesDB();
+    admin = new Admin();
     printBanner();
 
     String input = "";
@@ -98,6 +100,37 @@ public class StarsRUs {
           case "help":
           validInputs.print();
           break;
+
+          case "add interest":
+          admin.addInterest();
+          break;
+
+          case "generate monthly statement":
+          admin.genMthStatement();
+          break;
+
+          case "list active customers":
+          admin.listActiveCustomer();
+          break;
+
+          case "generate dter":
+          admin.generateDter();
+          break;
+
+          case "generate customer report":
+          admin.generateCustomerReport();
+          break;
+
+          case "delete transactions":
+          admin.deleteTransactions();
+          break;
+
+          case "get date":
+          admin.getDate();
+          break;
+
+          case "set date":
+          admin.setDate();
         }
       } else {
         System.out.println(String.format("'%s' is not a valid input", input));
