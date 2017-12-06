@@ -107,6 +107,10 @@ public class StarsRUs {
           case "help":
           validInputs.print();
           break;
+
+          case "set market":
+          activeUser.setMarket();
+          break;
         }
       } else {
         System.out.println(String.format("'%s' is not a valid input", input));
