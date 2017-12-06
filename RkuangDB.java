@@ -170,8 +170,12 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
-        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
-        statement.executeUpdate(query);
+        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
+        try(Statement statement2 = connection.createStatement()){
+          statement2.executeUpdate(query2);
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
       }
     } catch(SQLException e){
       e.printStackTrace();
