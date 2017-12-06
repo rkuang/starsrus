@@ -167,7 +167,7 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     }catch (SQLException e){
-      e.printStrackTrace();
+      e.printStackTrace();
     }
     return;
   }

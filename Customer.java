@@ -172,7 +172,7 @@ public class Customer {
     System.out.println("Would you like to open or close the market?");
     Scanner in = new Scanner(System.in);
     if(in.nextLine() == "open"){
-      StarsRUs.rkuangDB.getMarket(true);
+      StarsRUs.rkuangDB.setMarket(true);
     }
     else{
       StarsRUs.rkuangDB.setMarket(false);
