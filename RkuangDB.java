@@ -105,7 +105,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
-        return re.getDouble("balance");
+        return rs.getDouble("balance");
       }
     } catch (SQLException e) {
       e.printStackTrace();
