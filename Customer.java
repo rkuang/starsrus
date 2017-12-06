@@ -4,7 +4,7 @@ import java.sql.*;
 public class Customer {
 
   public String name;
-  public int taxid;
+  public String taxid;
   public Boolean admin;
 
   public void login() {
@@ -100,10 +100,19 @@ public class Customer {
 
   public void buy() {
     // TODO
+    // Acquire a specified number of shares of a specified stock at the current price.
+    // Each buy transaction costs $20 (commission)
+
   }
 
   public void sell() {
     // TODO
+    // Sell a specified number of shares of a specified stock at the current price.
+    // For tax purposes, the customer has to specify the original buying prices
+    // of the stocks to be sold.
+    // each sell transaction costs $20 of commission. The money from selling the
+    // stock will be deposited into the market account.
+    
   }
 
   public void showBalance() {
