@@ -1,11 +1,11 @@
-CREATE TABLE Accounts (taxid int(4), PRIMARY KEY (taxid));
+CREATE TABLE Customers (name CHAR(20), username CHAR(20), password CHAR(20), address CHAR(25), state CHAR(2), phone CHAR(12), email CHAR(20), taxid int(4), ssn CHAR(11) UNIQUE, admin int(1), PRIMARY KEY (username));
 
-CREATE TABLE Customers (name CHAR(20), username CHAR(20), password CHAR(20), address CHAR(25), state CHAR(2), phone CHAR(12), email CHAR(20), taxid int(4), ssn CHAR(11) UNIQUE, admin int(1), PRIMARY KEY (username), FOREIGN KEY (taxid) REFERENCES Accounts(taxid));
+CREATE TABLE Market_Accounts (taxid int(4), balance int, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
 
-CREATE TABLE Market_Accounts (taxid int(4), balance int, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Accounts(taxid));
-
-CREATE TABLE Stock_Accounts (taxid int(4), profit real, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Accounts(taxid));
+CREATE TABLE Stock_Accounts (taxid int(4), profit real, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
 
 CREATE TABLE Stocks (stockid CHAR(3), currentprice real, name char(20), dob date, PRIMARY KEY (stockid));
 
 CREATE TABLE Movie_Contracts (stockid CHAR(3), title CHAR(20), role CHAR(10), year int(4), contract real, PRIMARY KEY (stockid, title));
+
+CREATE TABLE Stock_Balance (taxid char(4), stockid char(3), buyingprice real, quantity real, PRIMARY KEY (taxid, stockid, buyingprice), FOREIGN KEY (taxid) REFERENCES Customers(taxid), FOREIGN KEY (stockid) REFERENCES Stocks(stockid));

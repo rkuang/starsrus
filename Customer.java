@@ -4,7 +4,7 @@ import java.sql.*;
 public class Customer {
 
   public String name;
-  public int taxid;
+  public String taxid;
   public Boolean admin;
 
   public void login() {

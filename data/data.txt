@@ -16,7 +16,6 @@ insert into Customers values ('Frank Olson', 'frank', 'ol', '6910 Whittier Dr', 
 
 insert into Market_Accounts values (1022, 10000), (3045, 100000), (2034, 50000), (4093, 45000), (1234, 200000), (8956, 5000), (2341, 2000), (0456, 10000), (3455, 130200), (1123, 35000), (3306, 30500);
 
-
 insert into Stocks values ('SKB', 40.00, 'Kim Basinger', '1958-12-08');
 insert into Stocks values ('SMD', 71.00, 'Michael Douglas', '1944-09-25');
 insert into Stocks values ('STC', 32.50, 'Tom Cruise', '1962-07-03');
@@ -24,3 +23,24 @@ insert into Stocks values ('STC', 32.50, 'Tom Cruise', '1962-07-03');
 insert into Movie_Contracts values ('SKB', 'L.A. Confidential', 'actor', 1997, 5000000);
 insert into Movie_Contracts values ('SMD', 'A Perfect Murder', 'actor', 1998, 10000000);
 insert into Movie_Contracts values ('STC', 'Jerry Maguire', 'actor', 1996, 5000000);
+
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('1022',100,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3045',500,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3045',100,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('2034',250,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('4093',100,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('4093',500,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('4093',50,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('1234',1000,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('8956',100,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('2341',300,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('0456',500,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('0456',100,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('0456',200,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3455',1000,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('1123',100,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('1123',100,'SMD',71.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('1123',100,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3306',100,'SKB',40.00);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3306',200,'STC',32.50);
+insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3306',100,'SMD',71.00);

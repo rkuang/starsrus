@@ -36,7 +36,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         StarsRUs.activeUser.name = rs.getString("name");
-        StarsRUs.activeUser.taxid = rs.getInt("taxid");
+        StarsRUs.activeUser.taxid = rs.getString("taxid");
         StarsRUs.activeUser.admin = rs.getBoolean("admin");
         return true;
       }
@@ -83,7 +83,7 @@ public class RkuangDB {
         double balance = rs.getDouble("balance");
         double newBalance = balance + amount;
         if (newBalance > 0) {
-          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%d'", newBalance, StarsRUs.activeUser.taxid);
+          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
           System.out.println("Balance is now $" + newBalance);
           return true;
@@ -163,7 +163,7 @@ public class RkuangDB {
   }
 
   public void setMarket(bool isOpen){
-    String query = String.format("UPDATE Market SET open = ''")
+    // TODO
   }
 
   public void closeConnection() {
