@@ -59,7 +59,7 @@ public class Customer {
       String deposit = in.nextLine();
       double value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       while(value < 1000){
-        System.out.println("You're broke af please deposit at least $1000");
+        System.out.println("You must make an initial deposit of at least $1000");
         deposit = in.nextLine();
         value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       }
