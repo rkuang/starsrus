@@ -117,6 +117,7 @@ public class RkuangDB {
     }
   }
 
+  // TODO can be refactored still for sellStocks
   private void updateSharesTraded(double quantity) {
     String query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
