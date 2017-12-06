@@ -119,6 +119,17 @@ public class RkuangDB {
           }
           statement.executeUpdate(query);
           System.out.println(String.format("%f shares of %s purchased at $%f each", quantity, stockid, price));
+
+          query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+          rs = statement.executeQuery(query);
+          if (rs.next()) {
+            double oldSharesTraded = rs.getDouble("shares_traded");
+            double newSharesTraded = oldSharesTraded + quantity;
+            query = String.format("UDPATE Stock_Accounts SET shares_traded=%f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
+          } else () {
+            query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %f)", StarsRUs.activeUser.taxid, quantity);
+          }
+          statement.executeUpdate(query);
         }
         return true;
       } else {
