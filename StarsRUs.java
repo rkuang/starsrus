@@ -13,7 +13,6 @@ public class StarsRUs {
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
     moviesDB = new MoviesDB();
-    admin = new Admin();
     printBanner();
 
     String input = "";
@@ -37,8 +36,24 @@ public class StarsRUs {
           activeUser.withdraw();
           break;
 
+          case "buy":
+          // buy
+          break;
+
+          case "sell":
+          // sell
+          break;
+
           case "show balance":
           activeUser.showBalance();
+          break;
+
+          case "transaction history":
+          // transaction history
+          break;
+
+          case "stock info":
+          activeUser.getStockInfo();
           break;
 
           case "movie info":
@@ -47,6 +62,39 @@ public class StarsRUs {
 
           case "top movies":
           activeUser.getTopMovies();
+          break;
+
+          case "add interest":
+
+          activeUser.addInterest();
+          break;
+
+          case "generate monthly statement":
+          activeUser.genMthStatement();
+          break;
+
+          case "list active customers":
+          activeUser.listActiveCustomer();
+          break;
+
+          case "generate dter":
+          activeUser.generateDter();
+          break;
+
+          case "generate customer report":
+          activeUser.generateCustomerReport();
+          break;
+
+          case "delete transactions":
+          activeUser.deleteTransactions();
+          break;
+
+          case "get date":
+          activeUser.getDate();
+          break;
+
+          case "set date":
+          activeUser.setDate();
           break;
 
           case "movie reviews":
@@ -60,50 +108,12 @@ public class StarsRUs {
           case "help":
           validInputs.print();
           break;
-
-          case "add interest":
-          admin.addInterest();
-          break;
-
-          case "generate monthly statement":
-          admin.genMthStatement();
-          break;
-
-          case "list active customers":
-          admin.listActiveCustomer();
-          break;
-
-          case "generate dter":
-          admin.generateDter();
-          break;
-
-          case "generate customer report":
-          admin.generateCustomerReport();
-          break;
-
-          case "delete transactions":
-          admin.deleteTransactions();
-          break;
-
-          case "get date":
-          admin.getDate();
-          break;
-
-          case "set date":
-          admin.setDate();
         }
       } else {
         System.out.println(String.format("'%s' is not a valid input", input));
       }
     }
 
-    // MoviesDB moviesDB = new MoviesDB();
-    // String movie = getUserInput();
-    // moviesDB.getMovieInfo(movie);
-    // moviesDB.getMovieReview(movie);
-    // moviesDB.getTopMovies(2000, 2015);
-    //RkuangDB db = new RkuangDB();
-    //db.getTestTable();
     rkuangDB.closeConnection();
     moviesDB.closeConnection();
     System.exit(0);

@@ -59,7 +59,7 @@ public class Customer {
       String deposit = in.nextLine();
       double value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       while(value < 1000){
-        System.out.println("You're broke af please deposit at least $1000");
+        System.out.println("You must make an initial deposit of at least $1000");
         deposit = in.nextLine();
         value = Double.parseDouble(deposit.replaceAll("[^\\d.]", ""));
       }
@@ -98,8 +98,27 @@ public class Customer {
     StarsRUs.rkuangDB.updateBalance(-1 * amount);
   }
 
+  public void buy() {
+    // TODO
+  }
+
+  public void sell() {
+    // TODO
+  }
+
   public void showBalance() {
     StarsRUs.rkuangDB.showBalance();
+  }
+
+  public void getTransactionHistory() {
+    // TODO
+  }
+
+  public void getStockInfo() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:  ");
+    String stockid = in.nextLine();
+    StarsRUs.rkuangDB.getStockInfo(stockid);
   }
 
   public void getMovieInfo() {
@@ -123,6 +142,43 @@ public class Customer {
     System.out.print("Title:  ");
     String title = in.nextLine();
     StarsRUs.moviesDB.getMovieReviews(title);
+  }
+
+  public void addInterest(){
+    return;
+  }
+
+  public void genMthStatement(){
+    return;
+  }
+
+  public void listActiveCustomer(){
+    return;
+  }
+
+  public void generateDter(){
+    return;
+  }
+
+  public void generateCustomerReport(){
+    return;
+  }
+
+  public void deleteTransactions(){
+    return;
+  }
+
+  public void getDate(){
+    System.out.println("Today's date is: " + StarsRUs.rkuangDB.getDate());
+  }
+
+  public void setDate(){
+    System.out.println("What date would you like to set?");
+    System.out.println("Please enter in the format YYYY-MM-DD");
+    Scanner in = new Scanner(System.in);
+    String date = in.nextLine();
+    StarsRUs.rkuangDB.setDate(date);
+    System.out.println("Date is set to: " + date);
   }
 
   public void logout() {

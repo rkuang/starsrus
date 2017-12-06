@@ -46,10 +46,8 @@ public class RkuangDB {
     return false;
   }
   public Boolean register(String name, String user, String pass, String addr, String state, String phNum, String email, String taxID, String ssn){
-    String queryAccount = String.format("INSERT INTO Accounts(taxid)VALUES('%s')",taxID);
     String queryCustomer = String.format("INSERT INTO Customers(name, username, password, address, state, phone, email, taxid, ssn, admin)VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s',false)", name, user, pass, addr, state, phNum, email, taxID, ssn);
     try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(queryAccount);
       statement.executeUpdate(queryCustomer);
       return true;
     }catch(SQLException e){
@@ -57,10 +55,20 @@ public class RkuangDB {
     }
     return false;
   }
+
   public void createMarketAccount(String taxid, double deposit){
     String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void createStockAccount(String taxid) {
+    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0)", taxid);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
     }catch(SQLException e){
       e.printStackTrace();
     }
@@ -106,8 +114,9 @@ public class RkuangDB {
     return false;
   }
 
+
   public String getDate() {
-    String query = String.format("SELECT * FROM Dates");
+    String query = String.format("SELECT * FROM Current_Date");
     String today = "12-05-2017";
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
@@ -121,13 +130,38 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    String query = String.format("UPDATE Dates SET date = '%s' ", date);
+    String query = String.format("UPDATE Current_Date SET date = '%s' ", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     } catch (SQLException e){
       e.printStackTrace();
     }
     return;
+  }
+
+  public Boolean getStockInfo(String stockid) {
+    String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double price = rs.getDouble("currentprice");
+        String name = rs.getString("name");
+        String date = rs.getDate("dob").toString();
+
+        System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
+        System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
+
+        // TODO print movie contracts
+      } else {
+        System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
+      }
+      return true;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    // this should never happen
+    return false;
   }
 
   public void closeConnection() {
