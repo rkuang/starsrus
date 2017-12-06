@@ -155,7 +155,7 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    this.updateIntrest(date);
+    this.updateInterest(date);
     String query = String.format("UPDATE Market SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
@@ -164,13 +164,14 @@ public class RkuangDB {
     }
     return;
   }
-  public void updateIntrest(String date){
+  public void updateInterest(String date){
     int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate()))/10000;
     String query = String.format("SELECT * from Market_Accounts");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery();
       while (rs.next()){
         query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString(taxid), rs.getDouble(balance), days);
+        statement.executeUpdate(query);
       }
     } catch(SQLException e){
       e.printStackTrace();
