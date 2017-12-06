@@ -140,7 +140,7 @@ public class RkuangDB {
   }
 
   public void getDate() {
-    String query = String.format("SELECT * FROM CurrentDate");
+    String query = String.format("SELECT * FROM Market");
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
@@ -153,13 +153,17 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    String query = String.format("UPDATE CurrentDate SET date = '%s'", date);
+    String query = String.format("UPDATE Market SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     } catch (SQLException e){
       e.printStackTrace();
     }
     return;
+  }
+
+  public void setMarket(bool isOpen){
+    String query = String.format("UPDATE Market SET open = ''")
   }
 
   public void closeConnection() {
