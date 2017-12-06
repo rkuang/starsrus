@@ -100,7 +100,7 @@ public class RkuangDB {
 
   public Double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-
+    Double temp = 0;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
@@ -111,7 +111,7 @@ public class RkuangDB {
       e.printStackTrace();
     }
     // this should never happen
-    return 0;
+    return temp;
   }
 
   public Boolean getStockInfo(String stockid) {
