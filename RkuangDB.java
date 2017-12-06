@@ -113,7 +113,7 @@ public class RkuangDB {
       if (rs.next()) {
         double price = rs.getDouble("currentprice");
         String name = rs.getString("name");
-        String date = rs.getDate("").toString();
+        String date = rs.getDate("dob").toString();
 
         System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
         System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
