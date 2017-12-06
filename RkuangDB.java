@@ -168,9 +168,9 @@ public class RkuangDB {
     int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate()))/10000;
     String query = String.format("SELECT * from Market_Accounts");
     try(Statement statement = connection.createStatement()){
-      ResultSet rs = statement.executeQuery();
+      ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
-        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString(taxid), rs.getDouble(balance), days);
+        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
         statement.executeUpdate(query);
       }
     } catch(SQLException e){
