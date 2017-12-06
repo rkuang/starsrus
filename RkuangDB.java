@@ -117,7 +117,7 @@ public class RkuangDB {
             int newQuantity = oldQuantity + quantity;
             query = String.format("UPDATE Stock_Balance SET quantity=%d WHERE taxid='%s' AND stockid='%s' AND currentprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
           }
-          rs.executeUpdate(query);
+          statement.executeUpdate(query);
           System.out.println(String.format("%d shares of %s purchased at $%f each", quantity, stockid, price));
         }
         return true;
