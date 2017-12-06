@@ -171,7 +171,7 @@ public class Customer {
   public void setMarket(){
     System.out.println("Would you like to open or close the market?");
     Scanner in = new Scanner(System.in);
-    if(in.nextLine() == 'open'){
+    if(in.nextLine() == "open"){
       setMarket(true);
     }
     else{
