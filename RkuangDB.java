@@ -100,7 +100,7 @@ public class RkuangDB {
 
   public Double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-    Double temp = 0;
+    Double temp = 0.0;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
