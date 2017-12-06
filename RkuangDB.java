@@ -143,7 +143,7 @@ public class RkuangDB {
   }
 
   public Boolean sellStocks(String stockid, double buyingprice, double quantity) {
-
+    return false;
   }
 
   public Boolean showBalance() {
