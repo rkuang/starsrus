@@ -165,6 +165,7 @@ public class RkuangDB {
     return;
   }
   public void updateInterest(String date){
+    date = date.replace("-", "");
     int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate()))/10000;
     String query = String.format("SELECT * from Market_Accounts");
     try(Statement statement = connection.createStatement()){
