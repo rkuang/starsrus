@@ -66,42 +66,6 @@ public class StarsRUs {
           break;
 
           case "add interest":
-          // add interest
-          break;
-
-          case "generate monthly statement":
-          // generate monthly statement
-          break;
-
-          case "list active customers":
-          // list active customers
-          break;
-
-          case "generate dter":
-          // generate dter
-          break;
-
-          case "generate customer report":
-          // generate customer report
-          break;
-
-          case "delete transactions":
-          // delete transactions
-          break;
-
-          case "movie reviews":
-          activeUser.getMovieReviews();
-          break;
-
-          case "logout":
-          activeUser.logout();
-          break;
-
-          case "help":
-          validInputs.print();
-          break;
-
-          case "add interest":
           admin.addInterest();
           break;
 
@@ -131,6 +95,19 @@ public class StarsRUs {
 
           case "set date":
           admin.setDate();
+          break;
+
+          case "movie reviews":
+          activeUser.getMovieReviews();
+          break;
+
+          case "logout":
+          activeUser.logout();
+          break;
+
+          case "help":
+          validInputs.print();
+          break;
         }
       } else {
         System.out.println(String.format("'%s' is not a valid input", input));
