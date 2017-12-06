@@ -13,7 +13,6 @@ public class StarsRUs {
     validInputs = new ValidInputs();
     rkuangDB = new RkuangDB();
     moviesDB = new MoviesDB();
-    admin = new Admin();
     printBanner();
 
     String input = "";
@@ -66,35 +65,35 @@ public class StarsRUs {
           break;
 
           case "add interest":
-          admin.addInterest();
+          activeUser.addInterest();
           break;
 
           case "generate monthly statement":
-          admin.genMthStatement();
+          activeUser.genMthStatement();
           break;
 
           case "list active customers":
-          admin.listActiveCustomer();
+          activeUser.listActiveCustomer();
           break;
 
           case "generate dter":
-          admin.generateDter();
+          activeUser.generateDter();
           break;
 
           case "generate customer report":
-          admin.generateCustomerReport();
+          activeUser.generateCustomerReport();
           break;
 
           case "delete transactions":
-          admin.deleteTransactions();
+          activeUser.deleteTransactions();
           break;
 
           case "get date":
-          admin.getDate();
+          activeUser.getDate();
           break;
 
           case "set date":
-          admin.setDate();
+          activeUser.setDate();
           break;
 
           case "movie reviews":
