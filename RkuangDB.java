@@ -193,10 +193,7 @@ public class RkuangDB {
   }
 
   public int dayToInt(String date){
-    date.replace("-","");
-    date.toCharArray();
-    String temp = date[2]+date[3];
-    int temp = Integer.parseInt(temp);
+    int temp = Integer.parseInt(date.substring(3,5));
     return temp;
   }
 
