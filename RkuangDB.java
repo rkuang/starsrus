@@ -195,7 +195,7 @@ public class RkuangDB {
         System.out.println(quantity.get(j));
       }
 
-      if (updateBalance(addToMarket-commision)) {
+      if (updateBalance(addToMarket-commission)) {
         query = String.format("%s", stockid);
       }
     } catch (SQLException e) {
