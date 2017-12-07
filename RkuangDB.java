@@ -177,12 +177,16 @@ public class RkuangDB {
         query = String.format("UPDATE Interest SET daysHeld = '%d'", rs.getInt("daysHeld") + days);
         statement.executeUpdate(query);
       }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    try(Statement statement2 = connection.createStatement()){
       query = String.format("SELECT m.taxid,m.currentBal from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
-      ResultSet rs2 = statement.executeQuery(query);
+      ResultSet rs2 = statement2.executeQuery(query);
       while (rs2.next()){
         query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs2.getString("taxid"), rs2.getDouble("balance"), days);
         statement.executeUpdate(query);
-      }
+      } 
     } catch(SQLException e){
       e.printStackTrace();
     }
