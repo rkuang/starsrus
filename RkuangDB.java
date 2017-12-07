@@ -201,7 +201,36 @@ public class RkuangDB {
   }
 
   public void calcInterest(){
+    String getAccounts = String.format("SELECT taxid, balance from Market_Accounts");
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(getAccounts);
+      while(rs.next()){
+        Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
+        try(Statement statement1 = connection.createStatement(){
+          String addInterest = String.format("UPDATE Market_Accounts SET balance = '%d'", rs.getDouble("balance") + interest);
+          statement.executeUpdate(addInterest);
+        }catch(SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
     return;
+  }
+
+  public Double calcAvgBalance(String account){
+    Double average = 0.0;
+    String getAccount = String.format("SELECT * from Interest where taxid = '%s'", account);
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(getAccount);
+      while(rs.next()){
+        average += rs.getDouble("currentBal") / rs.getInt("daysHeld");
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    return average;
   }
 
   public int dayToInt(String date){
