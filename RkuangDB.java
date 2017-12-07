@@ -222,10 +222,10 @@ public class RkuangDB {
   public Double calcAvgBalance(String account){
     Double average = 0.0;
     String getAccount = String.format("SELECT * from Interest where taxid = '%s'", account);
-    try(Statement statement = connection.createStatement()){
-      ResultSet rs = statement.executeQuery(getAccount);
-      while(rs.next()){
-        average += rs.getDouble("currentBal") / rs.getInt("daysHeld");
+    try(Statement statement2 = connection.createStatement()){
+      ResultSet rs2 = statement2.executeQuery(getAccount);
+      while(rs2.next()){
+        average += rs2.getDouble("currentBal") / rs2.getInt("daysHeld");
       }
     } catch(SQLException e){
       e.printStackTrace();
