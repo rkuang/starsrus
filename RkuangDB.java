@@ -205,6 +205,26 @@ public class RkuangDB {
     return false;
   }
 
+  public void setMarket(Boolean isOpen){
+    String query = String.format("UPDATE Market SET open = %b", isOpen);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
+    }catch (SQLException e){
+      e.printStackTrace();
+    }
+    return;
+  }
+
+  public void setStockPrice(String stockid, double newprice) {
+    String query = String.format("UPDATE Stocks SET currentprice=%f WHERE stockid='%s'", newprice, stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void getDate() {
     String query = String.format("SELECT * FROM Market");
     try (Statement statement = connection.createStatement()){
@@ -223,17 +243,6 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     } catch (SQLException e){
-      e.printStackTrace();
-    }
-    return;
-  }
-
-
-  public void setMarket(Boolean isOpen){
-    String query = String.format("UPDATE Market SET open = %b", isOpen);
-    try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(query);
-    }catch (SQLException e){
       e.printStackTrace();
     }
     return;

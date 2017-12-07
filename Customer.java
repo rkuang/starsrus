@@ -116,6 +116,7 @@ public class Customer {
     // of the stocks to be sold.
     // each sell transaction costs $20 of commission. The money from selling the
     // stock will be deposited into the market account.
+    Scanner in = new Scanner(System.in);
 
   }
 
@@ -194,17 +195,24 @@ public class Customer {
     }
   }
 
-  public void getDate(){
+  public void getDate() {
     StarsRUs.rkuangDB.getDate();
   }
 
-  public void setDate(){
+  public void setDate() {
     System.out.println("What date would you like to set (YYYY-MM-DD)?");
     System.out.print("Date:  ");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
     StarsRUs.rkuangDB.setDate(date);
     System.out.println("Date is set to: " + date);
+  }
+
+  public void setStockPrice() {
+    System.out.print("New Price:  ");
+    Scanner in = new Scanner(System.in);
+    double newprice = in.nextDouble();
+    StarsRUs.rkuangDB.setStockPrice(newprice);
   }
 
   public void logout() {
