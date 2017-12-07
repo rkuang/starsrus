@@ -186,7 +186,7 @@ public class RkuangDB {
         i++;
       }
       for (int j = 0; j<i; j++) {
-        System.out.println(String.format("%f %f %f", quantity.get(j), buyingPrice.get(i), sellAmount.get(i)));
+        System.out.println(String.format("%f %f %f", quantity.get(j), buyingPrice.get(j), sellAmount.get(j)));
       }
     } catch (SQLException e) {
       e.printStackTrace();
