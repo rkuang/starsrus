@@ -178,9 +178,9 @@ public class RkuangDB {
         statement.executeUpdate(query);
       }
       query = String.format("SELECT m.taxid,m.currentBal from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
-      rs = statement.executeQuery(query);
-      while (rs.next()){
-        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
+      ResultSet rs2 = statement.executeQuery(query);
+      while (rs2.next()){
+        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs2.getString("taxid"), rs2.getDouble("balance"), days);
         statement.executeUpdate(query);
       }
     } catch(SQLException e){
