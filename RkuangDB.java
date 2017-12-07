@@ -188,7 +188,7 @@ public class RkuangDB {
 
   private double getStockPrice(String stockid) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
-    double price;
+    double price = 0;
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
