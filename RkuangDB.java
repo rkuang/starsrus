@@ -189,8 +189,13 @@ public class RkuangDB {
     }
   }
 
+  public void calcInterest(){
+    return;
+  }
+
   public int dayToInt(String date){
     date.replace("-","");
+    date.toCharArray();
     int temp = Integer.parseInt(date[2]+date[3]);
     return temp;
   }
