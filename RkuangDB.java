@@ -188,20 +188,20 @@ public class RkuangDB {
 
   private double getStockPrice(String stockid) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
+    double price;
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        double price = rs.getDouble("currentprice");
-
+        price = rs.getDouble("currentprice");
         return price;
-        // TODO print movie contracts
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return price;
   }
 
   public void showStockBalance() {
