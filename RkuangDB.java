@@ -169,7 +169,7 @@ public class RkuangDB {
         double buyingprice = rs.getDouble("buyingprice");
         double quantity = rs.getDouble("quantity");
 
-        System.out.println("You have %f shares of %s purchased at $%f", quantity, stockid, buyingprice);
+        System.out.println(String.format("You have %f shares of %s purchased at $%f", quantity, stockid, buyingprice));
       }
     } catch (SQLException e) {
       e.printStackTrace();
