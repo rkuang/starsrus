@@ -2,7 +2,7 @@ CREATE TABLE Customers (name CHAR(20), username CHAR(20), password CHAR(20), add
 
 CREATE TABLE Market_Accounts (taxid int(4), balance int, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
 
-CREATE TABLE Stock_Accounts (taxid int(4), profit real, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
+CREATE TABLE Stock_Accounts (taxid int(4), profit real, shares_traded real, PRIMARY KEY (taxid), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
 
 CREATE TABLE Stocks (stockid CHAR(3), currentprice real, name char(20), dob date, PRIMARY KEY (stockid));
 
