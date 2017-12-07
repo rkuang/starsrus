@@ -6,6 +6,7 @@ public class Customer {
   public String name;
   public String taxid;
   public Boolean admin;
+  public Double currBalance;
 
   public void login() {
     // set current user
@@ -120,8 +121,8 @@ public class Customer {
 
   }
 
-  public void showBalance() {
-    StarsRUs.rkuangDB.showBalance();
+  public void getBalance() {
+    StarsRUs.rkuangDB.getBalance();
   }
 
   public void getTransactionHistory() {
@@ -159,6 +160,7 @@ public class Customer {
   }
 
   public void addInterest(){
+
     return;
   }
 
