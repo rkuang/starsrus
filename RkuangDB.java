@@ -100,18 +100,19 @@ public class RkuangDB {
 
   public Double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-
+    Double x = 1.0
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
-        return re.getDouble("balance");
+        x = rs.getDouble("balance");
+        return x;
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
     // this should never happen
-    return 0;
+    return x;
   }
 
   public Boolean getStockInfo(String stockid) {
@@ -155,7 +156,7 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    this.updateIntrest(date);
+    this.updateInterest(date);
     String query = String.format("UPDATE Market SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
@@ -172,9 +173,9 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
-        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString(taxid), rs.getDouble(balance), days);
+        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
         try(Statement statement2 = connection.createStatement()){
-          statement2.updateQuery(query2);
+          statement2.executeUpdate(query2);
         } catch(SQLException e){
           e.printStackTrace();
         }
