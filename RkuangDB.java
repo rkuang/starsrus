@@ -57,7 +57,7 @@ public class RkuangDB {
   }
 
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts VALUES ('%s', %f)", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts VALUES ('%s', %.2f)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
     }catch(SQLException e){
@@ -83,7 +83,7 @@ public class RkuangDB {
         double balance = rs.getDouble("balance");
         double newBalance = balance + amount;
         if (newBalance > 0) {
-          query = String.format("UPDATE Market_Accounts SET balance='%f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
+          query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
           System.out.println("Balance is now $" + newBalance);
           return true;
@@ -99,19 +99,19 @@ public class RkuangDB {
   }
 
   private void addToStockBalance(String stockid, double price, double quantity) {
-    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
+    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", StarsRUs.activeUser.taxid, stockid, price);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         double oldQuantity = rs.getInt("quantity");
         double newQuantity = oldQuantity + quantity;
-        query = String.format("UPDATE Stock_Balance SET quantity=%f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
+        query = String.format("UPDATE Stock_Balance SET quantity=%.3f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
       } else {
-        query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %f, %f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
+        query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %.2f, %.3f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
       }
       statement.executeUpdate(query);
-      System.out.println(String.format("%f shares of %s purchased at $%f each", quantity, stockid, price));
+      System.out.println(String.format("%.3f shares of %s purchased at $%.2f each", quantity, stockid, price));
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -126,9 +126,9 @@ public class RkuangDB {
       if (rs.next()) {
         double oldSharesTraded = rs.getDouble("shares_traded");
         double newSharesTraded = oldSharesTraded + quantity;
-        query = String.format("UPDATE Stock_Accounts SET shares_traded=%f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
+        query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
       } else {
-        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %f)", StarsRUs.activeUser.taxid, quantity);
+        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %.3f)", StarsRUs.activeUser.taxid, quantity);
       }
       statement.executeUpdate(query);
     } catch (SQLException e) {
@@ -211,7 +211,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
+        System.out.println(String.format("Market Account Balance:  $%.2f", rs.getDouble("balance")));
         return true;
       }
     } catch (SQLException e) {
@@ -257,7 +257,7 @@ public class RkuangDB {
   }
 
   public void setStockPrice(String stockid, double newprice) {
-    String query = String.format("UPDATE Stocks SET currentprice=%f WHERE stockid='%s'", newprice, stockid);
+    String query = String.format("UPDATE Stocks SET currentprice=%.2f WHERE stockid='%s'", newprice, stockid);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
