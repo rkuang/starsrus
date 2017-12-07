@@ -162,24 +162,31 @@ public class RkuangDB {
 
   public void sellStocks(String stockid) {
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s'", StarsRUs.activeUser.taxid, stockid);
+    ArrayList<Double> sellAmount = new ArrayList<Double>();
+    ArrayList<Double> buyingPrice = new ArrayList<Double>();
+    ArrayList<Double> quantity = new ArrayList<Double>();
+    int i = 0;
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
-        double buyingprice = rs.getDouble("buyingprice");
-        double quantity = rs.getDouble("quantity");
+        buyingPrice.add(rs.getDouble("buyingprice"));
+        quantity.add(rs.getDouble("quantity"));
 
         Scanner in = new Scanner(System.in);
         System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
         System.out.print("Quantity:  ");
-        double sellamt = in.nextDouble();
-        while (sellamt > quantity) {
+        sellAmount.add(in.nextDouble());
+        while (sellAmount.get(i) > quantity) {
           System.out.println("You do not own that many shares");
           System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
           System.out.print("Quantity:  ");
-          sellamt = in.nextDouble();
+          sellAmount.set(i) = in.nextDouble();
         }
-
+        i++;
+      }
+      for (int j = 0; j<i; j++) {
+        System.out.println(String.format("%f %f %f", quantity.get(j), buyingPrice.get(i), sellAmount.get(i)));
       }
     } catch (SQLException e) {
       e.printStackTrace();
