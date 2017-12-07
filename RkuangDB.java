@@ -66,7 +66,7 @@ public class RkuangDB {
   }
 
   public void createStockAccount(String taxid) {
-    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, 0)", taxid);
+    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0)", taxid);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     }catch(SQLException e){
@@ -98,68 +98,20 @@ public class RkuangDB {
     return false;
   }
 
-  public Boolean buyStocks(String stockid, double quantity) {
-    String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
-
-    try (Statement statement = connection.createStatement()) {
-      ResultSet rs = statement.executeQuery(query);
-      if (rs.next()) {
-        double price = rs.getDouble("currentprice");
-        double cost = -1 * (price*quantity + 20);
-        if (updateBalance(cost)) {
-          // TODO adjust values in Stock_Balance
-          query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", StarsRUs.activeUser.taxid, stockid, price);
-          rs = statement.executeQuery(query);
-          if (rs.next()) {
-            double oldQuantity = rs.getInt("quantity");
-            double newQuantity = oldQuantity + quantity;
-            query = String.format("UPDATE Stock_Balance SET quantity=%f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
-          } else {
-            query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %f, %f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
-          }
-          statement.executeUpdate(query);
-          System.out.println(String.format("%f shares of %s purchased at $%f each", quantity, stockid, price));
-
-          query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-          rs = statement.executeQuery(query);
-          if (rs.next()) {
-            double oldSharesTraded = rs.getDouble("shares_traded");
-            double newSharesTraded = oldSharesTraded + quantity;
-            query = String.format("UPDATE Stock_Accounts SET shares_traded=%f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
-          } else {
-            query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %f)", StarsRUs.activeUser.taxid, quantity);
-          }
-          statement.executeUpdate(query);
-        }
-        return true;
-      } else {
-        System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    // this should never happen
-    return false;
-  }
-
-  public Boolean sellStocks(String stockid, double buyingprice, double quantity) {
-    return false;
-  }
-
   public Double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-    Double temp = 0.0;
+
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         System.out.println("Market Account Balance:  $"+rs.getDouble("balance"));
-        return rs.getDouble("balance");
+        return re.getDouble("balance");
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
     // this should never happen
-    return temp;
+    return 0;
   }
 
   public Boolean getStockInfo(String stockid) {
@@ -194,6 +146,7 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
         today = rs.getString("date");
+        System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
         e.printStackTrace();
@@ -202,7 +155,7 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    this.updateInterest(date);
+    this.updateIntrest(date);
     String query = String.format("UPDATE Market SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
@@ -212,15 +165,16 @@ public class RkuangDB {
     return;
   }
   public void updateInterest(String date){
-    date = date.replace("-", "");
-    int days = (Integer.parseInt(date)-Integer.parseInt(this.getDate().replace("-","")))/10000;
+    date.replace("-","");
+    this.getDate().replace("-","");
+    int days = ((Integer.parseInt(date)-Integer.parseInt(this.getDate()))/1000)+1;
     String query = String.format("SELECT * from Market_Accounts");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
-        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
+        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString(taxid), rs.getDouble(balance), days);
         try(Statement statement2 = connection.createStatement()){
-          statement2.executeUpdate(query2);
+          statement2.updateQuery(query2);
         } catch(SQLException e){
           e.printStackTrace();
         }
