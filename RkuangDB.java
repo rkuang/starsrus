@@ -115,7 +115,11 @@ public class RkuangDB {
         query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %.2f, %.3f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
       }
       statement.executeUpdate(query);
-      System.out.println(String.format("%.3f shares of %s purchased at $%.2f each", quantity, stockid, price));
+      if (quantity < 0) {
+        System.out.println(String.format("%.3f shares of %s sold at $%.2f each", -1*quantity, stockid, price));
+      } else {
+        System.out.println(String.format("%.3f shares of %s purchased at $%.2f each", quantity, stockid, price));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
