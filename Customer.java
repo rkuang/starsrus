@@ -66,6 +66,7 @@ public class Customer {
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
       System.out.println("Success! Market Account created with balance of " + deposit);
+
       this.login();
     }
     else{
@@ -155,7 +156,7 @@ public class Customer {
   }
 
   public void addInterest(){
-
+    StarsRUs.rkuangDB.calcInterest();
     return;
   }
 
@@ -183,13 +184,21 @@ public class Customer {
     System.out.println("Would you like to open or close the market?");
     Scanner in = new Scanner(System.in);
     if(in.next().equals("open")){
-      StarsRUs.rkuangDB.setMarket(true);
-      System.out.println("it is now open");
+      if(StarsRUs.rkuangDB.setMarket(true)){
+        System.out.println("It is now open.");
+      }
+      else{
+        System.out.println("Market is already open.");
+      }
     }
     else{
-      StarsRUs.rkuangDB.setMarket(false);
-      System.out.println("it is now closed");
-      StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.getDate());
+      if(StarsRUs.rkuangDB.setMarket(false)){
+        System.out.println("it is now closed");
+        StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.getDate());
+      }
+      else{
+        System.out.println("Market is already closed.");
+      }
     }
   }
 
@@ -203,6 +212,7 @@ public class Customer {
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
     StarsRUs.rkuangDB.setDate(date);
+    StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1);
     System.out.println("Date is set to: " + date);
   }
 

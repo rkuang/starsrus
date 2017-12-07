@@ -58,8 +58,10 @@ public class RkuangDB {
 
   public void createMarketAccount(String taxid, double deposit){
     String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
+    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%f', 0)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
+      statement.executeUpdate(queryInterest);
     }catch(SQLException e){
       e.printStackTrace();
     }
@@ -165,34 +167,53 @@ public class RkuangDB {
     }
     return;
   }
-  public void updateInterest(String date){
-    date.replace("-","");
-    this.getDate().replace("-","");
-    int days = ((Integer.parseInt(date)-Integer.parseInt(this.getDate()))/1000)+1;
-    String query = String.format("SELECT * from Market_Accounts");
+
+  public void updateInterest(int future){
+    int past = this.dayToInt(this.getDate());
+    int days = future - past + 1;
+    String query = String.format("SELECT i.taxid,i.currentBal from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
-        String query2 = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
-        try(Statement statement2 = connection.createStatement()){
-          statement2.executeUpdate(query2);
-        } catch(SQLException e){
-          e.printStackTrace();
-        }
+        query = String.format("UPDATE Interest SET daysHeld = '%d'", rs.getInt("days")+days;
+        statement.executeUpdate(query);
+      }
+      query = String.format("SELECT m.taxid,m.currentBal from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
+      rs = statement.executeQuery(query);
+      while (rs.next()){
+        query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
+        statement.executeUpdate(query);
       }
     } catch(SQLException e){
       e.printStackTrace();
     }
   }
 
-  public void setMarket(Boolean isOpen){
-    String query = String.format("UPDATE Market SET open = %b", isOpen);
+  public int dayToInt(String date){
+    date.replace("-","");
+    int temp = Integer.parseInt(date[2]+date[3]);
+    return temp;
+  }
+
+  public Boolean setMarket(Boolean isOpen){
+    String query = String.format("SELECT open FROM Market");
     try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(query);
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        if(rs.getBoolean("open") == isOpen){
+          return false;
+        }
+        else{
+          query = String.format("UPDATE Market SET open = %b", isOpen);
+            statement.executeUpdate(query);
+            return true;
+          }
+        }
+      }
     } catch (SQLException e){
       e.printStackTrace();
     }
-    return;
+    return false;
   }
 
   public void closeConnection() {
