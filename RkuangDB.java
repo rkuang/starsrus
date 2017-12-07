@@ -185,12 +185,29 @@ public class RkuangDB {
         }
         i++;
       }
+
+      double commission = 20;
+
+      double addToMarket = sum(sellAmount) * getStockPrice();
+      System.out.println(addToMarket);
+      double profit = addToMarket;
+
       for (int j = 0; j<i; j++) {
         System.out.println(String.format("%f %f %f", quantity.get(j), buyingPrice.get(j), sellAmount.get(j)));
+        profit -= sellAmount.get(j) * buyingPrice.get(j);
       }
+      System.out.println(profit);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  private double sum(ArrayList<Double> list) {
+    double sum = 0;
+    for (double i : list) {
+      sum += i;
+    }
+    return sum;
   }
 
   private double getStockPrice(String stockid) {
