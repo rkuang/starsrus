@@ -116,6 +116,8 @@ public class Customer {
     // of the stocks to be sold.
     // each sell transaction costs $20 of commission. The money from selling the
     // stock will be deposited into the market account.
+
+    StarsRUs.rkuangDB.showStockBalance();
     Scanner in = new Scanner(System.in);
     System.out.print("Stock ID:  ");
     String stockid = in.next();

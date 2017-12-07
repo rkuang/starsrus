@@ -161,7 +161,6 @@ public class RkuangDB {
   }
 
   public void sellStocks(String stockid) {
-    showStockBalance();
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s'", StarsRUs.activeUser.taxid, stockid);
 
     try (Statement statement = connection.createStatement()) {
@@ -171,15 +170,23 @@ public class RkuangDB {
         double quantity = rs.getDouble("quantity");
 
         Scanner in = new Scanner(System.in);
-        System.out.print(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
-        in.next();
+        System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
+        System.out.print("Quantity:  ")
+        double sellamt = in.next();
+        while (sellamt > quantity) {
+          System.out.println("You do not own that many shares")
+          System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
+          System.out.print("Quantity:  ")
+          sellamt = in.next();
+        }
+        
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
-  private void showStockBalance() {
+  public void showStockBalance() {
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
