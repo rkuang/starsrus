@@ -160,7 +160,21 @@ public class RkuangDB {
     return false;
   }
 
-  public Boolean sellStocks(String stockid, double buyingprice, double quantity) {
+  public Boolean sellStocks(String stockid) {
+    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        double buyingprice = rs.getDouble("buyingprice");
+        double quantity = rs.getDouble("quantity");
+
+        System.out.println("You have %f shares of %s purchased at $%f", quantity, stockid, buyingprice);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
     return false;
   }
 
