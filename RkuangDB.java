@@ -158,7 +158,6 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    this.updateInterest(date);
     String query = String.format("UPDATE Market SET date = '%s'", date);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
@@ -196,7 +195,8 @@ public class RkuangDB {
   public int dayToInt(String date){
     date.replace("-","");
     date.toCharArray();
-    int temp = Integer.parseInt(date[2]+date[3]);
+    String temp = date[2]+date[3];
+    int temp = Integer.parseInt(temp);
     return temp;
   }
 
