@@ -174,14 +174,14 @@ public class RkuangDB {
         quantity.add(rs.getDouble("quantity"));
 
         Scanner in = new Scanner(System.in);
-        System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
+        System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingPrice.get(i)));
         System.out.print("Quantity:  ");
         sellAmount.add(in.nextDouble());
         while (sellAmount.get(i) > quantity) {
           System.out.println("You do not own that many shares");
-          System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingprice));
+          System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingPrice.get(i)));
           System.out.print("Quantity:  ");
-          sellAmount.set(i) = in.nextDouble();
+          sellAmount.set(i, in.nextDouble());
         }
         i++;
       }
