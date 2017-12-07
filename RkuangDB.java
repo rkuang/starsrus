@@ -161,7 +161,7 @@ public class RkuangDB {
   }
 
   public Boolean sellStocks(String stockid) {
-    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", taxid);
+    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
