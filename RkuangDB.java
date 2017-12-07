@@ -125,7 +125,6 @@ public class RkuangDB {
     }
   }
 
-  // TODO can be refactored still for sellStocks
   private void updateSharesTraded(double profit, double quantity) {
     String query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
@@ -301,6 +300,20 @@ public class RkuangDB {
     }
     // this should never happen
     return false;
+  }
+
+  public void listActiveCustomers() {
+    // TODO clean up, shares_traded>1000
+    String query = "SELECT * FROM Stock_Acconts WHERE shares_traded>0";
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next) {
+        System.out.println(rs.getString("taxid") + "\t" + rs.getDouble("shares_traded"));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void setMarket(Boolean isOpen){
