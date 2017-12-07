@@ -185,7 +185,7 @@ public class RkuangDB {
       ResultSet rs2 = statement2.executeQuery(query);
       while (rs2.next()){
         query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs2.getString("taxid"), rs2.getDouble("balance"), days);
-        statement.executeUpdate(query);
+        statement2.executeUpdate(query);
       } 
     } catch(SQLException e){
       e.printStackTrace();
