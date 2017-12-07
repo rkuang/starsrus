@@ -189,12 +189,12 @@ public class Customer {
     else{
       StarsRUs.rkuangDB.setMarket(false);
       System.out.println("it is now closed");
-      StarsRUs.rkuangDB.updateInterest(this.getDate());
+      StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.getDate());
     }
   }
 
   public void getDate(){
-    StarsRUs.rkuangDB.getDate();
+    System.out.println("Today's date is:" + StarsRUs.rkuangDB.getDate());
   }
 
   public void setDate(){
