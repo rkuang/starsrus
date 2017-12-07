@@ -211,8 +211,8 @@ public class Customer {
     System.out.println("Please enter in the format YYYY-MM-DD");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
-    StarsRUs.rkuangDB.setDate(date);
     StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1);
+    StarsRUs.rkuangDB.setDate(date);
     System.out.println("Date is set to: " + date);
   }
 
