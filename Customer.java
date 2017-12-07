@@ -170,8 +170,8 @@ public class Customer {
     return;
   }
 
-  public void listActiveCustomer(){
-    return;
+  public void listActiveCustomers(){
+    StarsRUs.rkuangDB.listActiveCustomers();
   }
 
   public void generateDter(){

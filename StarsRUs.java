@@ -73,7 +73,7 @@ public class StarsRUs {
           break;
 
           case "list active customers":
-          activeUser.listActiveCustomer();
+          activeUser.listActiveCustomers();
           break;
 
           case "generate dter":
