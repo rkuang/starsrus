@@ -98,7 +98,7 @@ public class RkuangDB {
     return false;
   }
 
-  private void addToStockBalance(String stockid, double price, double quantity) {
+  private void updateStockBalance(String stockid, double price, double quantity) {
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", StarsRUs.activeUser.taxid, stockid, price);
 
     try (Statement statement = connection.createStatement()) {
@@ -106,7 +106,11 @@ public class RkuangDB {
       if (rs.next()) {
         double oldQuantity = rs.getInt("quantity");
         double newQuantity = oldQuantity + quantity;
-        query = String.format("UPDATE Stock_Balance SET quantity=%.3f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
+        if (newQuantity == 0) {
+          query = String.format("DELETE FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f AND quantity=%.3f", StarsRUs.activeUser.taxid, stockid, price, oldQuantity);
+        } else {
+          query = String.format("UPDATE Stock_Balance SET quantity=%.3f WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", newQuantity, StarsRUs.activeUser.taxid, stockid, price);
+        }
       } else {
         query = String.format("INSERT INTO Stock_Balance VALUES ('%s', '%s', %.2f, %.3f)", StarsRUs.activeUser.taxid, stockid, price, quantity);
       }
@@ -118,17 +122,19 @@ public class RkuangDB {
   }
 
   // TODO can be refactored still for sellStocks
-  private void updateSharesTraded(double quantity) {
+  private void updateSharesTraded(double profit, double quantity) {
     String query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
+        double oldProfit = rs.getDouble("profit");
+        double newProfit = oldProfit + profit;
         double oldSharesTraded = rs.getDouble("shares_traded");
         double newSharesTraded = oldSharesTraded + quantity;
-        query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f WHERE taxid='%s'", newSharesTraded, StarsRUs.activeUser.taxid);
+        query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f, profit=%.2f WHERE taxid='%s'", newSharesTraded, newProfit, StarsRUs.activeUser.taxid);
       } else {
-        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, %.3f)", StarsRUs.activeUser.taxid, quantity);
+        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', $.2f, %.3f)", StarsRUs.activeUser.taxid, profit, quantity);
       }
       statement.executeUpdate(query);
     } catch (SQLException e) {
@@ -145,9 +151,9 @@ public class RkuangDB {
         double price = rs.getDouble("currentprice");
         double cost = -1 * (price*quantity + 20);
         if (updateBalance(cost)) {
-          addToStockBalance(stockid, price, quantity);
+          updateStockBalance(stockid, price, quantity);
 
-          updateSharesTraded(quantity);
+          updateSharesTraded(0, quantity);
         }
         return true;
       } else {
@@ -196,7 +202,11 @@ public class RkuangDB {
       }
 
       if (updateBalance(addToMarket-commission)) {
-        query = String.format("%s", stockid);
+        for (int j = 0; j<i; j++) {
+          updateStockBalance(stockid, buyingPrice.get(j), -1*sellAmount.get(j));
+        }
+
+        updateSharesTraded(profit, sum(sellAmount));
       }
     } catch (SQLException e) {
       e.printStackTrace();
