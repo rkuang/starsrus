@@ -308,7 +308,7 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
-      while (rs.next) {
+      while (rs.next()) {
         System.out.println(rs.getString("taxid") + "\t" + rs.getDouble("shares_traded"));
       }
     } catch (SQLException e) {
