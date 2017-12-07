@@ -177,7 +177,7 @@ public class RkuangDB {
         System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingPrice.get(i)));
         System.out.print("Quantity:  ");
         sellAmount.add(in.nextDouble());
-        while (sellAmount.get(i) > quantity) {
+        while (sellAmount.get(i) > quantity.get(i)) {
           System.out.println("You do not own that many shares");
           System.out.println(String.format("How many shares of %s at $%.2f would you like to sell?", stockid, buyingPrice.get(i)));
           System.out.print("Quantity:  ");
