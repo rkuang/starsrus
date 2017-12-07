@@ -188,7 +188,7 @@ public class RkuangDB {
 
       double commission = 20;
 
-      double addToMarket = sum(sellAmount) * getStockPrice();
+      double addToMarket = sum(sellAmount) * getStockPrice(stockid);
       System.out.println(addToMarket);
       double profit = addToMarket;
 
