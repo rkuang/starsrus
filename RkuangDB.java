@@ -208,7 +208,7 @@ public class RkuangDB {
         Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
         try(Statement statement1 = connection.createStatement()){
           String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f'", rs.getDouble("balance") + interest);
-          statement.executeUpdate(addInterest);
+          statement1.executeUpdate(addInterest);
         }catch(SQLException e){
           e.printStackTrace();
         }
