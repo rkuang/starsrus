@@ -161,6 +161,7 @@ public class RkuangDB {
   }
 
   public void sellStocks(String stockid) {
+    showStockBalance();
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s'", StarsRUs.activeUser.taxid, stockid);
 
     try (Statement statement = connection.createStatement()) {

@@ -119,7 +119,6 @@ public class Customer {
     Scanner in = new Scanner(System.in);
     System.out.print("Stock ID:  ");
     String stockid = in.next();
-    StarsRUs.rkuangDB.showStockBalance();
     StarsRUs.rkuangDB.sellStocks(stockid);
   }
 
