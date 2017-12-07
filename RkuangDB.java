@@ -304,7 +304,7 @@ public class RkuangDB {
 
   public void listActiveCustomers() {
     // TODO clean up, shares_traded>1000
-    String query = "SELECT * FROM Stock_Acconts WHERE shares_traded>0";
+    String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>0";
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
