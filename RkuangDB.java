@@ -170,7 +170,7 @@ public class RkuangDB {
   public void updateInterest(int future){
     int past = this.dayToInt(this.getDate());
     int days = future - past + 1;
-    String query = String.format("SELECT i.taxid,i.currentBal from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
+    String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()){
