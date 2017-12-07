@@ -209,10 +209,12 @@ public class Customer {
   }
 
   public void setStockPrice() {
-    System.out.print("New Price:  ");
     Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:   ");
+    String stockid = in.next();
+    System.out.print("New Price:  ");
     double newprice = in.nextDouble();
-    StarsRUs.rkuangDB.setStockPrice(newprice);
+    StarsRUs.rkuangDB.setStockPrice(stockid, newprice);
   }
 
   public void logout() {
