@@ -207,7 +207,8 @@ public class RkuangDB {
       while(rs.next()){
         Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
         try(Statement statement1 = connection.createStatement()){
-          String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f'", rs.getDouble("balance") + interest);
+          System.out.println(rs.getString("taxid"));
+          String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
         }catch(SQLException e){
           e.printStackTrace();
