@@ -155,7 +155,7 @@ public class Customer {
     StarsRUs.moviesDB.getMovieReviews(title);
   }
 
-  public void addInterest(){
+  public void accrueInterest(){
     StarsRUs.rkuangDB.calcInterest();
     return;
   }
