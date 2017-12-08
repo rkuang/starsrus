@@ -66,6 +66,7 @@ public class Customer {
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
       System.out.println("Success! Market Account created with balance of " + deposit);
+
       this.login();
     }
     else{
@@ -103,12 +104,7 @@ public class Customer {
     // TODO
     // Acquire a specified number of shares of a specified stock at the current price.
     // Each buy transaction costs $20 (commission)
-    Scanner in = new Scanner(System.in);
-    System.out.print("Stock ID:  ");
-    String stockid = in.next();
-    System.out.print("Quantiy:   ");
-    double quantity = in.nextDouble();
-    StarsRUs.rkuangDB.buyStocks(stockid, quantity);
+
   }
 
   public void sell() {
@@ -160,7 +156,7 @@ public class Customer {
   }
 
   public void addInterest(){
-
+    StarsRUs.rkuangDB.calcInterest();
     return;
   }
 
@@ -188,17 +184,26 @@ public class Customer {
     System.out.println("Would you like to open or close the market?");
     Scanner in = new Scanner(System.in);
     if(in.next().equals("open")){
-      StarsRUs.rkuangDB.setMarket(true);
-      System.out.println("it is now open");
+      if(StarsRUs.rkuangDB.setMarket(true)){
+        System.out.println("It is now open.");
+      }
+      else{
+        System.out.println("Market is already open.");
+      }
     }
     else{
-      StarsRUs.rkuangDB.setMarket(false);
-      System.out.println("it is now closed");
+      if(StarsRUs.rkuangDB.setMarket(false)){
+        System.out.println("it is now closed");
+        StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(StarsRUs.rkuangDB.getDate()));
+      }
+      else{
+        System.out.println("Market is already closed.");
+      }
     }
   }
 
   public void getDate(){
-    StarsRUs.rkuangDB.getDate();
+    System.out.println("Today's date is:" + StarsRUs.rkuangDB.getDate());
   }
 
   public void setDate(){
@@ -206,6 +211,7 @@ public class Customer {
     System.out.println("Please enter in the format YYYY-MM-DD");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
+    StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1);
     StarsRUs.rkuangDB.setDate(date);
     System.out.println("Date is set to: " + date);
   }

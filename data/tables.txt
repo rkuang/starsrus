@@ -9,3 +9,5 @@ CREATE TABLE Stocks (stockid CHAR(3), currentprice real, name char(20), dob date
 CREATE TABLE Movie_Contracts (stockid CHAR(3), title CHAR(20), role CHAR(10), year int(4), contract real, PRIMARY KEY (stockid, title));
 
 CREATE TABLE Stock_Balance (taxid char(4), stockid char(3), buyingprice real, quantity real, PRIMARY KEY (taxid, stockid, buyingprice), FOREIGN KEY (taxid) REFERENCES Customers(taxid), FOREIGN KEY (stockid) REFERENCES Stocks(stockid));
+
+CREATE TABLE Interest (taxid char(4), currentBal real, daysHeld int, PRIMARY KEY (taxid, currentBal), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
