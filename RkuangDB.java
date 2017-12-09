@@ -380,7 +380,7 @@ public class RkuangDB {
           query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
           statement4.executeUpdate(query);
         } catch(SQLException e){
-          e.printStackTrace();
+          //do nothing
         }
       }
     } catch(SQLException e){
