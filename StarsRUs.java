@@ -65,7 +65,7 @@ public class StarsRUs {
           break;
 
           case "add interest":
-          activeUser.addInterest();
+          activeUser.accrueInterest();
           break;
 
           case "generate monthly statement":

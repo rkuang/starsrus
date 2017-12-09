@@ -319,16 +319,6 @@ public class RkuangDB {
     }
   }
 
-  public void setMarket(Boolean isOpen){
-    String query = String.format("UPDATE Market SET open = %b", isOpen);
-    try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(query);
-    }catch (SQLException e){
-      e.printStackTrace();
-    }
-    return;
-  }
-
   public void setStockPrice(String stockid, double newprice) {
     String query = String.format("UPDATE Stocks SET currentprice=%.2f WHERE stockid='%s'", newprice, stockid);
 
@@ -445,11 +435,11 @@ public class RkuangDB {
         }
         else{
           query = String.format("UPDATE Market SET open = %b", isOpen);
-            statement.executeUpdate(query);
-            return true;
-          }
+          statement.executeUpdate(query);
+          return true;
         }
-      }catch (SQLException e){
+      }
+    }catch (SQLException e){
       e.printStackTrace();
     }
     return false;
