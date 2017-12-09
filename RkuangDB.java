@@ -504,7 +504,7 @@ public class RkuangDB {
         System.out.println("Email:    "+email);
         System.out.println("Tax ID:   "+taxid);
         System.out.println("SSN:      "+ssn);
-        System.out.println("Earnings: $%.2f"+earnings);
+        System.out.println(String.format("Earnings: $%.2f", earnings));
         System.out.println("=====================");
       }
     } catch (SQLException e) {
