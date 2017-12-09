@@ -471,7 +471,7 @@ public class RkuangDB {
     String queryDeleteMarketTransactions = "DELETE FROM Market_Transactions";
     String queryDeleteStockTransactions = "DELETE FROM Stock_Transactions";
     String queryResetStockActivity = "UPDATE Stock_Accounts SET profit=0, shares_traded=0";
-    String queryDeleteInterest = "DELETE FROM Interest"
+    String queryDeleteInterest = "DELETE FROM Interest";
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(queryDeleteMarketTransactions);
