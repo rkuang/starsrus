@@ -519,7 +519,7 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
-      System.out.println("ID\t\tDate\tType\tStockID\tQuantity\tChange to Balance ($)");
+      System.out.println("ID\tDate\t\tType\tStockID\tQuantity\tChange to Balance ($)");
       while (rs.next()) {
         int transID = rs.getInt("id");
         String date = rs.getDate("date").toString();
