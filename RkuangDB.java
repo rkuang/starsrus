@@ -492,7 +492,7 @@ public class RkuangDB {
         String state = rs.getString("state");
         String phone = rs.getString("phone");
         String email = rs.getString("email");
-        String taxid = rs.getString("taxid");
+        String taxid = rs.getString("C.taxid");
         String ssn = rs.getString("ssn");
         double earnings = rs.getDouble("profit");
 
@@ -504,7 +504,7 @@ public class RkuangDB {
         System.out.println("Email:    "+email);
         System.out.println("Tax ID:   "+taxid);
         System.out.println("SSN:      "+ssn);
-        System.out.println("Earnings: $%.2f"+earnings);  
+        System.out.println("Earnings: $%.2f"+earnings);
         System.out.println("=====================");
       }
     } catch (SQLException e) {
