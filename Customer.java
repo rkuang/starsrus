@@ -187,7 +187,6 @@ public class Customer {
   }
 
   public void generateCustomerReport(){
-    // TODO wording "Stock Account Balance"
     System.out.println("Generate customer report for:");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
