@@ -137,7 +137,6 @@ public class Customer {
   }
 
   public void getStockInfo() {
-    // TODO movie contracts
     Scanner in = new Scanner(System.in);
     System.out.print("Stock ID:  ");
     String stockid = in.nextLine();
@@ -250,7 +249,7 @@ public class Customer {
     double newprice = in.nextDouble();
     StarsRUs.rkuangDB.setStockPrice(stockid, newprice);
 
-    System.out.println(String.format("%s has been set to $.2f", stockid, newprice));
+    System.out.println(String.format("%s has been set to $%.2f", stockid, newprice));
   }
 
   public void logout() {

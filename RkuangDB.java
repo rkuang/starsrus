@@ -87,7 +87,7 @@ public class RkuangDB {
         if (newBalance > 0) {
           query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
-          System.out.println(String.format("Balance is now $.2f", newBalance));
+          System.out.println(String.format("Balance is now $%.2f", newBalance));
           return true;
         } else {
           System.out.println("Transaction failed. Market Account balance cannot fall below $0");
@@ -139,7 +139,7 @@ public class RkuangDB {
         double newSharesTraded = oldSharesTraded + quantity;
         query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f, profit=%.2f WHERE taxid='%s'", newSharesTraded, newProfit, StarsRUs.activeUser.taxid);
       } else {
-        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', $.2f, %.3f)", StarsRUs.activeUser.taxid, profit, quantity);
+        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', %.2f, %.3f)", StarsRUs.activeUser.taxid, profit, quantity);
       }
       statement.executeUpdate(query);
     } catch (SQLException e) {
@@ -313,7 +313,6 @@ public class RkuangDB {
   }
 
   private void printMovieContracts(String stockid) {
-    // TODO print movie contracts
     String query = String.format("SELECT * FROM Movie_Contracts WHERE stockid='%s'", stockid);
 
     try (Statement statement = connection.createStatement()) {
@@ -337,7 +336,7 @@ public class RkuangDB {
 
   public void listActiveCustomers() {
     // TODO clean up
-    String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>1000";
+    String query = "SELECT * FROM Customers C, Stock_Accounts SA WHERE C.taxid=SA.taxid AND shares_traded>1000";
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
