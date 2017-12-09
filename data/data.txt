@@ -5,11 +5,7 @@ delete from Movie_Contracts;
 delete from Stock_Accounts;
 delete from Stock_Balance;
 delete from Stocks;
-delete from Interest;
 delete from Customers;
-delete from Market;
-
-insert into Market values ('2013-03-17', false);
 
 insert into Market values ('2013-03-16', 1);
 
