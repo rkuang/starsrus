@@ -299,7 +299,7 @@ public class RkuangDB {
         System.out.println(String.format("Price:     $%.2f", price));
         System.out.println("=====================");
 
-        System.out.println("\n %s has the following movie contracts:", name);
+        System.out.println(String.format("\n %s has the following movie contracts:", name));
         printMovieContracts(stockid);
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
@@ -327,7 +327,7 @@ public class RkuangDB {
         System.out.println("    Title:    "+title);
         System.out.println("    Role:     "+role);
         System.out.println("    Year:     "+year);
-        System.out.println(String.format("    Contract: $%.2f", contract));
+        System.out.println(String.format("    Contract: $%.2f\n", contract));
 
       }
     } catch (SQLException e) {
