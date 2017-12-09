@@ -516,8 +516,8 @@ public class RkuangDB {
     }
   }
 
-  public void getTransactionHistory() {
-    String query = String.format("SELECT * FROM Stock_Transactions WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+  public void getStockHistory(String taxid) {
+    String query = String.format("SELECT * FROM Stock_Transactions WHERE taxid='%s'", taxid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
@@ -537,6 +537,68 @@ public class RkuangDB {
     }
   }
 
+  public void getMarketHistory(String taxid) {
+    String query = String.format("SELECT * FROM Market_Transactions WHERE taxid='%s'", taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      System.out.println("ID\tDate\t\tType\tAmount");
+      while (rs.next()) {
+        int transID = rs.getInt("id");
+        String date = rs.getDate("date").toString();
+        String type = rs.getString("type");
+        Double amount = rs.getDouble("amount");
+
+        System.out.println(String.format("%d\t%s\t%s\t%f", transID, date, type, amount));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void genMthStatement(String taxid){
+    this.showStockBalance(taxid);
+
+    Double finalMarketBalance = this.getBalance(taxid);
+    Dobule initalMarketBalance = 0.0;
+    Dobule initialStockBalance = 0.0;
+    Double profit = 0.0;
+    int commissionCount = 0;
+    int commissionPaid = 0;
+    String name = "";
+    String email = "";
+    String query = String.format("SELECT name, email FROM Customers WHERE taxid = '%s'", taxid);
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        name = rs.getString("name");
+        email = rs.getString("email");
+      }
+      rs.close();
+      query = String.format("SELECT sa.profit, sb.id FROM Stock_Accounts sa, Stock_Balance sb WHERE sa.taxid = '%s' AND sb.taxid = '%s'", taxid, taxid);
+      rs = statement.executeQuery(query);
+      while(rs.next()){
+        profit = rs.getDouble("profit");
+        commissionCount ++;
+      }
+      rs.close();
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    commissionPaid = commissionCount*20;
+    initialMarketBalance = finalMarketBalance + profit - commissionPaid;
+    System.println("Stock Account Transaction History:");
+    this.getStockHistory(taxid);
+    System.println("Market Account Transaction History:");
+    this.getMarketHistory(taxid);
+    System.println("Name: " + name + " E-mail: " + email);
+    System.println("Commission Paid: " + commissionPaid);
+    System.println("Profit: " + profit);
+    System.println("Inital Market Balance: " + initalMarketBalance);
+    System.println("Final Market Balance: " + finalMarketBalance);
+    System.println("Final Stock Balance: ");
+    this.showStockBalance(taxid);
+  }
   public void closeConnection() {
     try {
       if (connection != null) {
