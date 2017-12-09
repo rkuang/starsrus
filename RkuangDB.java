@@ -411,7 +411,7 @@ public class RkuangDB {
     try(Statement statement2 = connection.createStatement()){
       ResultSet rs2 = statement2.executeQuery(getAccount);
       while(rs2.next()){
-        average += rs2.getDouble("currentBal") / rs2.getInt("daysHeld");
+        average += rs2.getDouble("currentBal") * ((double)rs2.getInt("daysHeld")/(double)this.dayToInt(this.getDate())) ;
       }
     } catch(SQLException e){
       e.printStackTrace();

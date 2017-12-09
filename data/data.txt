@@ -1,3 +1,5 @@
+delete from Market;
+delete from Interest;
 delete from Market_Accounts;
 delete from Movie_Contracts;
 delete from Stock_Accounts;
@@ -8,6 +10,8 @@ delete from Customers;
 delete from Market;
 
 insert into Market values ('2013-03-17', false);
+
+insert into Market values ('2013-03-16', 1);
 
 insert into Customers values ('John Admin', 'admin', 'secret', 'Stock Company SB', 'CA', '(805)6374632', 'admin@stock.com', '1000', '606-60-6060', true);
 insert into Customers values ('Alfred Hitchcock', 'alfred', 'hi', '6667 El Colegio #40 SB', 'CA', '(805)2574499', 'alfred@hotmail.com', '1022', '606-76-7900', false);
