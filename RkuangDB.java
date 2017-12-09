@@ -471,11 +471,13 @@ public class RkuangDB {
     String queryDeleteMarketTransactions = "DELETE FROM Market_Transactions";
     String queryDeleteStockTransactions = "DELETE FROM Stock_Transactions";
     String queryResetStockActivity = "UPDATE Stock_Accounts SET profit=0, shares_traded=0";
+    String queryDeleteInterest = "DELETE FROM Interest"
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(queryDeleteMarketTransactions);
       statement.executeUpdate(queryDeleteStockTransactions);
       statement.executeUpdate(queryResetStockActivity);
+      statement.executeUpdate(queryDeleteInterest);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -506,6 +508,27 @@ public class RkuangDB {
         System.out.println("SSN:      "+ssn);
         System.out.println(String.format("Earnings: $%.2f", earnings));
         System.out.println("=====================");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void getTransactionHistory() {
+    String query = String.format("SELECT * FROM Stock_Transactions WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      System.out.println("ID\tDate\tType\tStockID\tQuantity\tChange to Balance");
+      while (rs.next()) {
+        int transID = rs.getInt("id");
+        String date = rs.getDate("date").toString();
+        String type = rs.getString("type");
+        String stockid = rs.getString("stockid");
+        double quantity = rs.getDouble("quantity");
+        double price = rs.getDouble("price");
+
+        System.out.println("%d\t%s\t%s\t%s\t%.3f\t$%.2f", transID, date, type, stockid, quantity, price);
       }
     } catch (SQLException e) {
       e.printStackTrace();

@@ -103,9 +103,9 @@ public class Customer {
   }
 
   public void buy() {
-    // TODO
     // Acquire a specified number of shares of a specified stock at the current price.
     // Each buy transaction costs $20 (commission)
+
     Scanner in = new Scanner(System.in);
     System.out.print("Stock ID:  ");
     String stockid = in.next();
@@ -115,7 +115,6 @@ public class Customer {
   }
 
   public void sell() {
-    // TODO
     // Sell a specified number of shares of a specified stock at the current price.
     // For tax purposes, the customer has to specify the original buying prices
     // of the stocks to be sold.
@@ -134,7 +133,7 @@ public class Customer {
   }
 
   public void getTransactionHistory() {
-    // TODO
+    StarsRUs.rkuangDB.getTransactionHistory();
   }
 
   public void getStockInfo() {
