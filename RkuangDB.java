@@ -252,7 +252,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
 
-      System.out.println("You own:");
+      System.out.println("Stock Account Balance:");
       while (rs.next()) {
         String stockid = rs.getString("stockid");
         double buyingprice = rs.getDouble("buyingprice");
