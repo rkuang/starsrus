@@ -575,7 +575,7 @@ public class RkuangDB {
         email = rs.getString("email");
       }
       rs.close();
-      query = String.format("SELECT sa.profit, sb.id FROM Stock_Accounts sa, Stock_Balance sb WHERE sa.taxid = '%s' AND sb.taxid = '%s'", taxid, taxid);
+      query = String.format("SELECT sa.profit, sb.taxid FROM Stock_Accounts sa, Stock_Balance sb WHERE sa.taxid = '%s' AND sb.taxid = '%s'", taxid, taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
         profit = rs.getDouble("profit");
