@@ -336,12 +336,11 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
         today = rs.getString("date");
-        System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
-        e.printStackTrace();
-      }
-      return today;
+      e.printStackTrace();
+    }
+    return today;
   }
 
   public void setDate(String date){
@@ -443,6 +442,16 @@ public class RkuangDB {
       e.printStackTrace();
     }
     return false;
+  }
+
+  public void newMarketTransaction(String type, double amount) {
+    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   public void closeConnection() {
