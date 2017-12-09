@@ -65,7 +65,7 @@ public class StarsRUs {
           break;
 
           case "add interest":
-          activeUser.addInterest();
+          activeUser.accrueInterest();
           break;
 
           case "generate monthly statement":
@@ -73,7 +73,7 @@ public class StarsRUs {
           break;
 
           case "list active customers":
-          activeUser.listActiveCustomer();
+          activeUser.listActiveCustomers();
           break;
 
           case "generate dter":
@@ -88,14 +88,6 @@ public class StarsRUs {
           activeUser.deleteTransactions();
           break;
 
-          case "get date":
-          activeUser.getDate();
-          break;
-
-          case "set date":
-          activeUser.setDate();
-          break;
-
           case "movie reviews":
           activeUser.getMovieReviews();
           break;
@@ -104,12 +96,24 @@ public class StarsRUs {
           activeUser.logout();
           break;
 
-          case "help":
-          validInputs.print();
-          break;
-
           case "set market":
           activeUser.setMarket();
+          break;
+
+          case "set stock price":
+          activeUser.setStockPrice();
+          break;
+
+          case "get date":
+          activeUser.getDate();
+          break;
+
+          case "set date":
+          activeUser.setDate();
+          break;
+
+          case "help":
+          validInputs.print();
           break;
         }
       } else {

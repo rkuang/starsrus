@@ -43,12 +43,6 @@ public class MoviesDB {
         double rating = rs.getDouble("rating");
         int year = rs.getInt("production_year");
 
-        // String tab = "";
-        // for (int i = 0; i < title.length()/8+1; i++) {
-        //   tab += "\t";
-        // }
-        //
-        // System.out.println("ID\tTitle"+tab+"Rating\tProduction Year");
         System.out.println(id + "\t" + title + "\t" + rating + "\t" + year);
 
       }
@@ -80,7 +74,7 @@ public class MoviesDB {
   }
 
   public void getMovieReviews(String name) {
-    String query = String.format("SELECT * FROM Movies M, Reviews R  WHERE M.title='%s' AND M.id = R.movie_id", name);
+    String query = String.format("SELECT * FROM Movies M, Reviews R WHERE M.title='%s' AND M.id = R.movie_id", name);
 
     try (Statement statement = connection.createStatement()) {
 

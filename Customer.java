@@ -66,8 +66,6 @@ public class Customer {
       }
       StarsRUs.rkuangDB.createMarketAccount(taxID, value);
       System.out.println("Success! Market Account created with balance of " + deposit);
-
-      this.login();
     }
     else{
       System.out.println("Registration unsucessful please try again.");
@@ -104,7 +102,12 @@ public class Customer {
     // TODO
     // Acquire a specified number of shares of a specified stock at the current price.
     // Each buy transaction costs $20 (commission)
-
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:  ");
+    String stockid = in.next();
+    System.out.print("Quantiy:   ");
+    double quantity = in.nextDouble();
+    StarsRUs.rkuangDB.buyStocks(stockid, quantity);
   }
 
   public void sell() {
@@ -115,6 +118,11 @@ public class Customer {
     // each sell transaction costs $20 of commission. The money from selling the
     // stock will be deposited into the market account.
 
+    StarsRUs.rkuangDB.showStockBalance();
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:  ");
+    String stockid = in.next();
+    StarsRUs.rkuangDB.sellStocks(stockid);
   }
 
   public void getBalance() {
@@ -164,8 +172,8 @@ public class Customer {
     return;
   }
 
-  public void listActiveCustomer(){
-    return;
+  public void listActiveCustomers(){
+    StarsRUs.rkuangDB.listActiveCustomers();
   }
 
   public void generateDter(){
@@ -206,14 +214,23 @@ public class Customer {
     System.out.println("Today's date is:" + StarsRUs.rkuangDB.getDate());
   }
 
-  public void setDate(){
-    System.out.println("What date would you like to set?");
-    System.out.println("Please enter in the format YYYY-MM-DD");
+  public void setDate() {
+    System.out.println("What date would you like to set (YYYY-MM-DD)?");
+    System.out.print("Date:  ");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
     StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1);
     StarsRUs.rkuangDB.setDate(date);
     System.out.println("Date is set to: " + date);
+  }
+
+  public void setStockPrice() {
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:   ");
+    String stockid = in.next();
+    System.out.print("New Price:  ");
+    double newprice = in.nextDouble();
+    StarsRUs.rkuangDB.setStockPrice(stockid, newprice);
   }
 
   public void logout() {

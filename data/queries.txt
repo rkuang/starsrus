@@ -1,0 +1,6 @@
+
+
+
+"SELECT * FROM Movies WHERE title='%s'", name
+"SELECT * FROM Movies WHERE rating=5 AND production_year>=%d AND production_year<=%d", from, to
+"SELECT * FROM Movies M, Reviews R WHERE M.title='%s' AND M.id = R.movie_id", name
