@@ -560,8 +560,8 @@ public class RkuangDB {
     this.showStockBalance(taxid);
 
     Double finalMarketBalance = this.getBalance(taxid);
-    Dobule initalMarketBalance = 0.0;
-    Dobule initialStockBalance = 0.0;
+    Double initalMarketBalance = 0.0;
+    Double initialStockBalance = 0.0;
     Double profit = 0.0;
     int commissionCount = 0;
     int commissionPaid = 0;
@@ -587,16 +587,16 @@ public class RkuangDB {
     }
     commissionPaid = commissionCount*20;
     initialMarketBalance = finalMarketBalance + profit - commissionPaid;
-    System.println("Stock Account Transaction History:");
+    System.out.println("Stock Account Transaction History:");
     this.getStockHistory(taxid);
-    System.println("Market Account Transaction History:");
+    System.out.println("Market Account Transaction History:");
     this.getMarketHistory(taxid);
-    System.println("Name: " + name + " E-mail: " + email);
-    System.println("Commission Paid: " + commissionPaid);
-    System.println("Profit: " + profit);
-    System.println("Inital Market Balance: " + initalMarketBalance);
-    System.println("Final Market Balance: " + finalMarketBalance);
-    System.println("Final Stock Balance: ");
+    System.out.println("Name: " + name + " E-mail: " + email);
+    System.out.println("Commission Paid: " + commissionPaid);
+    System.out.println("Profit: " + profit);
+    System.out.println("Inital Market Balance: " + initalMarketBalance);
+    System.out.println("Final Market Balance: " + finalMarketBalance);
+    System.out.println("Final Stock Balance: ");
     this.showStockBalance(taxid);
   }
   public void closeConnection() {
