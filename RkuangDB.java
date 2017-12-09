@@ -357,13 +357,13 @@ public class RkuangDB {
 
   public void updateInterest(int future){
     int past = this.dayToInt(this.getDate());
-    int days = future - past + 1;
-    String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
+    int days = future - past;
+    String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
         try(Statement statement2 = connection.createStatement()){
-          query = String.format("UPDATE Interest SET daysHeld = '%d'", rs.getInt("daysHeld") + days);
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", rs.getInt("daysHeld") + days, rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
@@ -380,7 +380,7 @@ public class RkuangDB {
           query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
           statement4.executeUpdate(query);
         } catch(SQLException e){
-          e.printStackTrace();
+          //do nothing
         }
       }
     } catch(SQLException e){
@@ -389,13 +389,15 @@ public class RkuangDB {
   }
 
   public void calcInterest(){
-    String getAccounts = String.format("SELECT taxid, balance from Market_Accounts");
+    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit from Market_Accounts m, Stock_Accounts s");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(getAccounts);
       while(rs.next()){
         Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
         try(Statement statement1 = connection.createStatement()){
           String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
+          statement1.executeUpdate(addInterest);
+          addInterest = String.format("UPDATE Stock_Accounts SET profit = '%f' WHERE taxid = '%s'", rs.getDouble("profit") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
           this.newMarketTransaction(rs.getString("taxid"), interest);
         }catch(SQLException e){
