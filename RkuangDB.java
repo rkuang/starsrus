@@ -204,7 +204,6 @@ public class RkuangDB {
       for (int j = 0; j<i; j++) {
         profit -= sellAmount.get(j) * buyingPrice.get(j);
         quantity.set(j, quantity.get(j)-sellAmount.get(j));
-        System.out.println(quantity.get(j));
       }
 
       if (updateBalance(addToMarket-commission)) {
