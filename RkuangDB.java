@@ -244,8 +244,8 @@ public class RkuangDB {
     return price;
   }
 
-  public void showStockBalance() {
-    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+  public void showStockBalance(String taxid) {
+    String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s'", taxid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
@@ -263,8 +263,8 @@ public class RkuangDB {
     }
   }
 
-  public double getBalance() {
-    String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+  public double getBalance(String taxid) {
+    String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", taxid);
     double balance = -42;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
@@ -395,6 +395,7 @@ public class RkuangDB {
         try(Statement statement1 = connection.createStatement()){
           String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
+          this.newMarketTransaction(rs.getString("taxid"), addInterest);
         }catch(SQLException e){
           e.printStackTrace();
         }
