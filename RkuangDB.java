@@ -159,6 +159,7 @@ public class RkuangDB {
           updateStockBalance(stockid, price, quantity);
 
           updateSharesTraded(0, quantity);
+          newStockTransaction("buy", stockid, quantity, cost);
         }
         return true;
       } else {
@@ -212,6 +213,7 @@ public class RkuangDB {
         }
 
         updateSharesTraded(profit, sum(sellAmount));
+        newStockTransaction("sell", stockid, sum(sellAmount), addToMarket);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -446,6 +448,16 @@ public class RkuangDB {
 
   public void newMarketTransaction(String type, double amount) {
     String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void newStockTransaction(String type, String stockid, double quantity, double price) {
+    String query = String.format("INSERT INTO Stock_Transactions (taxid, date, type, stockid, quantity, price) VALUES ('%s', '%s', '%s', '%s', %.3f, %.2f)", StarsRUs.activeUser.taxid, getDate(), type, stockid, quantity, price);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
