@@ -389,7 +389,7 @@ public class RkuangDB {
   }
 
   public void calcInterest(){
-    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit from Market_Accounts m, Stock_Accounts s");
+    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit FROM Market_Accounts m, Stock_Accounts s WHERE m.taxid=s.taxid");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(getAccounts);
       while(rs.next()){
@@ -399,7 +399,7 @@ public class RkuangDB {
           statement1.executeUpdate(addInterest);
           addInterest = String.format("UPDATE Stock_Accounts SET profit = '%f' WHERE taxid = '%s'", rs.getDouble("profit") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
-          this.newMarketTransaction(rs.getString("taxid"), interest);
+          this.newMarketTransaction(rs.getString("taxid"), "accrue interest", interest);
         }catch(SQLException e){
           e.printStackTrace();
         }
@@ -451,6 +451,16 @@ public class RkuangDB {
 
   public void newMarketTransaction(String type, double amount) {
     String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void newMarketTransaction(String taxid, String type, double amount) {
+    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", taxid, getDate(), type, amount);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
