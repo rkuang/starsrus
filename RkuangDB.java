@@ -57,8 +57,8 @@ public class RkuangDB {
   }
 
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
-    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%f', 0)", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%.2f')", taxid, deposit);
+    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%.2f', 0)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
       statement.executeUpdate(queryInterest);
@@ -87,7 +87,7 @@ public class RkuangDB {
         if (newBalance > 0) {
           query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
-          System.out.println("Balance is now $" + newBalance);
+          System.out.println(String.format("Balance is now $.2f", newBalance));
           return true;
         } else {
           System.out.println("Transaction failed. Market Account balance cannot fall below $0");
