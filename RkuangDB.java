@@ -336,7 +336,6 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
         today = rs.getString("date");
-        System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
         e.printStackTrace();
