@@ -181,7 +181,7 @@ public class Customer {
   }
 
   public void generateDter(){
-    return;
+    StarsRUs.rkuangDB.generateDter();
   }
 
   public void generateCustomerReport(){
@@ -194,7 +194,7 @@ public class Customer {
   }
 
   public void deleteTransactions(){
-    return;
+    StarsRUs.rkuangDB.deleteTransactions();
   }
 
   public void setMarket(){
