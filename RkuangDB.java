@@ -292,10 +292,14 @@ public class RkuangDB {
         String name = rs.getString("name");
         String date = rs.getDate("dob").toString();
 
-        System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
-        System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
+        System.out.println("=====================");
+        System.out.println("StockID:  "+stockid);
+        System.out.println("Actor:    "+name);
+        System.out.println("DOB:      "+dob);
+        System.out.println(String.format("Price:    $%.2f", price));
+        System.out.println("=====================");
 
-        // TODO print movie contracts
+        printMovieContracts(stockid);
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
       }
@@ -307,8 +311,20 @@ public class RkuangDB {
     return false;
   }
 
+  private void printMovieContracts(String stockid) {
+    // TODO print movie contracts
+    String query = String.format("SELECT * FROM Movie_Contracts WHERE stockid='%s'", stockid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void listActiveCustomers() {
-    // TODO clean up, shares_traded>1000
+    // TODO clean up
     String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>1000";
 
     try (Statement statement = connection.createStatement()) {
