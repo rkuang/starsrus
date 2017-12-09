@@ -57,8 +57,8 @@ public class RkuangDB {
   }
 
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
-    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%f', 0)", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%.2f')", taxid, deposit);
+    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%.2f', 0)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
       statement.executeUpdate(queryInterest);
@@ -87,7 +87,7 @@ public class RkuangDB {
         if (newBalance > 0) {
           query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
-          System.out.println("Balance is now $" + newBalance);
+          System.out.println(String.format("Balance is now $%.2f", newBalance));
           return true;
         } else {
           System.out.println("Transaction failed. Market Account balance cannot fall below $0");
@@ -139,7 +139,7 @@ public class RkuangDB {
         double newSharesTraded = oldSharesTraded + quantity;
         query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f, profit=%.2f WHERE taxid='%s'", newSharesTraded, newProfit, StarsRUs.activeUser.taxid);
       } else {
-        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', $.2f, %.3f)", StarsRUs.activeUser.taxid, profit, quantity);
+        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', %.2f, %.3f)", StarsRUs.activeUser.taxid, profit, quantity);
       }
       statement.executeUpdate(query);
     } catch (SQLException e) {
@@ -204,7 +204,6 @@ public class RkuangDB {
       for (int j = 0; j<i; j++) {
         profit -= sellAmount.get(j) * buyingPrice.get(j);
         quantity.set(j, quantity.get(j)-sellAmount.get(j));
-        System.out.println(quantity.get(j));
       }
 
       if (updateBalance(addToMarket-commission)) {
@@ -252,7 +251,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
 
-      System.out.println("You own:");
+      System.out.println("Stock Account Balance:");
       while (rs.next()) {
         String stockid = rs.getString("stockid");
         double buyingprice = rs.getDouble("buyingprice");
@@ -292,10 +291,15 @@ public class RkuangDB {
         String name = rs.getString("name");
         String date = rs.getDate("dob").toString();
 
-        System.out.println("StockID\tCurrent Price\tName\tDate of Birth");
-        System.out.println(stockid+"\t"+price+"\t"+name+"\t"+date);
+        System.out.println("=====================");
+        System.out.println("Stock ID:  "+stockid);
+        System.out.println("Actor:     "+name);
+        System.out.println("DOB:       "+date);
+        System.out.println(String.format("Price:     $%.2f", price));
+        System.out.println("=====================");
 
-        // TODO print movie contracts
+        System.out.println(String.format("%s has the following movie contracts:", name));
+        printMovieContracts(stockid);
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
       }
@@ -307,14 +311,54 @@ public class RkuangDB {
     return false;
   }
 
-  public void listActiveCustomers() {
-    // TODO clean up, shares_traded>1000
-    String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>1000";
+  private void printMovieContracts(String stockid) {
+    String query = String.format("SELECT * FROM Movie_Contracts WHERE stockid='%s'", stockid);
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
-        System.out.println(rs.getString("taxid") + "\t" + rs.getDouble("shares_traded"));
+        String title = rs.getString("title");
+        String role = rs.getString("role");
+        int year = rs.getInt("year");
+        double contract = rs.getDouble("contract");
+
+        System.out.println("    Title:    "+title);
+        System.out.println("    Role:     "+role);
+        System.out.println("    Year:     "+year);
+        System.out.println(String.format("    Contract: $%.2f\n", contract));
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void listActiveCustomers() {
+    // TODO clean up
+    String query = "SELECT * FROM Customers C, Stock_Accounts SA WHERE C.taxid=SA.taxid AND shares_traded>1000";
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String name = rs.getString("name");
+        String address = rs.getString("address");
+        String state = rs.getString("state");
+        String phone = rs.getString("phone");
+        String email = rs.getString("email");
+        String taxid = rs.getString("C.taxid");
+        String ssn = rs.getString("ssn");
+        double shares = rs.getDouble("shares_traded");
+
+        System.out.println("=====================");
+        System.out.println("Name:           "+name);
+        System.out.println("Address:        "+address);
+        System.out.println("State:          "+state);
+        System.out.println("Phone:          "+phone);
+        System.out.println("Email:          "+email);
+        System.out.println("Tax ID:         "+taxid);
+        System.out.println("SSN:            "+ssn);
+        System.out.println(String.format("Shares Traded:  %.3f", shares));
+        System.out.println("=====================");
       }
     } catch (SQLException e) {
       e.printStackTrace();
