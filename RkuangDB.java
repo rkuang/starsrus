@@ -372,7 +372,6 @@ public class RkuangDB {
     }catch(SQLException e){
       e.printStackTrace();
     }
-    /*
     try(Statement statement3 = connection.createStatement()){
       query = String.format("SELECT m.taxid,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
       ResultSet rs = statement3.executeQuery(query);
@@ -386,7 +385,7 @@ public class RkuangDB {
       }
     } catch(SQLException e){
       e.printStackTrace();
-    }*/
+    }
   }
 
   public void calcInterest(){
