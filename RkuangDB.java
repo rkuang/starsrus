@@ -213,7 +213,7 @@ public class RkuangDB {
         }
 
         updateSharesTraded(profit, sum(sellAmount));
-        newStockTransaction("sell", stockid, sum(sellAmount), addToMarket);
+        newStockTransaction("sell", stockid, sum(sellAmount), addToMarket-commission);
       }
     } catch (SQLException e) {
       e.printStackTrace();
