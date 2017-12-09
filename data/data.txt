@@ -50,3 +50,15 @@ insert into Stock_Balance (taxid, quantity, stockid, buyingprice) values ('3306'
 insert into Movie_Contracts values ('SKB', 'L.A. Confidential', 'actor', 1997, 5000000);
 insert into Movie_Contracts values ('SMD', 'A Perfect Murder', 'actor', 1998, 10000000);
 insert into Movie_Contracts values ('STC', 'Jerry Maguire', 'actor', 1996, 5000000);
+
+insert into Interest values ('1022', 10000, 16);
+insert into Interest values ('3045', 100000, 16);
+insert into Interest values ('2034', 50000, 16);
+insert into Interest values ('4093', 45000, 16);
+insert into Interest values ('1234', 200000, 16);
+insert into Interest values ('8956', 5000, 16);
+insert into Interest values ('2341', 2000, 16);
+insert into Interest values ('0456', 10000, 16);
+insert into Interest values ('3455', 130200, 16);
+insert into Interest values ('1123', 35000, 16);
+insert into Interest values ('3306', 30500, 16);

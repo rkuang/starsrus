@@ -57,16 +57,18 @@ public class RkuangDB {
   }
 
   public void createMarketAccount(String taxid, double deposit){
-    String queryMarket = String.format("INSERT INTO Market_Accounts VALUES ('%s', %.2f)", taxid, deposit);
+    String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%f')", taxid, deposit);
+    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%f', 0)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
+      statement.executeUpdate(queryInterest);
     }catch(SQLException e){
       e.printStackTrace();
     }
   }
 
   public void createStockAccount(String taxid) {
-    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0, 0)", taxid);
+    String query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', 0)", taxid);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     }catch(SQLException e){
@@ -261,20 +263,21 @@ public class RkuangDB {
     }
   }
 
-  public Boolean showBalance() {
+  public double getBalance() {
     String query = String.format("SELECT * FROM Market_Accounts WHERE taxid='%s'", StarsRUs.activeUser.taxid);
-
+    double balance = -42;
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        System.out.println(String.format("Market Account Balance:  $%.2f", rs.getDouble("balance")));
-        return true;
+        balance = rs.getDouble("balance");
+        System.out.println(String.format("Market Account Balance:  $%.2f", balance));
+        return balance;
       }
     } catch (SQLException e) {
       e.printStackTrace();
     }
     // this should never happen
-    return false;
+    return balance;
   }
 
   public Boolean getStockInfo(String stockid) {
@@ -336,17 +339,19 @@ public class RkuangDB {
     }
   }
 
-  public void getDate() {
+  public String getDate() {
     String query = String.format("SELECT * FROM Market");
+    String today = "";
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       if(rs.next()){
-        String today = rs.getString("date");
+        today = rs.getString("date");
         System.out.println("Today's date is: " + today);
       }
     } catch (SQLException e){
         e.printStackTrace();
       }
+      return today;
   }
 
   public void setDate(String date){
@@ -357,6 +362,97 @@ public class RkuangDB {
       e.printStackTrace();
     }
     return;
+  }
+
+  public void updateInterest(int future){
+    int past = this.dayToInt(this.getDate());
+    int days = future - past + 1;
+    String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
+    try(Statement statement1 = connection.createStatement()){
+      ResultSet rs = statement1.executeQuery(query);
+      while (rs.next()){
+        try(Statement statement2 = connection.createStatement()){
+          query = String.format("UPDATE Interest SET daysHeld = '%d'", rs.getInt("daysHeld") + days);
+          statement2.executeUpdate(query);
+        }catch(SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
+    try(Statement statement3 = connection.createStatement()){
+      query = String.format("SELECT m.taxid,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
+      ResultSet rs = statement3.executeQuery(query);
+      while (rs.next()){
+        try(Statement statement4 = connection.createStatement()){
+          query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), days);
+          statement4.executeUpdate(query);
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void calcInterest(){
+    String getAccounts = String.format("SELECT taxid, balance from Market_Accounts");
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(getAccounts);
+      while(rs.next()){
+        Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
+        try(Statement statement1 = connection.createStatement()){
+          String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
+          statement1.executeUpdate(addInterest);
+        }catch(SQLException e){
+          e.printStackTrace();
+        }
+      }
+    }catch(SQLException e){
+      e.printStackTrace();
+    }
+    return;
+  }
+
+  public Double calcAvgBalance(String account){
+    Double average = 0.0;
+    String getAccount = String.format("SELECT * FROM Interest WHERE taxid = '%s'", account);
+    try(Statement statement2 = connection.createStatement()){
+      ResultSet rs2 = statement2.executeQuery(getAccount);
+      while(rs2.next()){
+        average += rs2.getDouble("currentBal") / rs2.getInt("daysHeld");
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    return average;
+  }
+
+  public int dayToInt(String date){
+    int temp = Integer.parseInt(date.substring(8,10));
+    return temp;
+  }
+
+  public Boolean setMarket(Boolean isOpen){
+    String query = String.format("SELECT open FROM Market");
+    try(Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        if(rs.getBoolean("open") == isOpen){
+          return false;
+        }
+        else{
+          query = String.format("UPDATE Market SET open = %b", isOpen);
+            statement.executeUpdate(query);
+            return true;
+          }
+        }
+      }catch (SQLException e){
+      e.printStackTrace();
+    }
+    return false;
   }
 
   public void closeConnection() {
