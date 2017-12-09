@@ -445,6 +445,16 @@ public class RkuangDB {
     return false;
   }
 
+  public void newMarketTransaction(String type, double amount) {
+    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void closeConnection() {
     try {
       if (connection != null) {
