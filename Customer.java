@@ -133,7 +133,7 @@ public class Customer {
   }
 
   public void getTransactionHistory() {
-    StarsRUs.rkuangDB.getTransactionHistory();
+    StarsRUs.rkuangDB.getStockHistory(StarsRUs.activeUser.taxid);
   }
 
   public void getStockInfo() {
@@ -172,6 +172,10 @@ public class Customer {
   }
 
   public void genMthStatement(){
+    System.out.println("Generate monthly report for:");
+    Scanner in = new Scanner(System.in);
+    String thisTaxid = in.nextLine();
+    StarsRUs.rkuangDB.genMthStatement(thisTaxid);
     return;
   }
 
