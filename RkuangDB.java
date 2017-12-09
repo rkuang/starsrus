@@ -528,7 +528,7 @@ public class RkuangDB {
         double quantity = rs.getDouble("quantity");
         double price = rs.getDouble("price");
 
-        System.out.println("%d\t%s\t%s\t%s\t%.3f\t$%.2f", transID, date, type, stockid, quantity, price);
+        System.out.println(String.format("%d\t%s\t%s\t%s\t%.3f\t$%.2f", transID, date, type, stockid, quantity, price));
       }
     } catch (SQLException e) {
       e.printStackTrace();
