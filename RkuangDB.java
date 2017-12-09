@@ -389,7 +389,7 @@ public class RkuangDB {
   }
 
   public void calcInterest(){
-    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit from Market_Accounts m, Stock_Accounts s");
+    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit FROM Market_Accounts m, Stock_Accounts s WHERE m.taxid=s.taxid");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(getAccounts);
       while(rs.next()){
