@@ -389,13 +389,15 @@ public class RkuangDB {
   }
 
   public void calcInterest(){
-    String getAccounts = String.format("SELECT taxid, balance from Market_Accounts");
+    String getAccounts = String.format("SELECT m.taxid, m.balance, s.profit from Market_Accounts m, Stock_Accounts s");
     try(Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(getAccounts);
       while(rs.next()){
         Double interest = calcAvgBalance(rs.getString("taxid")) * 0.03;
         try(Statement statement1 = connection.createStatement()){
           String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
+          statement1.executeUpdate(addInterest);
+          addInterest = String.format("UPDATE Stock_Accounts SET profit = '%f' WHERE taxid = '%s'", rs.getDouble("profit") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
           this.newMarketTransaction(rs.getString("taxid"), interest);
         }catch(SQLException e){
