@@ -187,8 +187,9 @@ public class Customer {
   public void generateCustomerReport(){
     System.out.println("Generate customer report for:");
     Scanner in = new Scanner(System.in);
-    showStockBalance(in.nextLine());
-    getBalance(in.nextLine());
+    String thisTaxid = in.nextLine();
+    showStockBalance(thisTaxid);
+    getBalance(thisTaxid);
     return;
   }
 

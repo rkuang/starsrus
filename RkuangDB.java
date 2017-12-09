@@ -395,7 +395,7 @@ public class RkuangDB {
         try(Statement statement1 = connection.createStatement()){
           String addInterest = String.format("UPDATE Market_Accounts SET balance = '%f' WHERE taxid = '%s'", rs.getDouble("balance") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
-          this.newMarketTransaction(rs.getString("taxid"), addInterest);
+          this.newMarketTransaction(rs.getString("taxid"), interest);
         }catch(SQLException e){
           e.printStackTrace();
         }
