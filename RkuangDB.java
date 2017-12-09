@@ -340,7 +340,25 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
-        System.out.println(rs.getString("taxid") + "\t" + rs.getDouble("shares_traded"));
+        String name = rs.getString("name");
+        String address = rs.getString("address");
+        String state = rs.getString("state");
+        String phone = rs.getString("phone");
+        String email = rs.getString("email");
+        String taxid = rs.getString("C.taxid");
+        String ssn = rs.getString("ssn");
+        double shares = rs.getDouble("shares_traded");
+
+        System.out.println("=====================");
+        System.out.println("Name:           "+name);
+        System.out.println("Address:        "+address);
+        System.out.println("State:          "+state);
+        System.out.println("Phone:          "+phone);
+        System.out.println("Email:          "+email);
+        System.out.println("Tax ID:         "+taxid);
+        System.out.println("SSN:            "+ssn);
+        System.out.println(String.format("Shares Traded:  %.3f", shares));
+        System.out.println("=====================");
       }
     } catch (SQLException e) {
       e.printStackTrace();
