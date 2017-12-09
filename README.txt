@@ -2,8 +2,8 @@
 Deposit,
 Withdrawal,
 Buy,
-Show balance for his/her market account,
 Sell,
+Show balance for his/her market account,
 Show the transaction history for his/her stock account,
 List current price of a stock and the actor profile, and
 List movie information, which shows the detailed information of a given movie (obtained from an external source). Your system should display the information in a user-friendly manner. In addition, your system should also be able to provide only the following information upon request:

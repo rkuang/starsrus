@@ -309,7 +309,7 @@ public class RkuangDB {
 
   public void listActiveCustomers() {
     // TODO clean up, shares_traded>1000
-    String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>0";
+    String query = "SELECT * FROM Stock_Accounts WHERE shares_traded>1000";
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
@@ -464,6 +464,74 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void deleteTransactions() {
+    String queryDeleteMarketTransactions = "DELETE FROM Market_Transactions";
+    String queryDeleteStockTransactions = "DELETE FROM Stock_Transactions";
+    String queryResetStockActivity = "UPDATE Stock_Accounts SET profit=0, shares_traded=0";
+    String queryDeleteInterest = "DELETE FROM Interest";
+
+    try (Statement statement = connection.createStatement()) {
+      statement.executeUpdate(queryDeleteMarketTransactions);
+      statement.executeUpdate(queryDeleteStockTransactions);
+      statement.executeUpdate(queryResetStockActivity);
+      statement.executeUpdate(queryDeleteInterest);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void generateDter() {
+    String query = "SELECT * FROM Customers C, Stock_Accounts SA WHERE C.taxid=SA.taxid AND SA.profit>10000";
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String name = rs.getString("name");
+        String address = rs.getString("address");
+        String state = rs.getString("state");
+        String phone = rs.getString("phone");
+        String email = rs.getString("email");
+        String taxid = rs.getString("C.taxid");
+        String ssn = rs.getString("ssn");
+        double earnings = rs.getDouble("profit");
+
+        System.out.println("=====================");
+        System.out.println("Name:     "+name);
+        System.out.println("Address:  "+address);
+        System.out.println("State:    "+state);
+        System.out.println("Phone:    "+phone);
+        System.out.println("Email:    "+email);
+        System.out.println("Tax ID:   "+taxid);
+        System.out.println("SSN:      "+ssn);
+        System.out.println(String.format("Earnings: $%.2f", earnings));
+        System.out.println("=====================");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void getTransactionHistory() {
+    String query = String.format("SELECT * FROM Stock_Transactions WHERE taxid='%s'", StarsRUs.activeUser.taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      System.out.println("ID\tDate\t\tType\tStockID\tQuantity\tChange to Balance ($)");
+      while (rs.next()) {
+        int transID = rs.getInt("id");
+        String date = rs.getDate("date").toString();
+        String type = rs.getString("type");
+        String stockid = rs.getString("stockid");
+        double quantity = rs.getDouble("quantity");
+        double price = rs.getDouble("price");
+
+        System.out.println(String.format("%d\t%s\t%s\t%s\t%.3f\t\t%.2f", transID, date, type, stockid, quantity, price));
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }

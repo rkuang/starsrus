@@ -44,7 +44,7 @@ public class StarsRUs {
           activeUser.sell();
           break;
 
-          case "get balance":
+          case "show balance":
           activeUser.getBalance();
           break;
 
