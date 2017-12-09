@@ -295,7 +295,7 @@ public class RkuangDB {
         System.out.println("=====================");
         System.out.println("StockID:  "+stockid);
         System.out.println("Actor:    "+name);
-        System.out.println("DOB:      "+dob);
+        System.out.println("DOB:      "+date);
         System.out.println(String.format("Price:    $%.2f", price));
         System.out.println("=====================");
 
@@ -317,7 +317,7 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
-      
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
