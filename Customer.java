@@ -188,8 +188,8 @@ public class Customer {
     System.out.println("Generate customer report for:");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
-    showStockBalance(thisTaxid);
-    getBalance(thisTaxid);
+    StarsRUs.rkuangDB.showStockBalance(thisTaxid);
+    StarsRUs.rkuangDB.getBalance(thisTaxid);
     return;
   }
 
