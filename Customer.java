@@ -102,7 +102,12 @@ public class Customer {
     // TODO
     // Acquire a specified number of shares of a specified stock at the current price.
     // Each buy transaction costs $20 (commission)
-
+    Scanner in = new Scanner(System.in);
+    System.out.print("Stock ID:  ");
+    String stockid = in.next();
+    System.out.print("Quantiy:   ");
+    double quantity = in.nextDouble();
+    StarsRUs.rkuangDB.buyStocks(stockid, quantity);
   }
 
   public void sell() {
