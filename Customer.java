@@ -82,7 +82,9 @@ public class Customer {
         System.out.println("Amount cannot be negative");
       }
     }
-    StarsRUs.rkuangDB.updateBalance(amount);
+    if (StarsRUs.rkuangDB.updateBalance(amount)) {
+      StarsRUs.rkuangDB.newMarketTransaction("deposit", amount);
+    }
   }
 
   public void withdraw() {
@@ -95,7 +97,9 @@ public class Customer {
         System.out.println("Amount cannot be negative");
       }
     }
-    StarsRUs.rkuangDB.updateBalance(-1 * amount);
+    if (StarsRUs.rkuangDB.updateBalance(-1 * amount)) {
+      StarsRUs.rkuangDB.newMarketTransaction("withdraw", -1 * amount);
+    }
   }
 
   public void buy() {
