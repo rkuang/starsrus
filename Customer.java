@@ -188,6 +188,7 @@ public class Customer {
 
   public void generateCustomerReport(){
     System.out.println("Generate customer report for:");
+    System.out.print("Tax ID:  ")
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
     StarsRUs.rkuangDB.showStockBalance(thisTaxid);

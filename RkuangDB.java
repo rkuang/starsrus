@@ -293,12 +293,13 @@ public class RkuangDB {
         String date = rs.getDate("dob").toString();
 
         System.out.println("=====================");
-        System.out.println("StockID:  "+stockid);
-        System.out.println("Actor:    "+name);
-        System.out.println("DOB:      "+date);
-        System.out.println(String.format("Price:    $%.2f", price));
+        System.out.println("Stock ID:  "+stockid);
+        System.out.println("Actor:     "+name);
+        System.out.println("DOB:       "+date);
+        System.out.println(String.format("Price:     $%.2f", price));
         System.out.println("=====================");
 
+        System.out.println("\n %s has the following movie contracts:", name);
         printMovieContracts(stockid);
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
@@ -317,7 +318,18 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
+      while (rs.next()) {
+        String title = rs.getString("title");
+        String role = rs.getString("role");
+        int year = rs.getInt("year");
+        double contract = rs.getDouble("contract");
 
+        System.out.println("    Title:    "+title);
+        System.out.println("    Role:     "+role);
+        System.out.println("    Year:     "+year);
+        System.out.println(String.format("    Contract: $%.2f", contract));
+
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
