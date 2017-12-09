@@ -561,7 +561,7 @@ public class RkuangDB {
 
     Double finalMarketBalance = this.getBalance(taxid);
     Double initalMarketBalance = 0.0;
-    Double initialStockBalance = 0.0;
+    Double initalStockBalance = 0.0;
     Double profit = 0.0;
     int commissionCount = 0;
     int commissionPaid = 0;
@@ -586,7 +586,7 @@ public class RkuangDB {
       e.printStackTrace();
     }
     commissionPaid = commissionCount*20;
-    initialMarketBalance = finalMarketBalance + profit - commissionPaid;
+    initalMarketBalance = finalMarketBalance + profit - commissionPaid;
     System.out.println("Stock Account Transaction History:");
     this.getStockHistory(taxid);
     System.out.println("Market Account Transaction History:");
