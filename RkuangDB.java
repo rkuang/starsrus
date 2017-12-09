@@ -299,7 +299,7 @@ public class RkuangDB {
         System.out.println(String.format("Price:     $%.2f", price));
         System.out.println("=====================");
 
-        System.out.println(String.format("\n %s has the following movie contracts:", name));
+        System.out.println(String.format("%s has the following movie contracts:", name));
         printMovieContracts(stockid);
       } else {
         System.out.println(String.format("'%s' is not a valid Stock ID", stockid));
