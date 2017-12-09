@@ -363,7 +363,7 @@ public class RkuangDB {
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
         try(Statement statement2 = connection.createStatement()){
-          query = String.format("UPDATE Interest SET daysHeld = '%d'", rs.getInt("daysHeld") + days);
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s'", rs.getInt("daysHeld") + days, rs.getString("taxid"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
