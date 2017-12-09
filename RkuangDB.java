@@ -399,7 +399,6 @@ public class RkuangDB {
           statement1.executeUpdate(addInterest);
           addInterest = String.format("UPDATE Stock_Accounts SET profit = '%f' WHERE taxid = '%s'", rs.getDouble("profit") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
-          System.out.println(rs.getString("taxid"));
           this.newMarketTransaction(rs.getString("taxid"), "accrue interest", interest);
         }catch(SQLException e){
           e.printStackTrace();
