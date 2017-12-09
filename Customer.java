@@ -122,7 +122,7 @@ public class Customer {
     // each sell transaction costs $20 of commission. The money from selling the
     // stock will be deposited into the market account.
 
-    StarsRUs.rkuangDB.showStockBalance();
+    StarsRUs.rkuangDB.showStockBalance(taxid);
     Scanner in = new Scanner(System.in);
     System.out.print("Stock ID:  ");
     String stockid = in.next();
@@ -130,7 +130,7 @@ public class Customer {
   }
 
   public void getBalance() {
-    StarsRUs.rkuangDB.getBalance();
+    StarsRUs.rkuangDB.getBalance(taxid);
   }
 
   public void getTransactionHistory() {
@@ -185,6 +185,11 @@ public class Customer {
   }
 
   public void generateCustomerReport(){
+    System.out.println("Generate customer report for:");
+    Scanner in = new Scanner(System.in);
+    String thisTaxid = in.nextLine();
+    StarsRUs.rkuangDB.showStockBalance(thisTaxid);
+    StarsRUs.rkuangDB.getBalance(thisTaxid);
     return;
   }
 
