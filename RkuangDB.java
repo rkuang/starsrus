@@ -407,7 +407,7 @@ public class RkuangDB {
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
         empty = false;
-        days = this.dayToInt(this.getDate()) + (future - this.dayToInt(this.getDate()));
+        int days = this.dayToInt(this.getDate()) + (future - this.dayToInt(this.getDate()));
         try(Statement statement2 = connection.createStatement()){
           query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
