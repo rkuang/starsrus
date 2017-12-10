@@ -648,6 +648,7 @@ public class RkuangDB {
       query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
       if (rs.next()) {
         commissionCount = rs.getInt("COUNT(*)");
+        System.out.println("commcount: "+commissionCount);
       }
 
     } catch(SQLException e){
@@ -668,6 +669,7 @@ public class RkuangDB {
     System.out.println("Final Stock Balance:   ");
     this.showStockBalance(taxid);
   }
+  
   public void closeConnection() {
     try {
       if (connection != null) {

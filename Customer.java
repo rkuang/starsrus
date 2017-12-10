@@ -174,6 +174,7 @@ public class Customer {
 
   public void genMthStatement(){
     System.out.println("Generate monthly report for:");
+    System.out.print("Tax ID:  ");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
     StarsRUs.rkuangDB.genMthStatement(thisTaxid);
