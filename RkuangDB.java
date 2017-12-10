@@ -403,7 +403,7 @@ public class RkuangDB {
     String query = "";
     Boolean empty = true;
     int days = 0;
-    int totDays;
+    int totDays = 0;
     query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
