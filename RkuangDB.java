@@ -667,6 +667,8 @@ public class RkuangDB {
     System.out.println(String.format("Earnings:              $%.2f", profit));
     System.out.println(String.format("Inital Market Balance: $%.2f", initalMarketBalance));
     System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
+    System.out.print("Final ");
+    showStockBalance(taxid);
   }
 
   public void closeConnection() {
