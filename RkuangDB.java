@@ -447,7 +447,11 @@ public class RkuangDB {
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(query);
     } catch (SQLException e){
-      e.printStackTrace();
+      if (date.equals("2013-03-32")) {
+        System.out.println("End of March reached");
+      } else {
+        e.printStackTrace();
+      }
     }
     return;
   }
@@ -602,13 +606,15 @@ public class RkuangDB {
     String queryDeleteMarketTransactions = "DELETE FROM Market_Transactions";
     String queryDeleteStockTransactions = "DELETE FROM Stock_Transactions";
     String queryResetStockActivity = "UPDATE Stock_Accounts SET profit=0, shares_traded=0";
-    String queryDeleteInterest = "DELETE FROM Interest";
+    String queryDeleteDailyBal = "DELETE FROM Daily_Balances";
+    String queryDeleteClosingPrice = "DELETE FROM Closing_Prices";
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(queryDeleteMarketTransactions);
       statement.executeUpdate(queryDeleteStockTransactions);
       statement.executeUpdate(queryResetStockActivity);
-      statement.executeUpdate(queryDeleteInterest);
+      statement.executeUpdate(queryDeleteDailyBal);
+      statement.executeUpdate(queryDeleteClosingPrice);
     } catch (SQLException e) {
       e.printStackTrace();
     }
