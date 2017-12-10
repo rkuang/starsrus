@@ -413,7 +413,16 @@ public class RkuangDB {
           days = 1 + daysHeld;
         }
         else{
-          days = daysHeld + (future - daysHeld);
+          String getDays = String.format("SELECT i.daysHeld from Market_Accounts m, Interest i, WHERE i.taxid = '%s'", rs.getString("taxid"));
+          try(Statement statement4 = connection.createStatement()){
+            ResultSet rs2 = statement4.executeQuery(getDays);
+            while(rs2.next()){
+              int totDays += rs2.getInt("daysHeld");
+            }
+          }catch(SQLException e){
+            e.printStackTrace();
+          }
+          days = daysHeld + (future - totDays);
         }
         try(Statement statement2 = connection.createStatement()){
           query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
