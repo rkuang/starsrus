@@ -389,13 +389,17 @@ public class RkuangDB {
   }
 
   public void setDate(String date){
-    String query = String.format("UPDATE Market SET date = '%s'", date);
-    try(Statement statement = connection.createStatement()){
-      statement.executeUpdate(query);
-    } catch (SQLException e){
-      e.printStackTrace();
+    int day = dayToInt(date);
+    int todayDay = dayToInt(getDate);
+
+    if (day < todayDay) {
+      System.out.println("Cannot go back in time.")
+      return;
     }
-    return;
+
+    for (int i; i < (day - todayDay); i++) {
+      advanceDate();
+    }
   }
 
 
@@ -480,6 +484,7 @@ public class RkuangDB {
     String tomorrow = "2013-03-"+day;
 
     setDate(tomorrow);
+    setMarket(true);
   }
 
   public void newMarketTransaction(String type, double amount) {
