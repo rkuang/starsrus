@@ -602,7 +602,7 @@ public class RkuangDB {
         String type = rs.getString("type");
         Double amount = rs.getDouble("amount");
 
-        System.out.println(String.format("%d\t%s\t%s\t%f", transID, date, type, amount));
+        System.out.println(String.format("%d\t%s\t%s\t%.2f", transID, date, type, amount));
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -669,6 +669,20 @@ public class RkuangDB {
     System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
     System.out.print("Final ");
     showStockBalance(taxid);
+  }
+
+  public String getName(String taxid) {
+    String query = String.format("SELECT name, email FROM Customers WHERE taxid = '%s'", taxid);
+    String name = "";
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        name = rs.getString("name");
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+    return name;
   }
 
   public void closeConnection() {
