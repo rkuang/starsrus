@@ -434,7 +434,7 @@ public class RkuangDB {
 
   public Boolean getMarketState() {
     String query = String.format("SELECT open FROM Market");
-    Boolean open;
+    Boolean open = false;
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while (rs.next()) {
