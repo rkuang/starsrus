@@ -774,7 +774,7 @@ public class RkuangDB {
         try (Statement s2 = connection.createStatement()){
           ResultSet rs2 = s2.executeQuery(query);
           while(rs2.next()){
-            double quantity = rs.getDouble("SUM(quantity)");
+            double quantity = rs2.getDouble("SUM(quantity)");
 
             System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
           }
