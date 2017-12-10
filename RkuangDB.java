@@ -401,14 +401,12 @@ public class RkuangDB {
 
   public void updateInterest(int future){
     String query = "";
-    Boolean insert = false;
+    Boolean empty = true;
     query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
-      if(rs == null){
-        insert = true;
-      }
       while (rs.next()){
+        empty = false;
         int days = rs.getInt("daysHeld");
         days = days + (future - days);
         try(Statement statement2 = connection.createStatement()){
@@ -421,7 +419,7 @@ public class RkuangDB {
     }catch(SQLException e){
       e.printStackTrace();
     }
-    if(insert == true){
+    if(empty){
       query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
       try(Statement statement3 = connection.createStatement()){
         ResultSet rs = statement3.executeQuery(query);
