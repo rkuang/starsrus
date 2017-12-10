@@ -414,7 +414,7 @@ public class RkuangDB {
           days = 1 + daysHeld;
         }
         else{
-          String getDays = String.format("SELECT SUM daysHeld FROM Interest WHERE taxid = '%s'", rs.getString("taxid"));
+          String getDays = String.format("SELECT SUM(daysHeld) FROM Interest WHERE taxid = '%s'", rs.getString("taxid"));
           try(Statement statement4 = connection.createStatement()){
             ResultSet rs2 = statement4.executeQuery(getDays);
             while(rs2.next()){
