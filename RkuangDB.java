@@ -397,7 +397,7 @@ public class RkuangDB {
       return;
     }
 
-    for (int i; i < (day - todayDay); i++) {
+    for (int i = 0; i < (day - todayDay); i++) {
       advanceDate();
     }
   }
