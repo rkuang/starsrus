@@ -663,10 +663,10 @@ public class RkuangDB {
     this.getMarketHistory(taxid);
     System.out.println("Stock Account Transaction History:");
     this.getStockHistory(taxid);
-    System.out.println(String.format("Commission Paid:       $.2f", commissionPaid));
-    System.out.println(String.format("Earnings:              $.2f", profit));
-    System.out.println(String.format("Inital Market Balance: $.2f", initalMarketBalance));
-    System.out.println(String.format("Final Market Balance:  $.2f", finalMarketBalance));
+    System.out.println(String.format("Commission Paid:       $%.2f", commissionPaid));
+    System.out.println(String.format("Earnings:              $%.2f", profit));
+    System.out.println(String.format("Inital Market Balance: $%.2f", initalMarketBalance));
+    System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
   }
 
   public void closeConnection() {
