@@ -400,8 +400,9 @@ public class RkuangDB {
   }
 
   public void updateInterest(int future, Boolean close){
+    String query = "";
     if(close){
-      String query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
+      query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
       try(Statement statement3 = connection.createStatement()){
         ResultSet rs = statement3.executeQuery(query);
         while (rs.next()){
