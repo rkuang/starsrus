@@ -129,7 +129,7 @@ public class Customer {
   }
 
   public void getBalance() {
-    StarsRUs.rkuangDB.getBalance(taxid);
+    System.out.println(String.format("Market Account Balance:  $%.2f", StarsRUs.rkuangDB.getBalance(taxid)));
   }
 
   public void getTransactionHistory() {
@@ -174,6 +174,7 @@ public class Customer {
 
   public void genMthStatement(){
     System.out.println("Generate monthly report for:");
+    System.out.print("Tax ID:  ");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
     StarsRUs.rkuangDB.genMthStatement(thisTaxid);
@@ -181,7 +182,6 @@ public class Customer {
   }
 
   public void listActiveCustomers(){
-    // TODO wording
     StarsRUs.rkuangDB.listActiveCustomers();
   }
 
@@ -194,8 +194,9 @@ public class Customer {
     System.out.print("Tax ID:  ");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
+    System.out.println(String.format("Account Information for %s:", StarsRUs.rkuangDB.getName(thisTaxid)));
+    System.out.println(String.format("Market Account Balance:  $%.2f", StarsRUs.rkuangDB.getBalance(thisTaxid)));
     StarsRUs.rkuangDB.showStockBalance(thisTaxid);
-    StarsRUs.rkuangDB.getBalance(thisTaxid);
     return;
   }
 
