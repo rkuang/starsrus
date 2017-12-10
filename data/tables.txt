@@ -17,3 +17,7 @@ CREATE TABLE Market (date date, open bool);
 CREATE TABLE Market_Transactions (id int auto_increment, taxid char(4), date date, type char(20), amount real, PRIMARY KEY (id), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
 
 CREATE TABLE Stock_Transactions (id int auto_increment, taxid char(4), date date, type char(20), stockid char(3), quantity real, price real, PRIMARY KEY (id), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
+
+CREATE TABLE Daily_Balances (taxid char(4), date date, balance real, PRIMARY KEY (taxid, date), FOREIGN KEY (taxid) REFERENCES Customers(taxid));
+
+CREATE TABLE Closing_Prices (stockid char(3), date date, price real, PRIMARY KEY (stockid, date), FOREIGN KEY (stockid) REFERENCES Stocks(stockid));
