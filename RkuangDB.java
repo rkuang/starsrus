@@ -718,7 +718,7 @@ public class RkuangDB {
       query = String.format("SELECT SUM(price) FROM Stock_Transactions WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
-        market_change -= rs.getDouble("SUM(price)");
+        market_change += rs.getDouble("SUM(price)");
       }
 
       query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
@@ -750,22 +750,33 @@ public class RkuangDB {
   }
 
   public void initStockBal(String taxid) {
-    String query = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' GROUP BY stockid", taxid);
+    String query = String.format("SELECT * FROM Stocks S", taxid);
 
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
       while(rs.next()){
         String stockid = rs.getString("stockid");
-        double quantity = rs.getDouble("SUM(quantity)");
 
-        String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
-        double initQuantity = 0;
-        try (Statement s2 = connection.createStatement()) {
-          ResultSet rs2 = statement.executeQuery(q2);
-          while (rs2.next()) {
-            initQuantity = quantity - rs2.getDouble("SUM(quantity)");
+        String q2 = String.format("SELECT SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement statement = connection.createStatement()){
+          ResultSet rs2 = statement.executeQuery(query);
+          while(rs.next()){
+            double quantity = rs.getDouble("SUM(quantity)");
+
+            String q3 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+            double initQuantity = 0;
+            try (Statement s3 = connection.createStatement()) {
+              ResultSet rs3 = statement.executeQuery(q2);
+              while (rs3.next()) {
+                initQuantity = quantity - rs3.getDouble("SUM(quantity)");
+              }
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+
+            System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
           }
-        } catch (SQLException e) {
+        } catch(SQLException e){
           e.printStackTrace();
         }
 
