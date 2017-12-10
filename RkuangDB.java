@@ -782,8 +782,8 @@ public class RkuangDB {
         } catch(SQLException e){
           e.printStackTrace();
         }
+        System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
       }
-      System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
     } catch(SQLException e){
       e.printStackTrace();
     }
