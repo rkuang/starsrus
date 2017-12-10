@@ -168,6 +168,7 @@ public class Customer {
 
   public void accrueInterest(){
     StarsRUs.rkuangDB.calcInterest();
+    System.out.println("Interest has been applied to all market accounts.");
     return;
   }
 
@@ -180,6 +181,7 @@ public class Customer {
   }
 
   public void listActiveCustomers(){
+    // TODO wording
     StarsRUs.rkuangDB.listActiveCustomers();
   }
 
@@ -189,6 +191,7 @@ public class Customer {
 
   public void generateCustomerReport(){
     System.out.println("Generate customer report for:");
+    System.out.print("Tax ID:  ");
     Scanner in = new Scanner(System.in);
     String thisTaxid = in.nextLine();
     StarsRUs.rkuangDB.showStockBalance(thisTaxid);
@@ -197,6 +200,7 @@ public class Customer {
   }
 
   public void deleteTransactions(){
+    // TODO more explore
     StarsRUs.rkuangDB.deleteTransactions();
   }
 
@@ -223,7 +227,7 @@ public class Customer {
   }
 
   public void getDate(){
-    System.out.println("Today's date is:" + StarsRUs.rkuangDB.getDate());
+    System.out.println("Today's date is: " + StarsRUs.rkuangDB.getDate());
   }
 
   public void setDate() {
@@ -248,6 +252,8 @@ public class Customer {
     System.out.print("New Price:  ");
     double newprice = in.nextDouble();
     StarsRUs.rkuangDB.setStockPrice(stockid, newprice);
+
+    System.out.println(String.format("%s has been set to $%.2f", stockid, newprice));
   }
 
   public void logout() {
