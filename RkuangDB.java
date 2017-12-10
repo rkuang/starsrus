@@ -400,19 +400,13 @@ public class RkuangDB {
   }
 
   public void updateInterest(int future){
-    int past = this.dayToInt(this.getDate());
-    int days = future - past;
     String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
         try(Statement statement2 = connection.createStatement()){
-<<<<<<< HEAD
           int currDay = rs.getInt("daysHeld");
-          query = String.format("UPDATE Interest SET daysHeld = '%d'", currDay + (future - currDay));
-=======
-          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", rs.getInt("daysHeld") + days, rs.getString("taxid"), rs.getDouble("balance"));
->>>>>>> parent of 4a11e31... fixed interest the 10000th time
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", currDay + (future - currDay), rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
