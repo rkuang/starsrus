@@ -24,8 +24,8 @@ public class Customer {
       }
       else{
         System.out.println("Login Successful");
-        System.out.println("Hello, "+StarsRUs.activeUser.name);
       }
+      System.out.println("Hello, "+StarsRUs.activeUser.name);
       return;
     }
     System.out.println("Login Failed");
@@ -167,7 +167,7 @@ public class Customer {
   }
 
   public void accrueInterest(){
-    StarsRUs.rkuangDB.calcInterest();
+    StarsRUs.rkuangDB.accrueInterest();
     System.out.println("Interest has been applied to all market accounts.");
     return;
   }
@@ -205,25 +205,22 @@ public class Customer {
     StarsRUs.rkuangDB.deleteTransactions();
   }
 
-  public void setMarket(){
+  public void setMarket() {
     System.out.println("Would you like to open or close the market?");
+    String marketState = StarsRUs.rkuangDB.getMarketState()?"open":"close";
+
     Scanner in = new Scanner(System.in);
-    if(in.next().equals("open")){
-      if(StarsRUs.rkuangDB.setMarket(true)){
-        System.out.println("It is now open.");
+    String input = in.next();
+    if(input.equals(marketState)){
+      System.out.println("Market is already "+input);
+    } else {
+      Boolean bool;
+      if (input.equals("open")) {
+        bool = true;
+      } else {
+        bool = false;
       }
-      else{
-        System.out.println("Market is already open.");
-      }
-    }
-    else{
-      if(StarsRUs.rkuangDB.setMarket(false)){
-        System.out.println("it is now closed");
-        StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(StarsRUs.rkuangDB.getDate()),true);
-      }
-      else{
-        System.out.println("Market is already closed.");
-      }
+      StarsRUs.rkuangDB.setMarket(bool);
     }
   }
 
@@ -236,13 +233,11 @@ public class Customer {
     System.out.print("Date:  ");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
-    if(date == StarsRUs.rkuangDB.getDate()){
+    if(date.equals(StarsRUs.rkuangDB.getDate())){
       System.out.println("It is already set to " + date);
     }
     else{
-      StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1,false);
       StarsRUs.rkuangDB.setDate(date);
-      StarsRUs.rkuangDB.setMarket(true);
     }
   }
 

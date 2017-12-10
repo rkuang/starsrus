@@ -1,15 +1,16 @@
 delete from Market;
-delete from Interest;
 delete from Market_Accounts;
 delete from Movie_Contracts;
 delete from Stock_Accounts;
 delete from Stock_Balance;
-delete from Stocks;
 delete from Market_Transactions;
 delete from Stock_Transactions;
+delete from Closing_Prices;
+delete from Daily_Balances;
+delete from Stocks;
 delete from Customers;
 
-insert into Market values ('2013-03-16', false);
+insert into Market values ('2013-03-17', true);
 
 insert into Customers values ('John Admin', 'admin', 'secret', 'Stock Company SB', 'CA', '(805)6374632', 'admin@stock.com', '1000', '606-60-6060', true);
 insert into Customers values ('Alfred Hitchcock', 'alfred', 'hi', '6667 El Colegio #40 SB', 'CA', '(805)2574499', 'alfred@hotmail.com', '1022', '606-76-7900', false);
@@ -57,14 +58,259 @@ insert into Movie_Contracts values ('SKB', 'L.A. Confidential', 'actor', 1997, 5
 insert into Movie_Contracts values ('SMD', 'A Perfect Murder', 'actor', 1998, 10000000);
 insert into Movie_Contracts values ('STC', 'Jerry Maguire', 'actor', 1996, 5000000);
 
-insert into Interest values ('1022', 10000, 16);
-insert into Interest values ('3045', 100000, 16);
-insert into Interest values ('2034', 50000, 16);
-insert into Interest values ('4093', 45000, 16);
-insert into Interest values ('1234', 200000, 16);
-insert into Interest values ('8956', 5000, 16);
-insert into Interest values ('2341', 2000, 16);
-insert into Interest values ('0456', 10000, 16);
-insert into Interest values ('3455', 130200, 16);
-insert into Interest values ('1123', 35000, 16);
-insert into Interest values ('3306', 30500, 16);
+insert into Closing_Prices values ('SKB', '2013-03-01', 40);
+insert into Closing_Prices values ('SMD', '2013-03-01', 71);
+insert into Closing_Prices values ('STC', '2013-03-01', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-02', 40);
+insert into Closing_Prices values ('SMD', '2013-03-02', 71);
+insert into Closing_Prices values ('STC', '2013-03-02', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-03', 40);
+insert into Closing_Prices values ('SMD', '2013-03-03', 71);
+insert into Closing_Prices values ('STC', '2013-03-03', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-04', 40);
+insert into Closing_Prices values ('SMD', '2013-03-04', 71);
+insert into Closing_Prices values ('STC', '2013-03-04', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-05', 40);
+insert into Closing_Prices values ('SMD', '2013-03-05', 71);
+insert into Closing_Prices values ('STC', '2013-03-05', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-06', 40);
+insert into Closing_Prices values ('SMD', '2013-03-06', 71);
+insert into Closing_Prices values ('STC', '2013-03-06', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-07', 40);
+insert into Closing_Prices values ('SMD', '2013-03-07', 71);
+insert into Closing_Prices values ('STC', '2013-03-07', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-08', 40);
+insert into Closing_Prices values ('SMD', '2013-03-08', 71);
+insert into Closing_Prices values ('STC', '2013-03-08', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-09', 40);
+insert into Closing_Prices values ('SMD', '2013-03-09', 71);
+insert into Closing_Prices values ('STC', '2013-03-09', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-10', 40);
+insert into Closing_Prices values ('SMD', '2013-03-10', 71);
+insert into Closing_Prices values ('STC', '2013-03-10', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-11', 40);
+insert into Closing_Prices values ('SMD', '2013-03-11', 71);
+insert into Closing_Prices values ('STC', '2013-03-11', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-12', 40);
+insert into Closing_Prices values ('SMD', '2013-03-12', 71);
+insert into Closing_Prices values ('STC', '2013-03-12', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-13', 40);
+insert into Closing_Prices values ('SMD', '2013-03-13', 71);
+insert into Closing_Prices values ('STC', '2013-03-13', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-14', 40);
+insert into Closing_Prices values ('SMD', '2013-03-14', 71);
+insert into Closing_Prices values ('STC', '2013-03-14', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-15', 40);
+insert into Closing_Prices values ('SMD', '2013-03-15', 71);
+insert into Closing_Prices values ('STC', '2013-03-15', 32.50);
+
+insert into Closing_Prices values ('SKB', '2013-03-16', 40);
+insert into Closing_Prices values ('SMD', '2013-03-16', 71);
+insert into Closing_Prices values ('STC', '2013-03-16', 32.50);
+
+
+insert into Daily_Balances values ('1022', '2013-03-01', 10000);
+insert into Daily_Balances values ('3045', '2013-03-01', 100000);
+insert into Daily_Balances values ('2034', '2013-03-01', 50000);
+insert into Daily_Balances values ('4093', '2013-03-01', 45000);
+insert into Daily_Balances values ('1234', '2013-03-01', 200000);
+insert into Daily_Balances values ('8956', '2013-03-01', 5000);
+insert into Daily_Balances values ('2341', '2013-03-01', 2000);
+insert into Daily_Balances values ('0456', '2013-03-01', 10000);
+insert into Daily_Balances values ('3455', '2013-03-01', 130200);
+insert into Daily_Balances values ('1123', '2013-03-01', 35000);
+insert into Daily_Balances values ('3306', '2013-03-01', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-02', 10000);
+insert into Daily_Balances values ('3045', '2013-03-02', 100000);
+insert into Daily_Balances values ('2034', '2013-03-02', 50000);
+insert into Daily_Balances values ('4093', '2013-03-02', 45000);
+insert into Daily_Balances values ('1234', '2013-03-02', 200000);
+insert into Daily_Balances values ('8956', '2013-03-02', 5000);
+insert into Daily_Balances values ('2341', '2013-03-02', 2000);
+insert into Daily_Balances values ('0456', '2013-03-02', 10000);
+insert into Daily_Balances values ('3455', '2013-03-02', 130200);
+insert into Daily_Balances values ('1123', '2013-03-02', 35000);
+insert into Daily_Balances values ('3306', '2013-03-02', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-03', 10000);
+insert into Daily_Balances values ('3045', '2013-03-03', 100000);
+insert into Daily_Balances values ('2034', '2013-03-03', 50000);
+insert into Daily_Balances values ('4093', '2013-03-03', 45000);
+insert into Daily_Balances values ('1234', '2013-03-03', 200000);
+insert into Daily_Balances values ('8956', '2013-03-03', 5000);
+insert into Daily_Balances values ('2341', '2013-03-03', 2000);
+insert into Daily_Balances values ('0456', '2013-03-03', 10000);
+insert into Daily_Balances values ('3455', '2013-03-03', 130200);
+insert into Daily_Balances values ('1123', '2013-03-03', 35000);
+insert into Daily_Balances values ('3306', '2013-03-03', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-04', 10000);
+insert into Daily_Balances values ('3045', '2013-03-04', 100000);
+insert into Daily_Balances values ('2034', '2013-03-04', 50000);
+insert into Daily_Balances values ('4093', '2013-03-04', 45000);
+insert into Daily_Balances values ('1234', '2013-03-04', 200000);
+insert into Daily_Balances values ('8956', '2013-03-04', 5000);
+insert into Daily_Balances values ('2341', '2013-03-04', 2000);
+insert into Daily_Balances values ('0456', '2013-03-04', 10000);
+insert into Daily_Balances values ('3455', '2013-03-04', 130200);
+insert into Daily_Balances values ('1123', '2013-03-04', 35000);
+insert into Daily_Balances values ('3306', '2013-03-04', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-05', 10000);
+insert into Daily_Balances values ('3045', '2013-03-05', 100000);
+insert into Daily_Balances values ('2034', '2013-03-05', 50000);
+insert into Daily_Balances values ('4093', '2013-03-05', 45000);
+insert into Daily_Balances values ('1234', '2013-03-05', 200000);
+insert into Daily_Balances values ('8956', '2013-03-05', 5000);
+insert into Daily_Balances values ('2341', '2013-03-05', 2000);
+insert into Daily_Balances values ('0456', '2013-03-05', 10000);
+insert into Daily_Balances values ('3455', '2013-03-05', 130200);
+insert into Daily_Balances values ('1123', '2013-03-05', 35000);
+insert into Daily_Balances values ('3306', '2013-03-05', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-06', 10000);
+insert into Daily_Balances values ('3045', '2013-03-06', 100000);
+insert into Daily_Balances values ('2034', '2013-03-06', 50000);
+insert into Daily_Balances values ('4093', '2013-03-06', 45000);
+insert into Daily_Balances values ('1234', '2013-03-06', 200000);
+insert into Daily_Balances values ('8956', '2013-03-06', 5000);
+insert into Daily_Balances values ('2341', '2013-03-06', 2000);
+insert into Daily_Balances values ('0456', '2013-03-06', 10000);
+insert into Daily_Balances values ('3455', '2013-03-06', 130200);
+insert into Daily_Balances values ('1123', '2013-03-06', 35000);
+insert into Daily_Balances values ('3306', '2013-03-06', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-07', 10000);
+insert into Daily_Balances values ('3045', '2013-03-07', 100000);
+insert into Daily_Balances values ('2034', '2013-03-07', 50000);
+insert into Daily_Balances values ('4093', '2013-03-07', 45000);
+insert into Daily_Balances values ('1234', '2013-03-07', 200000);
+insert into Daily_Balances values ('8956', '2013-03-07', 5000);
+insert into Daily_Balances values ('2341', '2013-03-07', 2000);
+insert into Daily_Balances values ('0456', '2013-03-07', 10000);
+insert into Daily_Balances values ('3455', '2013-03-07', 130200);
+insert into Daily_Balances values ('1123', '2013-03-07', 35000);
+insert into Daily_Balances values ('3306', '2013-03-07', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-08', 10000);
+insert into Daily_Balances values ('3045', '2013-03-08', 100000);
+insert into Daily_Balances values ('2034', '2013-03-08', 50000);
+insert into Daily_Balances values ('4093', '2013-03-08', 45000);
+insert into Daily_Balances values ('1234', '2013-03-08', 200000);
+insert into Daily_Balances values ('8956', '2013-03-08', 5000);
+insert into Daily_Balances values ('2341', '2013-03-08', 2000);
+insert into Daily_Balances values ('0456', '2013-03-08', 10000);
+insert into Daily_Balances values ('3455', '2013-03-08', 130200);
+insert into Daily_Balances values ('1123', '2013-03-08', 35000);
+insert into Daily_Balances values ('3306', '2013-03-08', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-09', 10000);
+insert into Daily_Balances values ('3045', '2013-03-09', 100000);
+insert into Daily_Balances values ('2034', '2013-03-09', 50000);
+insert into Daily_Balances values ('4093', '2013-03-09', 45000);
+insert into Daily_Balances values ('1234', '2013-03-09', 200000);
+insert into Daily_Balances values ('8956', '2013-03-09', 5000);
+insert into Daily_Balances values ('2341', '2013-03-09', 2000);
+insert into Daily_Balances values ('0456', '2013-03-09', 10000);
+insert into Daily_Balances values ('3455', '2013-03-09', 130200);
+insert into Daily_Balances values ('1123', '2013-03-09', 35000);
+insert into Daily_Balances values ('3306', '2013-03-09', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-10', 10000);
+insert into Daily_Balances values ('3045', '2013-03-10', 100000);
+insert into Daily_Balances values ('2034', '2013-03-10', 50000);
+insert into Daily_Balances values ('4093', '2013-03-10', 45000);
+insert into Daily_Balances values ('1234', '2013-03-10', 200000);
+insert into Daily_Balances values ('8956', '2013-03-10', 5000);
+insert into Daily_Balances values ('2341', '2013-03-10', 2000);
+insert into Daily_Balances values ('0456', '2013-03-10', 10000);
+insert into Daily_Balances values ('3455', '2013-03-10', 130200);
+insert into Daily_Balances values ('1123', '2013-03-10', 35000);
+insert into Daily_Balances values ('3306', '2013-03-10', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-11', 10000);
+insert into Daily_Balances values ('3045', '2013-03-11', 100000);
+insert into Daily_Balances values ('2034', '2013-03-11', 50000);
+insert into Daily_Balances values ('4093', '2013-03-11', 45000);
+insert into Daily_Balances values ('1234', '2013-03-11', 200000);
+insert into Daily_Balances values ('8956', '2013-03-11', 5000);
+insert into Daily_Balances values ('2341', '2013-03-11', 2000);
+insert into Daily_Balances values ('0456', '2013-03-11', 10000);
+insert into Daily_Balances values ('3455', '2013-03-11', 130200);
+insert into Daily_Balances values ('1123', '2013-03-11', 35000);
+insert into Daily_Balances values ('3306', '2013-03-11', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-12', 10000);
+insert into Daily_Balances values ('3045', '2013-03-12', 100000);
+insert into Daily_Balances values ('2034', '2013-03-12', 50000);
+insert into Daily_Balances values ('4093', '2013-03-12', 45000);
+insert into Daily_Balances values ('1234', '2013-03-12', 200000);
+insert into Daily_Balances values ('8956', '2013-03-12', 5000);
+insert into Daily_Balances values ('2341', '2013-03-12', 2000);
+insert into Daily_Balances values ('0456', '2013-03-12', 10000);
+insert into Daily_Balances values ('3455', '2013-03-12', 130200);
+insert into Daily_Balances values ('1123', '2013-03-12', 35000);
+insert into Daily_Balances values ('3306', '2013-03-12', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-13', 10000);
+insert into Daily_Balances values ('3045', '2013-03-13', 100000);
+insert into Daily_Balances values ('2034', '2013-03-13', 50000);
+insert into Daily_Balances values ('4093', '2013-03-13', 45000);
+insert into Daily_Balances values ('1234', '2013-03-13', 200000);
+insert into Daily_Balances values ('8956', '2013-03-13', 5000);
+insert into Daily_Balances values ('2341', '2013-03-13', 2000);
+insert into Daily_Balances values ('0456', '2013-03-13', 10000);
+insert into Daily_Balances values ('3455', '2013-03-13', 130200);
+insert into Daily_Balances values ('1123', '2013-03-13', 35000);
+insert into Daily_Balances values ('3306', '2013-03-13', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-14', 10000);
+insert into Daily_Balances values ('3045', '2013-03-14', 100000);
+insert into Daily_Balances values ('2034', '2013-03-14', 50000);
+insert into Daily_Balances values ('4093', '2013-03-14', 45000);
+insert into Daily_Balances values ('1234', '2013-03-14', 200000);
+insert into Daily_Balances values ('8956', '2013-03-14', 5000);
+insert into Daily_Balances values ('2341', '2013-03-14', 2000);
+insert into Daily_Balances values ('0456', '2013-03-14', 10000);
+insert into Daily_Balances values ('3455', '2013-03-14', 130200);
+insert into Daily_Balances values ('1123', '2013-03-14', 35000);
+insert into Daily_Balances values ('3306', '2013-03-14', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-15', 10000);
+insert into Daily_Balances values ('3045', '2013-03-15', 100000);
+insert into Daily_Balances values ('2034', '2013-03-15', 50000);
+insert into Daily_Balances values ('4093', '2013-03-15', 45000);
+insert into Daily_Balances values ('1234', '2013-03-15', 200000);
+insert into Daily_Balances values ('8956', '2013-03-15', 5000);
+insert into Daily_Balances values ('2341', '2013-03-15', 2000);
+insert into Daily_Balances values ('0456', '2013-03-15', 10000);
+insert into Daily_Balances values ('3455', '2013-03-15', 130200);
+insert into Daily_Balances values ('1123', '2013-03-15', 35000);
+insert into Daily_Balances values ('3306', '2013-03-15', 30500);
+
+insert into Daily_Balances values ('1022', '2013-03-16', 10000);
+insert into Daily_Balances values ('3045', '2013-03-16', 100000);
+insert into Daily_Balances values ('2034', '2013-03-16', 50000);
+insert into Daily_Balances values ('4093', '2013-03-16', 45000);
+insert into Daily_Balances values ('1234', '2013-03-16', 200000);
+insert into Daily_Balances values ('8956', '2013-03-16', 5000);
+insert into Daily_Balances values ('2341', '2013-03-16', 2000);
+insert into Daily_Balances values ('0456', '2013-03-16', 10000);
+insert into Daily_Balances values ('3455', '2013-03-16', 130200);
+insert into Daily_Balances values ('1123', '2013-03-16', 35000);
+insert into Daily_Balances values ('3306', '2013-03-16', 30500);
