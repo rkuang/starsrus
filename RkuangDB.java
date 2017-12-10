@@ -767,7 +767,7 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
-      Map<String, double> quantity = new Map<String, double>();
+      Map<String, Double> quantity = new HashMap<String, Double>();
       String stockid = "";
 
       while(rs.next()){
