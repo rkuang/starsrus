@@ -6,7 +6,6 @@ public class StarsRUs {
   static ValidInputs validInputs;
   static RkuangDB rkuangDB;
   static MoviesDB moviesDB;
-  static Admin admin;
 
   public static void main(String[] args) {
     activeUser = new Customer();
