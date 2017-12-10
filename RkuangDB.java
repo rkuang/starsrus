@@ -100,6 +100,29 @@ public class RkuangDB {
     return false;
   }
 
+  public Boolean updateBalance(String taxid, double amount) {
+    String query = String.format("SELECT balance FROM Market_Accounts WHERE taxid='%s'", taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double balance = rs.getDouble("balance");
+        double newBalance = balance + amount;
+        if (newBalance > 0) {
+          query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, taxid);
+          statement.executeUpdate(query);
+          return true;
+        } else {
+          System.out.println("Transaction failed. Market Account balance cannot fall below $0");
+          return false;
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
   private void updateStockBalance(String stockid, double price, double quantity) {
     String query = String.format("SELECT * FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f", StarsRUs.activeUser.taxid, stockid, price);
 
@@ -419,7 +442,16 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
 
       while (rs.next()) {
+        String taxid = rs.getString("taxid");
+        int count = rs.getInt("COUNT(*)");
+        double sum = rs.getDouble("SUM(balance)");
 
+        double avgBal = sum / count;
+        double BaltoAdd = avgBal * 0.03;
+
+        updateBalance(taxid, BaltoAdd);
+        newMarketTransaction(taxid, "interest", BaltoAdd);
+        updateSharesTraded(BaltoAdd, 0);
       }
     } catch (SQLException e) {
       e.printStackTrace();
