@@ -468,7 +468,7 @@ public class RkuangDB {
 
         updateBalance(taxid, BaltoAdd);
         newMarketTransaction(taxid, "interest", BaltoAdd);
-        updateSharesTraded(BaltoAdd, 0);
+        updateSharesTraded(taxid, BaltoAdd, 0);
       }
     } catch (SQLException e) {
       e.printStackTrace();
