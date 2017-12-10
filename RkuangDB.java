@@ -407,6 +407,7 @@ public class RkuangDB {
       while (rs.next()){
         try(Statement statement2 = connection.createStatement()){
           int daysHeld = rs.getInt("daysHeld");
+          System.out.println(daysHeld);
           query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", daysHeld + (future - daysHeld), rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
