@@ -207,7 +207,7 @@ public class Customer {
 
   public void setMarket() {
     System.out.println("Would you like to open or close the market?");
-    String marketState = getMarketState()?"open":"close";
+    String marketState = StarsRUs.rkuangDB.getMarketState()?"open":"close";
 
     Scanner in = new Scanner(System.in);
     String input = in.next();
