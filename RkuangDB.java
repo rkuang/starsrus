@@ -758,6 +758,17 @@ public class RkuangDB {
         String stockid = rs.getString("stockid");
         double quantity = rs.getDouble("SUM(quantity)");
 
+        String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        double initQuantity = 0;
+        try (Statement s2 = connection.createStatement()) {
+          ResultSet rs2 = statement.executeQuery(q2);
+          while (rs2.next()) {
+            initQuantity = quantity - rs2.getDouble("SUM(quantity)");
+          }
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+
         System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
       }
     } catch(SQLException e){
