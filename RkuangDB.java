@@ -211,7 +211,7 @@ public class RkuangDB {
           updateStockBalance(stockid, buyingPrice.get(j), -1*sellAmount.get(j));
         }
 
-        updateSharesTraded(profit, sum(sellAmount));
+        updateSharesTraded(profit-commission, sum(sellAmount));
         newStockTransaction("sell", stockid, sum(sellAmount), addToMarket-commission);
       }
     } catch (SQLException e) {
@@ -443,7 +443,7 @@ public class RkuangDB {
           statement1.executeUpdate(addInterest);
           addInterest = String.format("UPDATE Stock_Accounts SET profit = '%f' WHERE taxid = '%s'", rs.getDouble("profit") + interest, rs.getString("taxid"));
           statement1.executeUpdate(addInterest);
-          this.newMarketTransaction(rs.getString("taxid"), "accrue interest", interest);
+          this.newMarketTransaction(rs.getString("taxid"), "interest", interest);
         }catch(SQLException e){
           e.printStackTrace();
         }
@@ -611,12 +611,11 @@ public class RkuangDB {
   }
 
   public void genMthStatement(String taxid){
-    this.showStockBalance(taxid);
-
     Double finalMarketBalance = this.getBalance(taxid);
     Double initalMarketBalance = 0.0;
     Double initalStockBalance = 0.0;
     Double profit = 0.0;
+    Double market_change = 0.0;
     int commissionCount = 0;
     int commissionPaid = 0;
     String name = "";
@@ -629,28 +628,49 @@ public class RkuangDB {
         email = rs.getString("email");
       }
       rs.close();
-      query = String.format("SELECT sa.profit, sb.taxid FROM Stock_Accounts sa, Stock_Balance sb WHERE sa.taxid = '%s' AND sb.taxid = '%s'", taxid, taxid);
+
+      query = String.format("SELECT * FROM Stock_Accounts WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
         profit = rs.getDouble("profit");
-        commissionCount ++;
       }
       rs.close();
+
+      query = String.format("SELECT SUM(amount) FROM Market_Transactions WHERE taxid = '%s'", taxid);
+      rs = statement.executeQuery(query);
+      while(rs.next()){
+        market_change = rs.getDouble("SUM(amount)");
+      }
+      rs.close();
+
+      query = String.format("SELECT SUM(price) FROM Stock_Transactions WHERE taxid = '%s'", taxid);
+      rs = statement.executeQuery(query);
+      while(rs.next()){
+        market_change += rs.getDouble("SUM(price)");
+      }
+      rs.close();
+
+      query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
+      if (rs.next()) {
+        commissionCount = rs.getInt("COUNT(*)");
+      }
+      rs.close()
     } catch(SQLException e){
       e.printStackTrace();
     }
     commissionPaid = commissionCount*20;
-    initalMarketBalance = finalMarketBalance + profit - commissionPaid;
-    System.out.println("Stock Account Transaction History:");
-    this.getStockHistory(taxid);
+    initalMarketBalance = finalMarketBalance - market_change;
+    System.out.println("Name:                  " + name);
+    System.out.println("E-mail:                " + email);
     System.out.println("Market Account Transaction History:");
     this.getMarketHistory(taxid);
-    System.out.println("Name: " + name + " E-mail: " + email);
-    System.out.println("Commission Paid: " + commissionPaid);
-    System.out.println("Profit: " + profit);
+    System.out.println("Stock Account Transaction History:");
+    this.getStockHistory(taxid);
+    System.out.println("Commission Paid:       " + commissionPaid);
+    System.out.println("Earnings:              " + profit);
     System.out.println("Inital Market Balance: " + initalMarketBalance);
-    System.out.println("Final Market Balance: " + finalMarketBalance);
-    System.out.println("Final Stock Balance: ");
+    System.out.println("Final Market Balance:  " + finalMarketBalance);
+    System.out.println("Final Stock Balance:   ");
     this.showStockBalance(taxid);
   }
   public void closeConnection() {
