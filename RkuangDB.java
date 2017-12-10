@@ -82,7 +82,7 @@ public class RkuangDB {
       if (rs.next()) {
         double balance = rs.getDouble("balance");
         double newBalance = balance + amount;
-        if (newBalance > 0) {
+        if (newBalance >= 0) {
           query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, StarsRUs.activeUser.taxid);
           statement.executeUpdate(query);
           System.out.println(String.format("Balance is now $%.2f", newBalance));
@@ -106,7 +106,7 @@ public class RkuangDB {
       if (rs.next()) {
         double balance = rs.getDouble("balance");
         double newBalance = balance + amount;
-        if (newBalance > 0) {
+        if (newBalance >= 0) {
           query = String.format("UPDATE Market_Accounts SET balance='%.2f' WHERE taxid='%s'", newBalance, taxid);
           statement.executeUpdate(query);
           return true;
@@ -127,7 +127,7 @@ public class RkuangDB {
     try (Statement statement = connection.createStatement()) {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
-        double oldQuantity = rs.getInt("quantity");
+        double oldQuantity = rs.getDouble("quantity");
         double newQuantity = oldQuantity + quantity;
         if (newQuantity == 0) {
           query = String.format("DELETE FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' AND buyingprice=%.2f AND quantity=%.3f", StarsRUs.activeUser.taxid, stockid, price, oldQuantity);
@@ -718,7 +718,7 @@ public class RkuangDB {
       query = String.format("SELECT SUM(price) FROM Stock_Transactions WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
-        market_change -= rs.getDouble("SUM(price)");
+        market_change += rs.getDouble("SUM(price)");
       }
 
       query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
@@ -743,8 +743,74 @@ public class RkuangDB {
     System.out.println(String.format("Earnings:              $%.2f", profit));
     System.out.println(String.format("Inital Market Balance: $%.2f", initalMarketBalance));
     System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
-    System.out.print("Final ");
-    showStockBalance(taxid);
+    System.out.println("Initial Stock Balance:");
+    initStockBal(taxid);
+    System.out.println("Final Stock Balance:");
+    finalStockBal(taxid);
+  }
+
+  public void initStockBal(String taxid) {
+    String query = String.format("SELECT * FROM Stocks S", taxid);
+
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      Map<String, Double> quantity = new HashMap<String, Double>();
+      String stockid = "";
+
+      while(rs.next()){
+        stockid = rs.getString("stockid");
+        quantity.put(stockid, 0.0);
+        String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement s2 = connection.createStatement()){
+          ResultSet rs2 = s2.executeQuery(q2);
+          while(rs2.next()){
+            quantity.replace(stockid, rs2.getDouble("SUM(quantity)"));
+          }
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+
+        String q3 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement s3 = connection.createStatement()){
+          ResultSet rs3 = s3.executeQuery(q3);
+          while(rs3.next()){
+            quantity.replace(stockid, quantity.get(stockid)-rs3.getDouble("SUM(quantity)"));
+          }
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+        System.out.println(String.format("   %.3f shares of %s", quantity.get(stockid), stockid));
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
+  }
+
+  public void finalStockBal(String taxid) {
+    String query = String.format("SELECT * FROM Stocks S", taxid);
+
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      Map<String, Double> quantity = new HashMap<String, Double>();
+      String stockid = "";
+
+      while(rs.next()){
+        stockid = rs.getString("stockid");
+        quantity.put(stockid, 0.0);
+        String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement s2 = connection.createStatement()){
+          ResultSet rs2 = s2.executeQuery(q2);
+          while(rs2.next()){
+            quantity.replace(stockid, rs2.getDouble("SUM(quantity)"));
+          }
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+        System.out.println(String.format("   %.3f shares of %s", quantity.get(stockid), stockid));
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
   }
 
   public String getName(String taxid) {
