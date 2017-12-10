@@ -412,19 +412,20 @@ public class RkuangDB {
     return;
   }
 
-  // public void setDate(String date){
-  //   int day = dayToInt(date);
-  //   int todayDay = dayToInt(getDate());
-  //
-  //   if (day < todayDay) {
-  //     System.out.println("Cannot go back in time.");
-  //     return;
-  //   }
-  //
-  //   for (int i = 0; i < (day - todayDay); i++) {
-  //     advanceDate();
-  //   }
-  // }
+  public void accrueInterest() {
+    String query = "SELECT taxid, COUNT(*), SUM(balance) FROM Daily_Balances GROUP BY taxid";
+
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+
+      while (rs.next()) {
+
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return;
+  }
 
   public int dayToInt(String date){
     int temp = Integer.parseInt(date.substring(8,10));

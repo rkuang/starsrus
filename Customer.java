@@ -167,7 +167,7 @@ public class Customer {
   }
 
   public void accrueInterest(){
-    // StarsRUs.rkuangDB.calcInterest();
+    StarsRUs.rkuangDB.accrueInterest();
     System.out.println("Interest has been applied to all market accounts.");
     return;
   }
