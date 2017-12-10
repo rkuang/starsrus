@@ -24,8 +24,8 @@ public class Customer {
       }
       else{
         System.out.println("Login Successful");
-        System.out.println("Hello, "+StarsRUs.activeUser.name);
       }
+      System.out.println("Hello, "+StarsRUs.activeUser.name);
       return;
     }
     System.out.println("Login Failed");

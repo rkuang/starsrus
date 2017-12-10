@@ -402,7 +402,29 @@ public class RkuangDB {
     }
   }
 
+  public void applyDate(String date){
+    String query = String.format("UPDATE Market SET date = '%s'", date);
+    try(Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
+    } catch (SQLException e){
+      e.printStackTrace();
+    }
+    return;
+  }
 
+  // public void setDate(String date){
+  //   int day = dayToInt(date);
+  //   int todayDay = dayToInt(getDate());
+  //
+  //   if (day < todayDay) {
+  //     System.out.println("Cannot go back in time.");
+  //     return;
+  //   }
+  //
+  //   for (int i = 0; i < (day - todayDay); i++) {
+  //     advanceDate();
+  //   }
+  // }
 
   public int dayToInt(String date){
     int temp = Integer.parseInt(date.substring(8,10));
@@ -483,7 +505,7 @@ public class RkuangDB {
     int day = dayToInt(today)+1;
     String tomorrow = "2013-03-"+day;
 
-    setDate(tomorrow);
+    applyDate(tomorrow);
     setMarket(true);
   }
 
