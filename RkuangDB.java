@@ -271,7 +271,6 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       if (rs.next()) {
         balance = rs.getDouble("balance");
-        System.out.println(String.format("Market Account Balance:  $%.2f", balance));
         return balance;
       }
     } catch (SQLException e) {
@@ -627,34 +626,30 @@ public class RkuangDB {
         name = rs.getString("name");
         email = rs.getString("email");
       }
-      rs.close();
 
       query = String.format("SELECT * FROM Stock_Accounts WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
         profit = rs.getDouble("profit");
       }
-      rs.close();
 
       query = String.format("SELECT SUM(amount) FROM Market_Transactions WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
         market_change = rs.getDouble("SUM(amount)");
       }
-      rs.close();
 
       query = String.format("SELECT SUM(price) FROM Stock_Transactions WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
         market_change += rs.getDouble("SUM(price)");
       }
-      rs.close();
 
       query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
       if (rs.next()) {
         commissionCount = rs.getInt("COUNT(*)");
       }
-      rs.close();
+
     } catch(SQLException e){
       e.printStackTrace();
     }

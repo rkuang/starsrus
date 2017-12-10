@@ -5,6 +5,8 @@ delete from Movie_Contracts;
 delete from Stock_Accounts;
 delete from Stock_Balance;
 delete from Stocks;
+delete from Market_Transactions;
+delete from Stock_Transactions;
 delete from Customers;
 
 insert into Market values ('2013-03-16', false);

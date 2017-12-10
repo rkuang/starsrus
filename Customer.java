@@ -129,7 +129,7 @@ public class Customer {
   }
 
   public void getBalance() {
-    StarsRUs.rkuangDB.getBalance(taxid);
+    System.out.println(String.format("Market Account Balance:  $%.2f", StarsRUs.rkuangDB.getBalance(taxid)));
   }
 
   public void getTransactionHistory() {
