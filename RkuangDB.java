@@ -441,8 +441,6 @@ public class RkuangDB {
         } else {
           query = String.format("UPDATE Market SET open = %b", isOpen);
           statement.executeUpdate(query);
-          insertClosingPrices();
-          insertDailyBalance();
           advanceDate();
           return true;
         }
@@ -504,6 +502,9 @@ public class RkuangDB {
 
     int day = dayToInt(today)+1;
     String tomorrow = "2013-03-"+day;
+
+    insertClosingPrices();
+    insertDailyBalance();
 
     applyDate(tomorrow);
     setMarket(true);
