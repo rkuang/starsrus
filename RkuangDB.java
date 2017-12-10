@@ -436,10 +436,12 @@ public class RkuangDB {
       String update;
       while (rs.next()) {
         String stockid = rs.getString("stockid");
-        double price = rs.getDouble("price");
+        double price = rs.getDouble("currentprice");
 
         update = String.format("INSERT INTO Closing_Prices VALUES ('%s', '%s', %.2f)", stockid, getDate(), price);
-        statement.executeUpdate(update);
+        try (Statement s2 = connection.createStatement()) {
+          s2.executeUpdate(update);
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -458,7 +460,9 @@ public class RkuangDB {
         double balance = rs.getDouble("balance");
 
         update = String.format("INSERT INTO Daily_Balances VALUES ('%s', '%s', %.2f)", taxid, getDate(), balance);
-        statement.executeUpdate(update);
+        try (Statement s2 = connection.createStatement()) {
+          s2.executeUpdate(update);
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();
