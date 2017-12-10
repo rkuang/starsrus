@@ -400,9 +400,24 @@ public class RkuangDB {
   }
 
   public void updateInterest(int future, Boolean close){
-    if(!close){
-      int currentDay = this.dayToInt(this.getDate());
-      String query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
+    if(close){
+      String query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
+      try(Statement statement3 = connection.createStatement()){
+        ResultSet rs = statement3.executeQuery(query);
+        while (rs.next()){
+          try(Statement statement4 = connection.createStatement()){
+            query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), 1);
+            statement4.executeUpdate(query);
+          } catch(SQLException e){
+            e.printStackTrace();
+          }
+        }
+      } catch(SQLException e){
+        e.printStackTrace();
+      }
+    }
+    else{
+      query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
       try(Statement statement1 = connection.createStatement()){
         ResultSet rs = statement1.executeQuery(query);
         while (rs.next()){
@@ -416,22 +431,6 @@ public class RkuangDB {
           }
         }
       }catch(SQLException e){
-        e.printStackTrace();
-      }
-    }
-    else{
-      try(Statement statement3 = connection.createStatement()){
-        query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
-        ResultSet rs = statement3.executeQuery(query);
-        while (rs.next()){
-          try(Statement statement4 = connection.createStatement()){
-            query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), 1);
-            statement4.executeUpdate(query);
-          } catch(SQLException e){
-            e.printStackTrace();
-          }
-        }
-      } catch(SQLException e){
         e.printStackTrace();
       }
     }
