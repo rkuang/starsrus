@@ -405,7 +405,7 @@ public class RkuangDB {
   }
 
   public void setStockPrice(String stockid, double newprice) {
-    String query = String.format("UPDATE Stocks SET currentprice=%f WHERE stockid='%s'", newprice, stockid);
+    String query = String.format("UPDATE Stocks SET currentprice=%.2f WHERE stockid='%s'", newprice, stockid);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
@@ -520,7 +520,7 @@ public class RkuangDB {
         String stockid = rs.getString("stockid");
         double price = rs.getDouble("currentprice");
 
-        update = String.format("INSERT INTO Closing_Prices VALUES ('%s', '%s', %f)", stockid, getDate(), price);
+        update = String.format("INSERT INTO Closing_Prices VALUES ('%s', '%s', %.2f)", stockid, getDate(), price);
         try (Statement s2 = connection.createStatement()) {
           s2.executeUpdate(update);
         } catch (SQLException e) {
@@ -543,7 +543,7 @@ public class RkuangDB {
         String taxid = rs.getString("taxid");
         double balance = rs.getDouble("balance");
 
-        update = String.format("INSERT INTO Daily_Balances VALUES ('%s', '%s', %f)", taxid, getDate(), balance);
+        update = String.format("INSERT INTO Daily_Balances VALUES ('%s', '%s', %.2f)", taxid, getDate(), balance);
         try (Statement s2 = connection.createStatement()) {
           s2.executeUpdate(update);
         } catch (SQLException e) {
@@ -569,7 +569,7 @@ public class RkuangDB {
   }
 
   public void newMarketTransaction(String type, double amount) {
-    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
+    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", StarsRUs.activeUser.taxid, getDate(), type, amount);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
@@ -579,7 +579,7 @@ public class RkuangDB {
   }
 
   public void newMarketTransaction(String taxid, String type, double amount) {
-    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %f)", taxid, getDate(), type, amount);
+    String query = String.format("INSERT INTO Market_Transactions (taxid, date, type, amount) VALUES ('%s', '%s', '%s', %.2f)", taxid, getDate(), type, amount);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
@@ -589,7 +589,7 @@ public class RkuangDB {
   }
 
   public void newStockTransaction(String type, String stockid, double quantity, double price) {
-    String query = String.format("INSERT INTO Stock_Transactions (taxid, date, type, stockid, quantity, price) VALUES ('%s', '%s', '%s', '%s', %f, %f)", StarsRUs.activeUser.taxid, getDate(), type, stockid, quantity, price);
+    String query = String.format("INSERT INTO Stock_Transactions (taxid, date, type, stockid, quantity, price) VALUES ('%s', '%s', '%s', '%s', %.3f, %.2f)", StarsRUs.activeUser.taxid, getDate(), type, stockid, quantity, price);
 
     try (Statement statement = connection.createStatement()) {
       statement.executeUpdate(query);
@@ -743,8 +743,26 @@ public class RkuangDB {
     System.out.println(String.format("Earnings:              $%.2f", profit));
     System.out.println(String.format("Inital Market Balance: $%.2f", initalMarketBalance));
     System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
-    System.out.print("Final ");
+    System.out.println("Initial Stock Balance:");
+    initStockBal(taxid);
+    System.out.println("Final Stock Balance:");
     finalStockBal(taxid);
+  }
+
+  public void initStockBal(String taxid) {
+    String query = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' GROUP BY stockid", taxid);
+
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        String stockid = rs.getString("stockid");
+        double quantity = rs.getDouble("SUM(quantity)");
+
+        System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
   }
 
   public void finalStockBal(String taxid) {
