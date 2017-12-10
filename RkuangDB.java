@@ -654,7 +654,7 @@ public class RkuangDB {
       if (rs.next()) {
         commissionCount = rs.getInt("COUNT(*)");
       }
-      rs.close()
+      rs.close();
     } catch(SQLException e){
       e.printStackTrace();
     }
