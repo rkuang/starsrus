@@ -759,7 +759,7 @@ public class RkuangDB {
         double quantity = rs.getDouble("SUM(quantity)");
 
         String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
-        double initQuantity;
+        double initQuantity = 0;
         try (Statement s2 = connection.createStatement()) {
           ResultSet rs2 = statement.executeQuery(q2);
           while (rs.next()) {
