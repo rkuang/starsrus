@@ -393,7 +393,7 @@ public class RkuangDB {
     int todayDay = dayToInt(getDate);
 
     if (day < todayDay) {
-      System.out.println("Cannot go back in time.")
+      System.out.println("Cannot go back in time.");
       return;
     }
 
