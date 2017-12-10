@@ -399,41 +399,37 @@ public class RkuangDB {
     return;
   }
 
-  public void updateInterest(int future, Boolean close){
+  public void updateInterest(int future){
     String query = "";
-    if(close){
-      query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
-      try(Statement statement3 = connection.createStatement()){
-        ResultSet rs = statement3.executeQuery(query);
-        while (rs.next()){
-          try(Statement statement4 = connection.createStatement()){
-            query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), 1);
-            statement4.executeUpdate(query);
-          } catch(SQLException e){
-            e.printStackTrace();
-          }
+    query = String.format("SELECT m.taxid,m.balance,i.daysHeld from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance <> i.currentBal");
+    try(Statement statement3 = connection.createStatement()){
+      ResultSet rs = statement3.executeQuery(query);
+      while (rs.next()){
+        try(Statement statement4 = connection.createStatement()){
+          query = String.format("INSERT INTO Interest (taxid, currentBal, daysHeld) VALUES ('%s','%f', '%d')", rs.getString("taxid"), rs.getDouble("balance"), 1);
+          statement4.executeUpdate(query);
+        } catch(SQLException e){
+          e.printStackTrace();
         }
-      } catch(SQLException e){
-        e.printStackTrace();
       }
+    } catch(SQLException e){
+      e.printStackTrace();
     }
-    else{
-      query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
-      try(Statement statement1 = connection.createStatement()){
-        ResultSet rs = statement1.executeQuery(query);
-        while (rs.next()){
-          int days = rs.getInt("daysHeld");
-          days = days + (future - days);
-          try(Statement statement2 = connection.createStatement()){
-            query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
-            statement2.executeUpdate(query);
-          }catch(SQLException e){
-            e.printStackTrace();
-          }
+    query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
+    try(Statement statement1 = connection.createStatement()){
+      ResultSet rs = statement1.executeQuery(query);
+      while (rs.next()){
+        int days = rs.getInt("daysHeld");
+        days = days + (future - days);
+        try(Statement statement2 = connection.createStatement()){
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
+          statement2.executeUpdate(query);
+        }catch(SQLException e){
+          e.printStackTrace();
         }
-      }catch(SQLException e){
-        e.printStackTrace();
       }
+    }catch(SQLException e){
+      e.printStackTrace();
     }
   }
 
