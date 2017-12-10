@@ -744,7 +744,23 @@ public class RkuangDB {
     System.out.println(String.format("Inital Market Balance: $%.2f", initalMarketBalance));
     System.out.println(String.format("Final Market Balance:  $%.2f", finalMarketBalance));
     System.out.print("Final ");
-    showStockBalance(taxid);
+    finalStockBal(taxid);
+  }
+
+  public void finalStockBal(String taxid) {
+    String query = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' GROUP BY stockid", taxid);
+
+    try (Statement statement = connection.createStatement()){
+      ResultSet rs = statement.executeQuery(query);
+      while(rs.next()){
+        String stockid = rs.getString("stockid");
+        double quantity = rs.getDouble("SUM(quantity)");
+
+        System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
+      }
+    } catch(SQLException e){
+      e.printStackTrace();
+    }
   }
 
   public String getName(String taxid) {
