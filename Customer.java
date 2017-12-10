@@ -205,25 +205,22 @@ public class Customer {
     StarsRUs.rkuangDB.deleteTransactions();
   }
 
-  public void setMarket(){
+  public void setMarket() {
     System.out.println("Would you like to open or close the market?");
+    String marketState = getMarketState?"open":"close";
+
     Scanner in = new Scanner(System.in);
-    if(in.next().equals("open")){
-      if(StarsRUs.rkuangDB.setMarket(true)){
-        System.out.println("It is now open.");
+    String input = in.next();
+    if(input.equals(marketState)){
+      System.out.println("Market is already "+input);
+    } else {
+      Boolean bool;
+      if (input.equals("open")) {
+        bool = true;
+      } else {
+        bool = false;
       }
-      else{
-        System.out.println("Market is already open.");
-      }
-    }
-    else{
-      if(StarsRUs.rkuangDB.setMarket(false)){
-        System.out.println("it is now closed");
-        // StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(StarsRUs.rkuangDB.getDate())+1);
-      }
-      else{
-        System.out.println("Market is already closed.");
-      }
+      StarsRUs.rkuangDB.setMarket(bool);
     }
   }
 

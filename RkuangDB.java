@@ -432,19 +432,27 @@ public class RkuangDB {
     return temp;
   }
 
-  public Boolean setMarket(Boolean isOpen){
+  public Boolean getMarketState() {
     String query = String.format("SELECT open FROM Market");
-    try(Statement statement = connection.createStatement()){
+    try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
-      while(rs.next()){
-        if(rs.getBoolean("open") == isOpen){
-          return false;
-        } else {
-          query = String.format("UPDATE Market SET open = %b", isOpen);
-          statement.executeUpdate(query);
-          advanceDate();
-          return true;
-        }
+      Boolean open;
+      while (rs.next()) {
+        open = rs.getBoolean("open");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return open;
+  }
+
+  public Boolean setMarket(Boolean input){
+    String query = String.format("UPDATE Market SET open = %b", input);
+
+    try (Statement statement = connection.createStatement()){
+      statement.executeUpdate(query);
+      if (!input) {
+        advanceDate();
       }
     }catch (SQLException e){
       e.printStackTrace();
