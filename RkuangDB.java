@@ -405,10 +405,11 @@ public class RkuangDB {
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
-        int daysHeld = rs.getInt("daysHeld");
-        System.out.println(daysHeld);
+        int days = rs.getInt("daysHeld");
+        System.out.println(days);
+        days = days + (future - daysHeld);
         try(Statement statement2 = connection.createStatement()){
-          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", daysHeld + (future - daysHeld), rs.getString("taxid"), rs.getDouble("balance"));
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
