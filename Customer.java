@@ -218,7 +218,7 @@ public class Customer {
     else{
       if(StarsRUs.rkuangDB.setMarket(false)){
         System.out.println("it is now closed");
-        StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(StarsRUs.rkuangDB.getDate())+1);
+        StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(StarsRUs.rkuangDB.getDate()),true);
       }
       else{
         System.out.println("Market is already closed.");
