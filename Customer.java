@@ -182,7 +182,6 @@ public class Customer {
   }
 
   public void listActiveCustomers(){
-    // TODO wording
     StarsRUs.rkuangDB.listActiveCustomers();
   }
 
