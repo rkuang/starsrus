@@ -407,12 +407,12 @@ public class RkuangDB {
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
+        int daysHeld = rs.getInt("daysHeld");
         empty = false;
         if(close){
-          days = 1;
+          days = 1 + daysHeld;
         }
         else{
-          int daysHeld = rs.getInt("daysHeld");
           days = daysHeld + (future - daysHeld);
         }
         try(Statement statement2 = connection.createStatement()){
