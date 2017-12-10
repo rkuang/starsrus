@@ -174,7 +174,7 @@ public class RkuangDB {
       while (rs.next()){
         try(Statement statement2 = connection.createStatement()){
           int currDay = rs.getInt("daysHeld");
-          query = String.format("UPDATE Interest SET daysHeld = '%d'", currDay + (future - currDay);
+          query = String.format("UPDATE Interest SET daysHeld = '%d'", currDay + (future - currDay));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
