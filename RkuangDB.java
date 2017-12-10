@@ -754,8 +754,32 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
-      while(rs.next()){
+      Map<String, Double> quantity = new HashMap<String, Double>();
+      String stockid = "";
 
+      while(rs.next()){
+        stockid = rs.getString("stockid");
+        quantity.put(stockid, 0.0);
+        String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement s2 = connection.createStatement()){
+          ResultSet rs2 = s2.executeQuery(q2);
+          while(rs2.next()){
+            quantity.replace(stockid, rs2.getDouble("SUM(quantity)"));
+          }
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+
+        String q3 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
+        try (Statement s3 = connection.createStatement()){
+          ResultSet rs3 = s3.executeQuery(q3);
+          while(rs3.next()){
+            quantity.replace(stockid, quantity.get(stockid)-rs3.getDouble("SUM(quantity)"));
+          }
+        } catch(SQLException e){
+          e.printStackTrace();
+        }
+        System.out.println(String.format("   %.3f shares of %s", quantity.get(stockid), stockid));
       }
     } catch(SQLException e){
       e.printStackTrace();
