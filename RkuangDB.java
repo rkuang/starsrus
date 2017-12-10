@@ -403,6 +403,7 @@ public class RkuangDB {
     String query = "";
     Boolean empty = true;
     int days = 0;
+    int totDays;
     query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
@@ -417,7 +418,6 @@ public class RkuangDB {
           try(Statement statement4 = connection.createStatement()){
             ResultSet rs2 = statement4.executeQuery(getDays);
             while(rs2.next()){
-              int totDays;
               totDays += rs2.getInt("daysHeld");
               days = daysHeld + (future - totDays);
             }
