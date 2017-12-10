@@ -399,17 +399,23 @@ public class RkuangDB {
     return;
   }
 
-  public void updateInterest(int future){
+  public void updateInterest(int future, Boolean close){
     String query = "";
     Boolean empty = true;
+    int days = 0;
     query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
       while (rs.next()){
         empty = false;
-        int days = future - this.dayToInt(this.getDate());
+        if(close){
+          days = 1;
+        }
+        else{
+          days = future - this.dayToInt(this.getDate());
+        }
         try(Statement statement2 = connection.createStatement()){
-          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", days, rs.getString("taxid"), rs.getDouble("balance"));
+          query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", rs.getInt("daysHeld") + days, rs.getString("taxid"), rs.getDouble("balance"));
           statement2.executeUpdate(query);
         }catch(SQLException e){
           e.printStackTrace();
