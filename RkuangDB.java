@@ -249,7 +249,7 @@ public class RkuangDB {
 
       if (updateBalance(addToMarket-commission)) {
         for (int j = 0; j<i; j++) {
-          updateStockBalance(stockid, buyingPrice.get(j), -1*sellAmount.get(j));
+          updateStockBalance(stockid, buyingPrice.get(j), -1*quantity.get(j));
         }
 
         updateSharesTraded(profit, sum(sellAmount));
