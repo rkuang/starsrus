@@ -412,7 +412,7 @@ public class RkuangDB {
           days = 1;
         }
         else{
-          int daysHeld = this.dayToInt(rs.getString("daysHeld"));
+          int daysHeld = rs.getInt("daysHeld");
           days = daysHeld + (future - daysHeld);
         }
         try(Statement statement2 = connection.createStatement()){
