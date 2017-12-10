@@ -418,7 +418,7 @@ public class RkuangDB {
           try(Statement statement4 = connection.createStatement()){
             ResultSet rs2 = statement4.executeQuery(getDays);
             while(rs2.next()){
-              totDays = rs2.getInt("daysHeld");
+              totDays = rs2.getInt("SUM(daysHeld)");
             }
           }catch(SQLException e){
             e.printStackTrace();
