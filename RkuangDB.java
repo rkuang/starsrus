@@ -212,7 +212,7 @@ public class RkuangDB {
         }
 
         updateSharesTraded(profit, sum(sellAmount));
-        newStockTransaction("sell", stockid, sum(sellAmount), addToMarket-commission);
+        newStockTransaction("sell", stockid, 1*sum(sellAmount), addToMarket-commission);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -642,7 +642,7 @@ public class RkuangDB {
       query = String.format("SELECT SUM(price) FROM Stock_Transactions WHERE taxid = '%s'", taxid);
       rs = statement.executeQuery(query);
       while(rs.next()){
-        market_change += rs.getDouble("SUM(price)");
+        market_change -= rs.getDouble("SUM(price)");
       }
 
       query = String.format("SELECT COUNT(*) FROM Stock_Transactions WHERE taxid='%s'", taxid);
@@ -655,6 +655,7 @@ public class RkuangDB {
       e.printStackTrace();
     }
     commissionPaid = commissionCount*20;
+    profit = profit - commissionPaid;
     initalMarketBalance = finalMarketBalance - market_change;
     System.out.println("Name:                  " + name);
     System.out.println("E-mail:                " + email);
@@ -662,12 +663,10 @@ public class RkuangDB {
     this.getMarketHistory(taxid);
     System.out.println("Stock Account Transaction History:");
     this.getStockHistory(taxid);
-    System.out.println("Commission Paid:       " + commissionPaid);
-    System.out.println("Earnings:              " + profit);
-    System.out.println("Inital Market Balance: " + initalMarketBalance);
-    System.out.println("Final Market Balance:  " + finalMarketBalance);
-    System.out.println("Final Stock Balance:   ");
-    this.showStockBalance(taxid);
+    System.out.println(String.format("Commission Paid:       $.2f", commissionPaid));
+    System.out.println(String.format("Earnings:              $.2f", profit));
+    System.out.println(String.format("Inital Market Balance: $.2f", initalMarketBalance));
+    System.out.println(String.format("Final Market Balance:  $.2f", finalMarketBalance));
   }
 
   public void closeConnection() {
