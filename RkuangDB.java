@@ -756,15 +756,16 @@ public class RkuangDB {
       ResultSet rs = statement.executeQuery(query);
       while(rs.next()){
         String stockid = rs.getString("stockid");
+        double quantity = 0;
+        double initQuantity = 0;
 
         String q2 = String.format("SELECT SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
         try (Statement s2 = connection.createStatement()){
           ResultSet rs2 = s2.executeQuery(query);
           while(rs.next()){
-            double quantity = rs.getDouble("SUM(quantity)");
+            quantity = rs.getDouble("SUM(quantity)");
 
             String q3 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Transactions WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
-            double initQuantity = 0;
             try (Statement s3 = connection.createStatement()) {
               ResultSet rs3 = s3.executeQuery(q2);
               while (rs3.next()) {
@@ -773,14 +774,12 @@ public class RkuangDB {
             } catch (SQLException e) {
               e.printStackTrace();
             }
-
-            System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
           }
         } catch(SQLException e){
           e.printStackTrace();
         }
 
-        System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
+        System.out.println(String.format("   %.3f shares of %s", initQuantity, stockid));
       }
     } catch(SQLException e){
       e.printStackTrace();
