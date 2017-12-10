@@ -58,10 +58,8 @@ public class RkuangDB {
 
   public void createMarketAccount(String taxid, double deposit){
     String queryMarket = String.format("INSERT INTO Market_Accounts(taxid, balance)VALUES('%s', '%.2f')", taxid, deposit);
-    String queryInterest = String.format("INSERT INTO Interest VALUES('%s', '%.2f', 0)", taxid, deposit);
     try(Statement statement = connection.createStatement()){
       statement.executeUpdate(queryMarket);
-      statement.executeUpdate(queryInterest);
     }catch(SQLException e){
       e.printStackTrace();
     }
@@ -170,6 +168,26 @@ public class RkuangDB {
     }
   }
 
+  private void updateSharesTraded(String taxid, double profit, double quantity) {
+    String query = String.format("SELECT * FROM Stock_Accounts WHERE taxid='%s'", taxid);
+
+    try (Statement statement = connection.createStatement()) {
+      ResultSet rs = statement.executeQuery(query);
+      if (rs.next()) {
+        double oldProfit = rs.getDouble("profit");
+        double newProfit = oldProfit + profit;
+        double oldSharesTraded = rs.getDouble("shares_traded");
+        double newSharesTraded = oldSharesTraded + quantity;
+        query = String.format("UPDATE Stock_Accounts SET shares_traded=%.3f, profit=%.2f WHERE taxid='%s'", newSharesTraded, newProfit, taxid);
+      } else {
+        query = String.format("INSERT INTO Stock_Accounts VALUES ('%s', %.2f, %.3f)", taxid, profit, quantity);
+      }
+      statement.executeUpdate(query);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   public Boolean buyStocks(String stockid, double quantity) {
     String query = String.format("SELECT * FROM Stocks WHERE stockid='%s'", stockid);
 
@@ -235,7 +253,7 @@ public class RkuangDB {
         }
 
         updateSharesTraded(profit, sum(sellAmount));
-        newStockTransaction("sell", stockid, 1*sum(sellAmount), addToMarket-commission);
+        newStockTransaction("sell", stockid, -1*sum(sellAmount), addToMarket-commission);
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -356,7 +374,6 @@ public class RkuangDB {
   }
 
   public void listActiveCustomers() {
-    // TODO clean up
     String query = "SELECT * FROM Customers C, Stock_Accounts SA WHERE C.taxid=SA.taxid AND shares_traded>1000";
 
     try (Statement statement = connection.createStatement()) {
@@ -451,7 +468,7 @@ public class RkuangDB {
 
         updateBalance(taxid, BaltoAdd);
         newMarketTransaction(taxid, "interest", BaltoAdd);
-        updateSharesTraded(BaltoAdd, 0);
+        updateSharesTraded(taxid, BaltoAdd, 0);
       }
     } catch (SQLException e) {
       e.printStackTrace();
