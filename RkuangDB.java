@@ -405,7 +405,7 @@ public class RkuangDB {
     query = String.format("SELECT i.taxid,i.currentBal,i.daysHeld,m.balance from Market_Accounts m, Interest i WHERE m.taxid = i.taxid AND m.balance = i.currentBal");
     try(Statement statement1 = connection.createStatement()){
       ResultSet rs = statement1.executeQuery(query);
-      if(rs == NULL){
+      if(rs == null){
         insert = true;
       }
       while (rs.next()){
