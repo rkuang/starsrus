@@ -236,13 +236,11 @@ public class Customer {
     System.out.print("Date:  ");
     Scanner in = new Scanner(System.in);
     String date = in.nextLine();
-    if(date == StarsRUs.rkuangDB.getDate()){
+    if(date.equals(StarsRUs.rkuangDB.getDate())){
       System.out.println("It is already set to " + date);
     }
     else{
-      StarsRUs.rkuangDB.updateBalance(StarsRUs.rkuangDB.dayToInt(date)-1);
       StarsRUs.rkuangDB.setDate(date);
-      StarsRUs.rkuangDB.setMarket(true);
     }
   }
 
