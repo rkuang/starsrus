@@ -615,8 +615,8 @@ public class RkuangDB {
     Double initalStockBalance = 0.0;
     Double profit = 0.0;
     Double market_change = 0.0;
-    int commissionCount = 0;
-    int commissionPaid = 0;
+    double commissionCount = 0;
+    double commissionPaid = 0;
     String name = "";
     String email = "";
     String query = String.format("SELECT name, email FROM Customers WHERE taxid = '%s'", taxid);
