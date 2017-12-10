@@ -767,21 +767,23 @@ public class RkuangDB {
 
     try (Statement statement = connection.createStatement()){
       ResultSet rs = statement.executeQuery(query);
+      String stockid = "";
+      double quantity = 0;
       while(rs.next()){
-        String stockid = rs.getString("stockid");
+        stockid = rs.getString("stockid");
 
         String q2 = String.format("SELECT stockid, SUM(quantity) FROM Stock_Balance WHERE taxid='%s' AND stockid='%s' GROUP BY stockid", taxid, stockid);
         try (Statement s2 = connection.createStatement()){
           ResultSet rs2 = s2.executeQuery(q2);
           while(rs2.next()){
-            double quantity = rs2.getDouble("SUM(quantity)");
+            quantity = rs2.getDouble("SUM(quantity)");
 
-            System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
           }
         } catch(SQLException e){
           e.printStackTrace();
         }
       }
+      System.out.println(String.format("   %.3f shares of %s", quantity, stockid));
     } catch(SQLException e){
       e.printStackTrace();
     }
