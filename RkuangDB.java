@@ -412,7 +412,8 @@ public class RkuangDB {
           days = 1;
         }
         else{
-          days = future - this.dayToInt(this.getDate());
+          int daysHeld = this.dayToInt(rs.getString("daysHeld"))
+          days = daysHeld + (future - daysHeld);
         }
         try(Statement statement2 = connection.createStatement()){
           query = String.format("UPDATE Interest SET daysHeld = '%d' WHERE taxid = '%s' AND currentBal = '%f'", rs.getInt("daysHeld") + days, rs.getString("taxid"), rs.getDouble("balance"));
