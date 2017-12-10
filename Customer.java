@@ -239,7 +239,7 @@ public class Customer {
       System.out.println("It is already set to " + date);
     }
     else{
-      StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1);
+      StarsRUs.rkuangDB.updateInterest(StarsRUs.rkuangDB.dayToInt(date)-1,false);
       StarsRUs.rkuangDB.setDate(date);
       StarsRUs.rkuangDB.setMarket(true);
     }
