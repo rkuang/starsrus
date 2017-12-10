@@ -211,7 +211,7 @@ public class RkuangDB {
           updateStockBalance(stockid, buyingPrice.get(j), -1*sellAmount.get(j));
         }
 
-        updateSharesTraded(profit-commission, sum(sellAmount));
+        updateSharesTraded(profit, sum(sellAmount));
         newStockTransaction("sell", stockid, sum(sellAmount), addToMarket-commission);
       }
     } catch (SQLException e) {
